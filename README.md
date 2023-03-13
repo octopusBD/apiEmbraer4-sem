@@ -1,6 +1,6 @@
 <div id="top"></div>
 <p align="center">
-      <img src="https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/doc/inicial.png" width="100%" height="100%">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/doc/inicial.png" width="100%" height="100%">
 <p align="center">
   
 <p align="center"> 
@@ -54,7 +54,7 @@ A equipe da Octopus desenvolverá um software web para a empresa Embraer que pos
 ## Cronograma
 
 <p align="center">
-      <img src="https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
 <p align="center">
 
 <p align="right">(<a href="#top">voltar ao topo</a>)</p>
@@ -128,12 +128,12 @@ A equipe da Octopus desenvolverá um software web para a empresa Embraer que pos
 
 | Avatar            							| Aluno         | Função           		| GitHub                                                      | LinkedIn                                              |
 | -------------------------------------------- | ---------------- | ---------------- | -------------------------------------------------------------- | ----------------------------------------------------- |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/aldrik.png" width="60" >|__Aldrik Alvaro__| *Scrum Master*| [![](https://bit.ly/3f9Xo0P)](https://github.com/Aldrik-Alvaro) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/aldrik-alvaro-0bb952180/) |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/ana.png" width="60" >|__Ana Clara Leal__| *Product Owner* | [![](https://bit.ly/3f9Xo0P)](https://github.com/heyanaleal)      | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/ana-clara-oliveira-leal-723169220/) |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/tiago.png" width="60" >|__Tiago Camillo__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/tcamillo4-ctrlz) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/tiago-camillo-277257192/) |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/manu.png" width="60" >|__Emanuele Diniz__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/ecampos14) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/emanuele-diniz-campos-b14699181) |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/micheal.png" width="60" >|__Michael Felipe__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/Michaelfss/Michaelfss) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/michael-felipe-573b64167) |
-| <img src = "https://github.com/octopusBD/API-Embraer-4-sem/blob/f530bad4eb54fa5a622156008c40fd716358fe0a/Imagens%20documentacao/membros/augusto.png" width="60" >|__Augusto Torres__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/MrZeroLeft) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/augusto-torres-7919881b9/) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/aldrik.png" width="60" >|__Aldrik Alvaro__| *Scrum Master*| [![](https://bit.ly/3f9Xo0P)](https://github.com/Aldrik-Alvaro) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/aldrik-alvaro-0bb952180/) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/ana.png" width="60" >|__Ana Clara Leal__| *Product Owner* | [![](https://bit.ly/3f9Xo0P)](https://github.com/heyanaleal)      | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/ana-clara-oliveira-leal-723169220/) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/tiago.png" width="60" >|__Tiago Camillo__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/tcamillo4-ctrlz) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/tiago-camillo-277257192/) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/manu.png" width="60" >|__Emanuele Diniz__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/ecampos14) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/emanuele-diniz-campos-b14699181) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/micheal.png" width="60" >|__Michael Felipe__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/Michaelfss/Michaelfss) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/michael-felipe-573b64167) |
+| <img src = "https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/membros/augusto.png" width="60" >|__Augusto Torres__| *Developer Team*| [![](https://bit.ly/3f9Xo0P)](https://github.com/MrZeroLeft) | [![](https://bit.ly/2P1ZogM)](https://www.linkedin.com/in/augusto-torres-7919881b9/) |
 
 <p align="right">(<a href="#top">voltar ao topo</a>)</p>
 
