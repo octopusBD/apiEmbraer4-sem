@@ -168,8 +168,6 @@ A equipe da Octopus desenvolverá um software web para a empresa Embraer que pos
 
 * [Discord](https://discord.com/?msclkid=b4f5af84b8f811ecbd81c127a0ae68a7)
 
-* [Whatsapp](https://www.whatsapp.com/)
-
 * [Slack](https://slack.com/intl/pt-br/?msclkid=c00e628eb8f811ecaef374bb86d7f056)
 </details>
 
