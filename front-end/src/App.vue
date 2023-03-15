@@ -1,22 +1,23 @@
 <template>
 <div>
     <header-input></header-input>
-    <content-input></content-input>
-    <!-- <footer-input></footer-input> -->
-  
+    <content-input> </content-input>
+    <br>
+    <footer-input> </footer-input> 
+    
 </div>
-  
 </template>
 
 <script>
 import ContentInput from '@/components/template/ContentInput.vue'
 import HeaderInput from '@/components/template/HeaderInput.vue'
-// import FooterInput from './components/template/FooterInput.vue'
+import FooterInput from './components/template/FooterInput.vue'
+
 
 export default {
     name:"App",
-    components:{HeaderInput, ContentInput }
-    // FooterInput
+    components:{HeaderInput, ContentInput ,FooterInput}
+    
 }
 </script>
 
@@ -40,7 +41,7 @@ export default {
         grid-template-areas:
             "header header" 
             "content content"
-            /* "footer footer"; */
+             "footer footer"; 
 
 
     }
