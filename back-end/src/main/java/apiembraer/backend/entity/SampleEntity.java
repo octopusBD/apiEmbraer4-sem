@@ -16,14 +16,14 @@ import lombok.Data;
 public class SampleEntity {
 
 	@ManyToOne
-	@JoinColumn(name = "Chassi", referencedColumnName = "Id_Chassi")
+	@JoinColumn(name = "Id_Chassi", referencedColumnName = "Id_Chassi")
 	private ChassiEntity idChassi;
 	
 	@ManyToOne
-	@JoinColumn(name = "Boletim", referencedColumnName = "Id_Boletim")
+	@JoinColumn(name = "Id_Boletim", referencedColumnName = "Id_Boletim")
 	private BoletimEntity IdBoletim;
 	
 	@Id
-	@Column(name = "Status")
-	private String Status;
+	@Column(name = "Status_Sample")
+	private String StatusSample;
 }

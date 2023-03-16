@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -17,7 +18,8 @@ import lombok.Data;
 public class UsuarioEntity {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usario")
+    @SequenceGenerator(name = "seq_usario", sequenceName = "SEQ_BOLETIM", allocationSize = 1)
 	@Column(name = "Id_Usuario")
 	private Integer IdUsuario;
 	
@@ -28,6 +30,6 @@ public class UsuarioEntity {
 	private String senhaUsuario;
 	
 	@ManyToOne
-	@JoinColumn(name = "Permissao", referencedColumnName = "Id_Permissao")
+	@JoinColumn(name = "Id_Permissao", referencedColumnName = "Id_Permissao")
 	private PermissaoEntity IdPermissao;
 }
