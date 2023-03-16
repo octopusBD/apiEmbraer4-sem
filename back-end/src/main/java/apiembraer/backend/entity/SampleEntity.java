@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,13 +15,13 @@ import lombok.Data;
 @Table(name = "Sample")
 public class SampleEntity {
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "Chassi", referencedColumnName = "Id_Chassi")
-	private Integer idChassi;
+	private ChassiEntity idChassi;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "Boletim", referencedColumnName = "Id_Boletim")
-	private Integer idBoletim;
+	private BoletimEntity IdBoletim;
 	
 	@Id
 	@Column(name = "Status")
