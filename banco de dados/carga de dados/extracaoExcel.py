@@ -1,6 +1,36 @@
 import os
 import re
 import pandas as pd
+import oracledb as oracledb
+
+
+def insert(dataframe, query):
+    # converter o dataframe em uma lista de tuplas
+    values = [tuple(x) for x in dataframe.values]
+
+    # Crie uma conexão com o banco de dados
+    connection = oracledb.connect(
+         user="ADMIN",
+         password="4k24Vy9pd7A66mG",
+         dsn="lzll6xuk2zk7xkbj_low",
+         config_dir="/Users/Wallet_LZLL6XUK2ZK7XKBJ",
+         wallet_location="/Users/Wallet_LZLL6XUK2ZK7XKBJ",
+         wallet_password="4k24Vy9pd7A66mG")
+
+    # Crie um cursor para executar comandos SQL
+    cursor = connection.cursor()
+
+    # Crie uma instrução SQL INSERT para inserir os dados do array na tabela
+    sql = query
+
+    # Execute a instrução SQL utilizando o método executemany() do cursor e passe o array como parâmetro
+    cursor.executemany(sql, values)
+
+    # Confirme a transação
+    connection.commit()
+
+    # fechar a conexão
+    connection.close()
 
 # obtendo o caminho do diretório atual
 path = os.getcwd()
@@ -33,18 +63,21 @@ for file in files_and_dirs:
 # concatena os DataFrames da lista 'dfs' em um único DataFrame
 final_df = pd.concat(dfs)
 
-print(final_df)
+# Replace
+final_df['Status'] = final_df['Status'].replace({'INCOPORATED': 'INCORPORATED'})
+final_df['Status'] = final_df['Status'].replace({'INCORP': 'INCORPORATED'})
 
+df_boletim = final_df[['Boletim de serviço']]
+df_boletim = df_boletim.drop_duplicates(subset='Boletim de serviço', keep='first')
+df_boletim['item'] = 'N/A'
+query_boletim = "INSERT INTO ADMIN.BOLETIM (BOLETIM, ITEM) VALUES (:1, :2)"
 
+df_chassi = final_df[['chassi']]
+df_chassi = df_chassi.drop_duplicates(subset='chassi', keep='first')
+query_chassi = "INSERT INTO ADMIN.CHASSI (CHASSI) VALUES (:1)"
 
-
-
-
-
-
-
-
-
+insert(df_boletim, query_boletim)
+insert(df_chassi, query_chassi)
 
 
 

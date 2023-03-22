@@ -5,7 +5,35 @@ import re
 import pandas as pd
 import hashlib
 from hashlib import md5
+import oracledb as oracledb
 
+def insert(dataframe, query):
+    # converter o dataframe em uma lista de tuplas
+    values = [tuple(x) for x in dataframe.values]
+
+    # Crie uma conexão com o banco de dados
+    connection = oracledb.connect(
+         user="ADMIN",
+         password="4k24Vy9pd7A66mG",
+         dsn="lzll6xuk2zk7xkbj_low",
+         config_dir="/Users/Wallet_LZLL6XUK2ZK7XKBJ",
+         wallet_location="/Users/Wallet_LZLL6XUK2ZK7XKBJ",
+         wallet_password="4k24Vy9pd7A66mG")
+
+    # Crie um cursor para executar comandos SQL
+    cursor = connection.cursor()
+
+    # Crie uma instrução SQL INSERT para inserir os dados do array na tabela
+    sql = query
+
+    # Execute a instrução SQL utilizando o método executemany() do cursor e passe o array como parâmetro
+    cursor.executemany(sql, values)
+
+    # Confirme a transação
+    connection.commit()
+
+    # fechar a conexão
+    connection.close()
 def createHash(dataframe, listofColumns, colname="hashID"):
         """
         Função que cria um hash a partir de de determinadas colunas
@@ -100,7 +128,14 @@ for item in lista_sem_espaco:
         match = re.search(regex7, item)
         df = df.append({"tipo": match.group(1), "boletim": match.group(3), "item": match.group(2)}, ignore_index=True)
 
-print(df)
+df
+query_pdf = "INSERT INTO ADMIN.PDF (BOLETIM, ITEM, TIPO) VALUES (:1, :2, :3)"
+
+insert(df, query_pdf)
+
+#list = ['tipo', 'boletim', 'item']
+#df = createHash(df, list, 'hashID')
+#print(df)
 #print(Fore.WHITE + text)
 
 
