@@ -50,15 +50,12 @@ import { Icon } from '@iconify/vue';
  .imgs{
   height:50px ;
   width: auto ;
-
  }
- 
 
  @media only screen and (max-width: 600px) {
   .bottom-nav {
     flex-direction: column;
   }
-  
   .nav-btn {
     margin: 2px 0;
   }
