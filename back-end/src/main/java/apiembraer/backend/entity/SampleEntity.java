@@ -25,4 +25,6 @@ public class SampleEntity {
 	@Id
 	@Column(name = "Status_Sample")
 	private String StatusSample;
+		
+	
 }
