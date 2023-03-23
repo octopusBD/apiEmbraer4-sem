@@ -12,17 +12,15 @@ import lombok.Data;
 @Entity
 @Immutable
 @Data
-@Table(name = "View_Sample")
+@Table(name = "VIEW_SAMPLE")
 public class ViewSampleEntity {
-
 	@Column(name = "CHASSI")
 	private String chassi;
-	
+
 	@Column(name = "BOLETIM")
 	private String boletim;
-	
+
 	@Id
 	@Column(name = "STATUS_SAMPLE")
 	private String status_sample;
-	
 }

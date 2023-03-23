@@ -12,21 +12,17 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Boletim")
+@Table(name = "BOLETIM")
 public class BoletimEntity {
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_boletim")
     @SequenceGenerator(name = "seq_boletim", sequenceName = "SEQ_BOLETIM", allocationSize = 1)
-	@Column(name = "Id_Boletim")
+	@Column(name = "ID_BOLETIM")
 	private Integer idBoletim;
-	
-	@Column(name = "Boletim")
-	private String Boletim;
-	
-	@Column(name = "Item")
+
+	@Column(name = "BOLETIM")
+	private String boletim;
+
+	@Column(name = "ITEM")
 	private String item;
-
-
-
 }

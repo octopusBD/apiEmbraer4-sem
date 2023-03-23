@@ -12,16 +12,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Permissao")
+@Table(name = "PERMISSAO")
 public class PermissaoEntity {
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permissao")
     @SequenceGenerator(name = "seq_permissao", sequenceName = "SEQ_PERMISSAO", allocationSize = 1)
-	@Column(name = "Id_Permissao")
-	private Integer IdPermissao;
-	
-	@Column(name = "Permissao")
-	private String Permissao;
+	@Column(name = "ID_PERMISSAO")
+	private Integer idPermissao;
 
+	@Column(name = "PERMISSAO")
+	private String permissao;
 }
