@@ -15,12 +15,12 @@
         <Icon icon="clarity:administrator-line" width="25" />
         <span class="d-none d-sm-inline">ADMINISTRADOR</span>
       </v-btn>
-      <v-btn>
+      <v-btn to="/consultor">
         <Icon icon="ic:outline-person-search" width="25" />
-        <span class="d-none d-sm-inline">CONSULTOR</span>
+        <span   class="d-none d-sm-inline">CONSULTOR</span>
       </v-btn>
-      <v-btn>
-        <Icon icon="ph:pen" width="25" />
+      <v-btn >
+        <Icon  icon="ph:pen" width="25" />
         <span class="d-none d-sm-inline">EDITOR</span>
       </v-btn>
       <v-btn icon>
@@ -34,6 +34,11 @@
       </v-btn>
     </v-bottom-navigation>
   </v-layout>
+  <v-breadcrumbs to="/"
+      :items="items"
+      divider="-"
+    >Home</v-breadcrumbs>
+
 </template>
 
 <script>
@@ -42,8 +47,15 @@ import { Icon } from '@iconify/vue';
     data: () => ({ active: true }),
     components:{
       Icon
-    }
-    
+    },
+    items: [
+        {
+          title: 'Dashboard',
+          disabled: false,
+          href: 'breadcrumbs_dashboard',
+        },]
+   
+  
   }
 </script>
 <style>
@@ -57,7 +69,7 @@ import { Icon } from '@iconify/vue';
     flex-direction: column;
   }
   .nav-btn {
-    margin: 2px 0;
+    margin: 1px 0;
   }
 }
 </style>
