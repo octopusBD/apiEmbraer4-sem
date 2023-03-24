@@ -14,22 +14,21 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Usuario")
+@Table(name = "USUARIO")
 public class UsuarioEntity {
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usario")
     @SequenceGenerator(name = "seq_usario", sequenceName = "SEQ_BOLETIM", allocationSize = 1)
-	@Column(name = "Id_Usuario")
-	private Integer IdUsuario;
-	
-	@Column(name = "Nome_Usuario")
+	@Column(name = "ID_USUARIO")
+	private Integer idUsuario;
+
+	@Column(name = "NOME_USUARIO")
 	private String nomeUsuario;
 
-	@Column(name = "Senha_Usuario")
+	@Column(name = "SENHA_USUARIO")
 	private String senhaUsuario;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "Id_Permissao", referencedColumnName = "Id_Permissao")
-	private PermissaoEntity IdPermissao;
+	@JoinColumn(name = "ID_PERMISSAO", referencedColumnName = "ID_PERMISSAO")
+	private PermissaoEntity idPermissao;
 }

@@ -1,4 +1,4 @@
-package apiembraer.backend.entity;
+/*package apiembraer.backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,17 +12,16 @@ import lombok.Data;
 @Entity
 @Immutable
 @Data
-@Table(name = "View_Sample")
+@Table(name = "view_sample")
 public class ViewSampleEntity {
-
 	@Column(name = "CHASSI")
 	private String chassi;
-	
+
 	@Column(name = "BOLETIM")
 	private String boletim;
-	
+
 	@Id
 	@Column(name = "STATUS_SAMPLE")
-	private String status_sample;
-	
+	private String statusSample;
 }
+*/
