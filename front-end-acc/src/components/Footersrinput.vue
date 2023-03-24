@@ -1,11 +1,7 @@
 <template>
-    <v-footer>
-              <!-- style= "background-color: #333333;" -->
-     
-    </v-footer> 
     <div id="footer">
-             <div class="nav">
-               <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy; {{ new Date().getFullYear() }} - v.0.2</a>
+            <div class="nav">
+              <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy; {{ new Date().getFullYear() }} - v.0.2_22-03-23</a>
               </div>
             </div>
   </template>

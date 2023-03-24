@@ -1,5 +1,6 @@
 <template>
     <HeaderInput />
+    <SelecaoInput/>
     <TabelaInput />
     <Footersrinput />
   </template>
@@ -8,7 +9,7 @@
     import HeaderInput from '@/components/HeaderInput.vue'
     import TabelaInput from '@/components/TabelaInput.vue';
     import Footersrinput from '@/components/Footersrinput.vue';
+    import SelecaoInput from '@/components/SelecaoInput.vue';
 
- 
   </script>
   
