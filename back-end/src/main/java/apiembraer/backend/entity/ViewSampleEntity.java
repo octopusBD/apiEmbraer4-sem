@@ -1,4 +1,6 @@
-/*package apiembraer.backend.entity;
+package apiembraer.backend.entity;
+
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,14 +16,33 @@ import lombok.Data;
 @Data
 @Table(name = "view_sample")
 public class ViewSampleEntity {
+	
+	@Id
+	@Column(name = "ID_CHASSI")
+	private Integer idChassi;
+
+	@Column(name = "ID_BOLETIM")
+	private Integer idBoletim;
+
+	@Column(name = "NOME_USUARIO")
+	private String nomeUsuario;
+	
+	@Column(name = "BOLETIM")
+	private String boletim;
+	
+	@Column(name = "ITEM")
+	private String item;
+	
+	@Column(name = "STATUS_SAMPLE")
+	private String statusSample;
+	
 	@Column(name = "CHASSI")
 	private String chassi;
 
-	@Column(name = "BOLETIM")
-	private String boletim;
+	@Column(name = "ULT_USU_ALT")
+	private String ultUsuAlt;
 
-	@Id
-	@Column(name = "STATUS_SAMPLE")
-	private String statusSample;
+	@Column(name = "DT_ULT_EDICAO")
+	private Timestamp dtUltEdicao;
+
 }
-*/
