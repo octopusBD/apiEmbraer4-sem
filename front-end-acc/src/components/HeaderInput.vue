@@ -1,7 +1,10 @@
 <template>
-  <v-layout style="height: 128px; background-color: #333333;" class="border rounded" >
-    <div class="mx-auto my-4">
-        <button  style= "background-color: #333333;"
+  <v-layout style="height: 128px; background-color: #253381;" class="border rounded" >
+    <!-- <v-btn size="45" to="/" variant="text"  background-color="transparent" class="btn-home" icon="mdi-home" ></v-btn> -->
+  <v-btn class="btn-home" prepend-icon="mdi-home" variant="text" color="white" size="45" to="/"  > </v-btn>
+    
+  <div class="mx-auto my-4">
+        <button  style= "background-color: #253381;"
         @click="active = !active">
          <img  class="imgs" 
          src="@/assets/logo-dois.png">
@@ -34,11 +37,6 @@
       </v-btn>
     </v-bottom-navigation>
   </v-layout>
-  <v-breadcrumbs to="/"
-      :items="items"
-      divider="-"
-    >Home</v-breadcrumbs>
-
 </template>
 
 <script>
@@ -64,12 +62,20 @@ import { Icon } from '@iconify/vue';
   width: auto ;
  }
 
+ .btn-home{
+  margin-top: 10px;
+  margin-left: 10px;
+ }
+
  @media only screen and (max-width: 600px) {
   .bottom-nav {
     flex-direction: column;
   }
   .nav-btn {
     margin: 1px 0;
+  }
+  .btn-home{
+    size:"small"
   }
 }
 </style>
