@@ -1,14 +1,14 @@
 <template>
-  <v-layout style="height: 128px; background-color: #253381;" class="border rounded" >
+  <v-layout style="height: 128px; background-color: #253381;" class="border" >
     <!-- <v-btn size="45" to="/" variant="text"  background-color="transparent" class="btn-home" icon="mdi-home" ></v-btn> -->
-  <v-btn class="btn-home" prepend-icon="mdi-home" variant="text" color="white" size="45" to="/"  > </v-btn>
+  <v-btn class="btn-home" prepend-icon="mdi-home" variant="text" color="white"  > </v-btn>
     
   <div class="mx-auto my-4">
-        <button  style= "background-color: #253381;"
+      <button  style= "background-color: #253381;"
         @click="active = !active">
          <img  class="imgs" 
          src="@/assets/logo-dois.png">
-        </button>
+      </button>
     </div>
     <v-bottom-navigation 
       :active="active"

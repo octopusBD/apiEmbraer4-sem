@@ -77,7 +77,7 @@ export default {
   .v-card {
   width: 90%;
 }
-   
+
   .container {
     font-size: 14px;
   }
