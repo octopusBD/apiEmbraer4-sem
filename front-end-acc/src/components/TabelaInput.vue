@@ -10,9 +10,9 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black;">{{ item.item }}</td>
+            <td style="border-bottom: 1px solid black;">{{ dado.item }}</td>
             <td style="border-bottom: 1px solid black;">
-              <v-chip :color="getStatusColor(item.status)">{{ item.status }}</v-chip>
+              <v-chip :color="getStatusColor(dado.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
           </tr>
         </tbody>
@@ -29,29 +29,29 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      page: 1,
       perPage: 12,
-      headers: [
-        { text: 'Itens', value: 'item' },
-        { text: 'Status', value: 'status' },
-      ],
-      items: [
-        { item: 'Item A', status: 'INCORPORATED' },
-        { item: 'Item B', status: 'NOT INCORPORATED' },
-        { item: 'Item C', status: 'INCORPORATED' },
-        { item: 'Item D', status: 'NOT INCORPORATED' },
-        { item: 'Item E', status: 'INCORPORATED' },
-        { item: 'Item F', status: 'NOT INCORPORATED' },
-        { item: 'Item A', status: 'INCORPORATED' },
-        { item: 'Item B', status: 'NOT INCORPORATED' },
-        { item: 'Item A', status: 'INCORPORATED' },
-        { item: 'Item B', status: 'NOT INCORPORATED' },
-      ],
+      dadosDaTabela: [],
+      items: [],
+      page: 1
     };
   },
+
+  async created() {
+    const dados = await this.buscarDadosDaTabela();
+    this.dadosDaTabela = dados;
+    this.items = this.dadosDaTabela.map(dado => {
+      return {
+        item: dado.item,
+        statusSample: dado.statusSample
+      }
+    });
+  },
+
   methods: {
     getStatusColor(status) {
       if (status === 'INCORPORATED') {
@@ -60,7 +60,13 @@ export default {
         return 'red';
       }
     },
+    async buscarDadosDaTabela() {
+      const response = await axios.get('consultor');
+      const dados = response.data;
+      return dados;
+    }
   },
+
   computed: {
     paginatedItems() {
       const start = (this.page - 1) * this.perPage;
@@ -68,6 +74,7 @@ export default {
       return this.items.slice(start, end);
     },
   },
+
   watch: {
     page() {
       this.page = parseInt(this.page);
@@ -75,6 +82,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 @media only screen and (max-width: 600px) {
