@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import apiembraer.backend.entity.ViewSampleEntity;
 import apiembraer.backend.service.ListarService;
@@ -17,11 +18,12 @@ public class ListarController {
 
 	@Autowired
 	ListarService ListarService;
-	
-	@GetMapping("/{ultUsuAlt}")
-	public List<ViewSampleEntity> getViewSampleEntities(@PathVariable String ultUsuAlt) {
-	    List<ViewSampleEntity> result = ListarService.getViewSampleEntities(ultUsuAlt);
-	    System.out.println(result);
-	    return result;
+
+	@GetMapping("/{idUsuario}")
+	@ResponseBody
+	public List<ViewSampleEntity> getViewSampleEntities(@PathVariable Integer idUsuario) {
+		List<ViewSampleEntity> result = ListarService.getViewSampleEntities(idUsuario);
+		System.err.println(result);
+		return result;
 	}
 }

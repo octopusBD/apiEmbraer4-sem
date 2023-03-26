@@ -17,6 +17,9 @@ import lombok.Data;
 @Table(name = "view_sample")
 public class ViewSampleEntity {
 	
+	@Column(name = "ID_USUARIO")
+	private Integer idUsuario;
+	
 	@Id
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;
@@ -44,5 +47,8 @@ public class ViewSampleEntity {
 
 	@Column(name = "DT_ULT_EDICAO")
 	private Timestamp dtUltEdicao;
+	
+	@Column(name = "ULTIMO_USUARIO_ALTERADO")
+	private String ultimoUsuarioAlterado;
 
 }

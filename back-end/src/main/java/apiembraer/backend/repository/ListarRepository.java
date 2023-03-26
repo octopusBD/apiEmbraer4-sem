@@ -12,12 +12,9 @@ import apiembraer.backend.entity.ViewSampleEntity;
 @Repository
 public interface ListarRepository extends JpaRepository <ViewSampleEntity, Integer> {
 
-	//@Query(value ="SELECT * FROM VIEW_SAMPLE WHERE ULT_USU_ALT = :ultUsuAlt", nativeQuery = true)
-    //public List<ViewSampleEntity> listar(@Param("ultUsuAlt") String ultUsuAlt);
 
-	public List<ViewSampleEntity> findByultUsuAlt(String ultUsuAlt);
+	public List<ViewSampleEntity> findByidUsuario(Integer idUsuario);
 
-	//public List<ViewSampleEntity> listar();
-	//List<ViewSampleEntity> findByultUsuAlt(String ultUsuAlt);
+	
 	
 }
