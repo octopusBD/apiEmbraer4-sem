@@ -75,7 +75,8 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>
       <li>Structure and persistence of data to the database;</li>
       <li>Develop the query interface with the following functionality: (Allow viewing the list of optional items for the aircraft)</li>
-      <li>Configure system of notifications for updates;</li>          
+      <li>Configure system of notifications for updates;</li>    
+      <li>Generate report;</li>
       <li>Filters.</li>
 </ul>
 
@@ -100,7 +101,6 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <li> Sprint 4:</li>
 <ul>
-      <li>Generate report;</li>
       <li>Test and validate the system;</li>
       <li>Prepare documentation for end users.</li>
 </ul>
