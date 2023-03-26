@@ -108,7 +108,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <br>
 
 <p>To see more information about the Product Backlog Building process, access - 
-      <a href="https://www.figma.com/file/Pn0ghflt9ZgBZvXhJzlSeb/Product-backlog-API-Embraer-Octopus?node-id=0%3A1&t=bfdML1kYClJpSW3V-0">This Link</a>.
+      <a href="https://www.figma.com/file/Pn0ghflt9ZgBZvXhJzlSeb/Product-backlog-API-Embraer-Octopus?node-id=0%3A1&t=SkDtdYWjFjsorF1T-1">This Link</a>.
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
