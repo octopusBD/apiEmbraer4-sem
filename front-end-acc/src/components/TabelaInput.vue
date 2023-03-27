@@ -61,7 +61,7 @@ export default {
       }
     },
     async buscarDadosDaTabela() {
-      const response = await axios.get('sua-url-aqui');
+      const response = await axios.get('/consultor/1');
       const dados = response.data;
       return dados;
     }
