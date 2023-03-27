@@ -10,9 +10,9 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black;">{{ dado.item }}</td>
+            <td style="border-bottom: 1px solid black;">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black;">
-              <v-chip :color="getStatusColor(dado.statusSample)">{{ item.statusSample }}</v-chip>
+              <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
           </tr>
         </tbody>
