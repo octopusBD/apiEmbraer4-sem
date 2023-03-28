@@ -1,7 +1,7 @@
 <template>
   <div id="footer">
     <div class="nav">
-      <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy;{{ new Date().getFullYear() }} - v.0.2 version</a>
+      <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy;{{ new Date().getFullYear() }} - v.0.4 version</a>
     </div>
   </div>
 </template>

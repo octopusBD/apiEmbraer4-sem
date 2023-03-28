@@ -34,12 +34,29 @@
 </template>
 
 <script>
-export default {
-    data: () => ({
-    itens: ['', 'Teste1', 'Teste2', 'Teste3', 'Teste4', 'Teste5', 'Teste6']
-    })
-}
-</script>
+    import axios from "axios";
+    
+    export default {
+        data: () => ({
+        itens: [],
+        }),
+        created() {
+        this.fetchItens();
+        },
+        methods: {
+        fetchItens() {
+            axios
+            .get("sua_url_api")
+            .then((response) => {
+                this.itens = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        },
+    };
+    </script>
 
 <style>
 
