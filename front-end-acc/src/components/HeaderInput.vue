@@ -1,13 +1,15 @@
 <template>
   <v-layout style="height: 128px; background-color: #253381;" class="border" >
     <!-- <v-btn size="45" to="/" variant="text"  background-color="transparent" class="btn-home" icon="mdi-home" ></v-btn> -->
-  <v-btn class="btn-home" prepend-icon="mdi-home" variant="text" color="white"  > </v-btn>
-    
+  
+  <v-btn @click="show = !show" class="btn-home" prepend-icon="mdi-home" variant="text" color="white">
+          home
+        </v-btn>
   <div class="mx-auto my-4">
       <button  style= "background-color: #253381;"
         @click="active = !active">
-         <img  class="imgs" 
-         src="@/assets/logo-dois.png">
+          <img  class="imgs" 
+          src="@/assets/logo-dois.png">
       </button>
     </div>
     <v-bottom-navigation 
@@ -22,7 +24,7 @@
         <Icon icon="ic:outline-person-search" width="25" />
         <span   class="d-none d-sm-inline">CONSULTOR</span>
       </v-btn>
-      <v-btn >
+      <v-btn to="/editor">
         <Icon  icon="ph:pen" width="25" />
         <span class="d-none d-sm-inline">EDITOR</span>
       </v-btn>
@@ -52,30 +54,31 @@ import { Icon } from '@iconify/vue';
           disabled: false,
           href: 'breadcrumbs_dashboard',
         },]
-   
-  
-  }
-</script>
-<style>
- .imgs{
-  height:50px ;
-  width: auto ;
- }
 
- .btn-home{
-  margin-top: 10px;
-  margin-left: 10px;
- }
+  }
+  </script>
+  <style>
+  .imgs{
+    margin-top: 0;
+    height:50px ;
+    width: auto ;
+  }
 
- @media only screen and (max-width: 600px) {
-  .bottom-nav {
-    flex-direction: column;
-  }
-  .nav-btn {
-    margin: 1px 0;
-  }
   .btn-home{
-    size:"small"
+    margin-top: 15px;
+    margin-left: 10px;
+    
   }
-}
-</style>
+
+  @media only screen and (max-width: 600px) {
+    .bottom-nav {
+      flex-direction: column;
+    }
+    .nav-btn {
+      margin: 1px 0;
+    }
+    .btn-home{
+      size:"small"
+    }
+  }
+  </style>

@@ -20,7 +20,14 @@ const routes = [
         path: '/consultor',
         name: 'TelaConsulta',
         component: () => import("@/views/TelaConsulta.vue"),
-      }
+      },
+
+      {
+        path: '/editor',
+        name:  'TelaEditor',
+        component: () => import("@/views/TelaEditor.vue"),
+      },
+      
     ],
   },
   
