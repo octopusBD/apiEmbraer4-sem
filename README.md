@@ -75,9 +75,9 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>
       <li>Structure and persistence of data to the database;</li>
       <li>Develop the query interface with the following functionality: (Allow viewing the list of optional items for the aircraft)</li>
-      <li>Configure system of notifications for updates;</li>          
+      <li>Configure system of notifications for updates;</li>    
+      <li>Generate consulting reports;</li>
       <li>Filters.</li>
-      <li>Generate report;</li>
 </ul>
 
 <br>
@@ -101,6 +101,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <li> Sprint 4:</li>
 <ul>
+      <li>Generate administrative reports;</li>
       <li>Test and validate the system;</li>
       <li>Prepare documentation for end users.</li>
 </ul>
@@ -108,7 +109,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <br>
 
 <p>To see more information about the Product Backlog Building process, access - 
-      <a href="https://www.figma.com/file/Pn0ghflt9ZgBZvXhJzlSeb/Product-backlog-API-Embraer-Octopus?node-id=0%3A1&t=SkDtdYWjFjsorF1T-1">This Link</a>.
+      <a href="https://www.figma.com/file/Pn0ghflt9ZgBZvXhJzlSeb/Product-backlog-API-Embraer-Octopus?node-id=0%3A1&t=bfdML1kYClJpSW3V-0">This Link</a>.
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
