@@ -29,12 +29,7 @@
       <v-btn to="/editor">
         <Icon  icon="ph:pen" width="25" />
         <span class="d-none d-sm-inline">EDITOR</span>
-      </v-btn>   
-      <v-btn>
-        <Icon icon="mdi:user-circle-outline" width="25" />  
-        <span class="d-none d-sm-inline">PERFIL</span>
-      
-      </v-btn>
+      </v-btn>  
     </v-bottom-navigation>
   </v-layout>
   <button></button>
