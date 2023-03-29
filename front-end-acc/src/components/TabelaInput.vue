@@ -34,7 +34,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      perPage: 12,
+      perPage: 7,
       dadosDaTabela: [],
       items: [],
       page: 1
