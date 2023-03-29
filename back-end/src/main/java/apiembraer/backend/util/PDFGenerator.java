@@ -14,7 +14,7 @@ import java.util.List;
 public class PDFGenerator {
 
     public static void generatePDF(List<ViewSampleEntity> entities, String filename) throws FileNotFoundException, DocumentException {
-        Document document = new Document(PageSize.A4);
+        /*Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, new FileOutputStream("relatorio.pdf"));
         document.open();
         for (ViewSampleEntity entity : entities) {
@@ -29,6 +29,6 @@ public class PDFGenerator {
             document.add(new Paragraph("Data da última edição: " + entity.getDtUltEdicao()));
             document.add(new Paragraph("\n"));
         }
-        document.close();
+        document.close();*/
     }
 }
