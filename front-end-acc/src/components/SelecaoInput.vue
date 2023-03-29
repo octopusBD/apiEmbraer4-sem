@@ -68,14 +68,13 @@ align-items: center;
 }
 
 .filtro1 {
-width: 100px;
+width: 500px;
+max-width: 100%;
 display: flex;
 justify-content: center;
 margin-top: 20px;
 margin-right: 20px;
-margin-left: 20px;/* decrease the margin to add space between the select components */
-
-
+margin-left: 20px;
 }
 
 .filtro2 {
