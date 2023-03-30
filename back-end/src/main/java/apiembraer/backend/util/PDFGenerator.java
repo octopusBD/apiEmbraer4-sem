@@ -22,40 +22,61 @@ import apiembraer.backend.entity.ViewSampleEntity;
 import org.springframework.data.repository.query.Param;
 
 public class PDFGenerator {
-    public static void generatePDF(
-        List<ViewSampleEntity> entities, String filename
-    ) throws FileNotFoundException, DocumentException {
+    public static ByteArrayInputStream generatePDF(List<ViewSampleEntity> entities, String filename)
+    throws FileNotFoundException, DocumentException, IOException {
 
-        Document document = new Document(PageSize.A4.rotate(), 25, 25, 25, 25);
-        PdfWriter.getInstance(document, new FileOutputStream("relatorio.pdf"));
+        Document document = new Document(
+            PageSize.A4.rotate(), 25, 25, 25, 25
+        );
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        document.open();
-        for (ViewSampleEntity entity : entities) {
-            PdfPCell cell;
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-            PdfPTable table = new PdfPTable(2);
+        try {
+            //Criando a tabela para o relatório
+            PdfPTable table = new PdfPTable(new float[]{3, 2});
             table.setWidthPercentage(100);
-            table.setWidths(new int[] {4, 4});
+            table.setSpacingBefore(20f);
+            table.setSpacingAfter(20f);
 
-            Font font = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+            //Criando o cabeçalho da tabela
+            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.WHITE);
 
-            cell = new PdfPCell(new Phrase(entity.getItem(), font));
-            cell.setPaddingTop(4f);
-            cell.setFixedHeight(25f);
-            cell.setVerticalAlignment(Element.ALIGN_CENTER);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            PdfPCell hcell;
 
-            cell = new PdfPCell(new Phrase(entity.getStatusSample(), font));
-            cell.setPaddingTop(4f);
-            cell.setFixedHeight(25f);
-            cell.setVerticalAlignment(Element.ALIGN_CENTER);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            hcell = new PdfPCell(new Phrase("Item", headFont));
+            hcell.setPaddingTop(9f);
+            hcell.setFixedHeight(40f);
+            hcell.setVerticalAlignment(Element.ALIGN_CENTER);
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
 
-            table.addCell(cell);
+            hcell = new PdfPCell(new Phrase("Status", headFont));
+            hcell.setPaddingTop(9f);
+            hcell.setFixedHeight(40f);
+            hcell.setVerticalAlignment(Element.ALIGN_CENTER);
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(hcell);
+
+            for (ViewSampleEntity entity : entities) {
+                Font font = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
+
+                PdfPCell cell;
+
+                cell = new PdfPCell(new Phrase(entity.getItem(), font));
+                cell.setPaddingTop(4f);
+                cell.setFixedHeight(25f);
+                cell.setVerticalAlignment(Element.ALIGN_CENTER);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(entity.getStatusSample(), font));
+                cell.setPaddingTop(4f);
+                cell.setFixedHeight(25f);
+                cell.setVerticalAlignment(Element.ALIGN_CENTER);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                table.addCell(cell);
+            }
 
             //Alternando a cor do background e do grid das células entre branco e cinza
             boolean b = true;
@@ -67,7 +88,6 @@ public class PDFGenerator {
                 b = !b;
             }
 
-            //Definindo a cor do background e do grid do cabeçalho
             for(PdfPCell c: table.getRow(0).getCells()) {
                 c.setBackgroundColor(new BaseColor(13, 74, 153));
                 c.setBorderColor(new BaseColor(13, 74, 153));
@@ -80,10 +100,17 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, out);
             document.open();
 
-            Paragraph textoDados = new Paragraph(new Phrase(
-                "PDF", FontFactory.getFont(
-                    FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK
+            //Definindo parágrafos para o título do documento PDF
+            Paragraph textoItens = new Paragraph(new Phrase(
+                "Item " + entities.get(0).getItem()
+                + ", " + "Status " + entities.get(0).getStatusSample(), FontFactory.getFont(
+                    FontFactory.HELVETICA_BOLD, 24, BaseColor.BLACK
                 )
+            ));
+            textoItens.setAlignment(Element.ALIGN_LEFT);
+
+            Paragraph textoDados = new Paragraph(new Phrase(
+                "PDF", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK)
             ));
             textoDados.setAlignment(Element.ALIGN_CENTER);
 
@@ -91,11 +118,16 @@ public class PDFGenerator {
                 " ", FontFactory.getFont(FontFactory.HELVETICA, 18, BaseColor.BLACK)
             ));
 
+            document.add(textoItens);
             document.add(pulaLinha);
             document.add(textoDados);
             document.add(pulaLinha);
             document.add(table);
+
+            document.close();
+        } catch (DocumentException ex) {
+
         }
-        document.close();
+        return new ByteArrayInputStream(out.toByteArray());
     }
 }
