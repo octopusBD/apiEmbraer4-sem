@@ -16,6 +16,7 @@ import lombok.Data;
 @Data
 @Table(name = "USUARIO")
 public class UsuarioEntity {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usario")
     @SequenceGenerator(name = "seq_usario", sequenceName = "SEQ_BOLETIM", allocationSize = 1)
@@ -31,4 +32,5 @@ public class UsuarioEntity {
 	@ManyToOne
 	@JoinColumn(name = "ID_PERMISSAO", referencedColumnName = "ID_PERMISSAO")
 	private PermissaoEntity idPermissao;
+
 }
