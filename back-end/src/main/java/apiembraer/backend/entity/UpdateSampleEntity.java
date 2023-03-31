@@ -2,24 +2,20 @@ package apiembraer.backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Immutable;
 
 import lombok.Data;
 
 @Entity
+@Immutable
 @Data
-@Table(name = "UPDATE_SAMPLE")
+@Table(name = "view_update_sample")
 public class UpdateSampleEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_update_sample")
-    @SequenceGenerator(name = "seq_update_sample", sequenceName = "SEQ_UPDATE_SAMPLE", allocationSize = 1)
 	@Column(name = "ID_UPDATE_SAMPLE")
 	private Integer idUpdateSample;
 	
@@ -35,12 +31,10 @@ public class UpdateSampleEntity {
 	@Column(name = "MENSAGEM")
 	private String mensagem;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_USUARIO_ALTERANTE", referencedColumnName = "ID_USUARIO")
-	private UsuarioEntity idUsuarioAlterante;
+	@Column(name = "ID_USUARIO_ALTERANTE")
+	private Integer idUsuarioAlterante;
 	
-	@ManyToOne
-	@JoinColumn(name = "NOME_USUARIO_ALTERANTE", referencedColumnName = "NOME_USUARIO")
-	private UsuarioEntity nomeUsuarioAlterante;
+	@Column(name = "NOME_USUARIO_ALTERANTE")
+	private String nomeUsuarioAlterante;
 		
 }
