@@ -14,6 +14,7 @@ import lombok.Data;
 @Data
 @Table(name = "CHASSI")
 public class ChassiEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_chassi")
     @SequenceGenerator(name = "seq_chassi", sequenceName = "SEQ_CHASSI", allocationSize = 1)
@@ -22,4 +23,5 @@ public class ChassiEntity {
 
 	@Column(name = "Chassi")
 	private String chassi;
+
 }

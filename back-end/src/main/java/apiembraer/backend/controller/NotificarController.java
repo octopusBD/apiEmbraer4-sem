@@ -20,14 +20,16 @@ public class NotificarController {
 
 	@Autowired
     NotificarService NotificarService;
-	
+
 	@GetMapping("/{idChassi}")
     @ResponseBody
     @CrossOrigin
     public List<UpdateSampleEntity> getUpdateSampleEntities(@PathVariable Integer idChassi) {
+
         List<UpdateSampleEntity> result = NotificarService.getUpdateSampleEntities(idChassi);
         System.err.println(result);
+
         return result;
+
     }
-	
 }

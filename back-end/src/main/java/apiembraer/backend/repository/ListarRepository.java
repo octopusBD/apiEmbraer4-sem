@@ -14,7 +14,7 @@ public interface ListarRepository extends JpaRepository <ViewSampleEntity, Integ
 	public List<ViewSampleEntity> findByidUsuario(Integer idUsuario);
 
 	public List <ViewSampleEntity> findByIdUsuarioAndChassi(Integer idUsuario, String chassi);
-	
+
 	public List <ViewSampleEntity> findByIdUsuarioAndChassiAndStatusSample(Integer idUsuario, String Chassi, String statusSample);
 
 }

@@ -13,7 +13,7 @@ public class ListarService {
 
 	@Autowired
 	ListarRepository listarRepository;
-	
+
 	public List<ViewSampleEntity> getViewSampleEntities(Integer idUsuario) {
 		return listarRepository.findByidUsuario(idUsuario);
 	}
@@ -21,10 +21,11 @@ public class ListarService {
 	public List<ViewSampleEntity> getViewSampleConsulta(Integer idUsuario, String chassi) {
 		return listarRepository.findByIdUsuarioAndChassi(idUsuario, chassi);
 	}
-	
+
 	public List<ViewSampleEntity> getViewSample(Integer idUsuario, String chassi, String statusSample) {
 		return listarRepository.findByIdUsuarioAndChassiAndStatusSample(idUsuario, chassi, statusSample);
 	}
+
 }
 
 

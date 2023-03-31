@@ -13,9 +13,9 @@ public class NotificarService {
 
 	@Autowired
 	NotificarRepository notificarRepository;
-	
+
 	public List<UpdateSampleEntity> getUpdateSampleEntities(Integer idChassi) {
         return notificarRepository.findByidChassi(idChassi);
     }
-	
+
 }
