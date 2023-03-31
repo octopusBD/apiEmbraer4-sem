@@ -45,10 +45,14 @@ Currently, many pilots work as freelancers and do not operate just one aircraft/
 
 <li>Non-Functional Requirements</li>
 <ul>
-      <li>The system must be protected against unauthorized access, ensuring that only authenticated users can perform operations within the system.</li>
+      <li>
+            The system must be protected against unauthorized access, ensuring that only authenticated users can perform operations within the system.
+      </li>
       <li>The system must be able to efficiently process a large amount of data, without presenting delays or slowness to the users.</li>
       <li>The system must be available for use most of the time, minimizing downtime for maintenance or updates.</li>
-      <li>The system must be easy to use and intuitive, allowing users to perform operations quickly and efficiently, without the need for additional training.</li>
+      <li>
+            The system must be easy to use and intuitive, allowing users to perform operations quickly and efficiently, without the need for additional training.
+      </li>
 </ul>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -63,18 +67,20 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Schedule
 
 <p align="center">
-      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
-<p align="center">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
+</p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
 
 ## Backlog
 
-<li> Sprint 1:</li>
+<li>Sprint 1:</li>
 <ul>
       <li>Structure and persistence of data to the database;</li>
-      <li>Develop the query interface with the following functionality: (Allow viewing the list of optional items for the aircraft)</li>
+      <li>
+            Develop the query interface with the following functionality: (Allow viewing the list of optional items for the vehicle)
+      </li>
       <li>Configure system of notifications for updates;</li>    
       <li>Generate consulting reports;</li>
       <li>Filters.</li>
@@ -82,24 +88,28 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <br>
 
-<li> Sprint 2:</li>
+<li>Sprint 2:</li>
 <ul>
       <li>Develop login and authentication interface for each user type;</li>
-      <li>Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.</li>
+      <li>
+            Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.
+      </li>
 </ul>
 
 <br>
 
-<li> Sprint 3:</li>
+<li>Sprint 3:</li>
 <ul>  
       <li>Finalization of the administrator interface</li>
       <li>Develop the functionality to generate a statistical visualization;</li>
-      <li>Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.</li>
+      <li>
+            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
+      </li>
 </ul>
 
 <br>
 
-<li> Sprint 4:</li>
+<li>Sprint 4:</li>
 <ul>
       <li>Generate administrative reports;</li>
       <li>Test and validate the system;</li>
@@ -111,6 +121,28 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <p>To see more information about the Product Backlog Building process, access - 
       <a href="https://www.figma.com/file/Pn0ghflt9ZgBZvXhJzlSeb/Product-backlog-API-Embraer-Octopus?node-id=0%3A1&t=bfdML1kYClJpSW3V-0">This Link</a>.
 </p>
+
+<p align="right">(<a href="#top">scroll to top</a>)</p>
+
+## Conceptual Model
+
+<p align="center">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/der_photoshop.png" width="100%" height="100%">
+</p>
+
+<p align="right">(<a href="#top">scroll to top</a>)</p>
+
+## Logical Model
+
+<p align="center">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/modelologico_photoshop.png" width="100%" height="100%">
+</p>
+
+<p align="right">(<a href="#top">scroll to top</a>)</p>
+
+## Data Dictionary
+
+[Clique aqui para acessar o dicionário de dados](https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1.pdf)
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
