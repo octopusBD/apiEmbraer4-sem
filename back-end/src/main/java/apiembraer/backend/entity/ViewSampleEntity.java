@@ -17,10 +17,13 @@ import lombok.Data;
 @Table(name = "view_sample")
 public class ViewSampleEntity {
 	
+	@Id
+	@Column(name = "ID_SAMPLE")
+	private Integer idSample;
+	
 	@Column(name = "ID_USUARIO")
 	private Integer idUsuario;
 	
-	@Id
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;
 

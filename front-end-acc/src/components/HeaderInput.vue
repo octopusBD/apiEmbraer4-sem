@@ -1,73 +1,73 @@
 <template>
-  <v-layout style="height: 128px; background-color: #253381;" class="border" >
-    <!-- <v-btn size="45" to="/" variant="text"  background-color="transparent" class="btn-home" icon="mdi-home" ></v-btn> -->
-  <v-btn class="btn-home" prepend-icon="mdi-home" variant="text" color="white"  > </v-btn>
-    
-  <div class="mx-auto my-4">
-      <button  style= "background-color: #253381;"
-        @click="active = !active">
-         <img  class="imgs" 
-         src="@/assets/logo-dois.png">
-      </button>
-    </div>
-    <v-bottom-navigation 
-      :active="active"
-      color="#253381"
-    >
-      <v-btn>
-        <Icon icon="clarity:administrator-line" width="25" />
-        <span class="d-none d-sm-inline">ADMINISTRADOR</span>
+  <div class="container">
+    <v-layout style="height: 138px; background-color: #253381;" class="border">
+      <!--  Botão página inicial -->
+      <v-btn to="/" class="home" variant="text">
+        <Icon icon="material-symbols:assignment-return-outline-rounded" width="35" />
       </v-btn>
-      <v-btn to="/consultor">
-        <Icon icon="ic:outline-person-search" width="25" />
-        <span   class="d-none d-sm-inline">CONSULTOR</span>
-      </v-btn>
-      <v-btn >
-        <Icon  icon="ph:pen" width="25" />
-        <span class="d-none d-sm-inline">EDITOR</span>
-      </v-btn>
-      <v-btn icon>
-        <Icon icon="tabler:bell" width="25" />
-        <span class="d-none d-sm-inline">NOTIFICAÇÃO</span>
-      </v-btn>
-      <v-btn>
-        <Icon icon="mdi:user-circle-outline" width="25" />  
-        <span class="d-none d-sm-inline">PERFIL</span>
-      
-      </v-btn>
-    </v-bottom-navigation>
-  </v-layout>
+      <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
+      <div class="mx-auto my-4">
+        <button style="background-color: #253381;" @click="active = !active">
+          <img class="imgs" src="@/assets/logo-dois.png">
+        </button>
+      </div>
+      <!-- Componente para a entrada de notificações -->
+      <notificacao-input-vue class="notificacao"></notificacao-input-vue>
+      <!-- Botões que levam a diferentes páginas -->
+      <v-bottom-navigation :active="active" color="#253381">
+        <v-btn>
+          <Icon icon="clarity:administrator-line" width="25" />
+          <span class="d-none d-sm-inline">ADMINISTRADOR</span>
+        </v-btn>
+        <v-btn to="/consultor">
+          <Icon icon="ic:outline-person-search" width="25" />
+          <span class="d-none d-sm-inline">CONSULTOR</span>
+        </v-btn>
+        <v-btn to="/editor">
+          <Icon icon="ph:pen" width="25" />
+          <span class="d-none d-sm-inline">EDITOR</span>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-layout>
+  </div>
 </template>
-
 <script>
+import NotificacaoInputVue from '@/components/NotificacaoInput.vue'
 import { Icon } from '@iconify/vue';
-  export default {
-    data: () => ({ active: true }),
-    components:{
-      Icon
-    },
-    items: [
-        {
-          title: 'Dashboard',
-          disabled: false,
-          href: 'breadcrumbs_dashboard',
-        },]
-   
-  
-  }
+export default {
+  // Define um objeto de dados com uma variável booleana para exibir ou esconder notificações
+  data: () => ({ active: true }),
+  components: {
+    Icon,
+    NotificacaoInputVue
+  },
+  // Define uma matriz de itens para a navegação, mas não é usada em nenhum lugar do componente
+  items: [{
+    title: 'Dashboard',
+    disabled: false,
+    href: 'breadcrumbs_dashboard',
+  }]
+}
 </script>
 <style>
- .imgs{
-  height:50px ;
+.imgs{
+  margin-top: 0.08%;
+  height: 55px ;
   width: auto ;
- }
+}
 
- .btn-home{
-  margin-top: 10px;
-  margin-left: 10px;
- }
+.notificacao{
+  margin-top: 25px;
+}
 
- @media only screen and (max-width: 600px) {
+.home{
+  margin-top: 26px;
+  margin-left: 5px;
+  border-radius: 10rem;
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
   .bottom-nav {
     flex-direction: column;
   }

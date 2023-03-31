@@ -1,6 +1,47 @@
 <template>
   <div class="container">
+
+    <!-- Barra de ferramentas com filtros -->
+    <v-toolbar class="card-select" prominent>
+      <v-spacer></v-spacer>
+
+      <!-- Primeiro filtro -->
+      <div class="filtro1">
+        <v-select
+          label="Chassis"
+          :items="chassiOptions"
+          dense
+          background-color="white"
+          hide-selected
+          v-model="filtros.chassi"
+          @input="filtrarTabela"
+        ></v-select>
+      </div>
+
+      <!-- Segundo filtro -->
+      <div class="filtro2">
+        <v-select
+          label="Status Sample"
+          :items="statusSampleOptions"
+          dense
+          background-color="white"
+          hide-selected
+          v-model="filtros.statusSample"
+          @input="filtrarTabela"
+        ></v-select>
+      </div>
+
+      <v-spacer></v-spacer>
+    </v-toolbar>
+
+    <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
+      <!-- Botão de exportação -->
+      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-left: 94%;">
+        <Icon icon="carbon:document-export" width="35"/>
+      </v-btn>
+
+      <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
           <tr class="cabecalho" style="background-color: #333333; ">
@@ -9,17 +50,20 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black;">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black;">
+              <!-- Chips coloridos com o status da amostra -->
               <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
           </tr>
         </tbody>
       </v-table>
+      <!-- Paginação da tabela -->
       <v-pagination
         v-model="page"
-        :length="Math.ceil(items.length / perPage)"
+        :length="Math.ceil(filteredItems.length / perPage)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         style="margin: 20px;"
@@ -28,63 +72,174 @@
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
+import { Icon } from '@iconify/vue';
 
 export default {
   data() {
     return {
-      perPage: 12,
+      // TABELA
+      perPage: 8,
       dadosDaTabela: [],
       items: [],
-      page: 1
+      page: 1,
+      // FILTROS
+      filtros: {
+        chassi: "",
+        item: "",
+        statusSample: "",
+      },
+      chassiOptions: [],
+      itemOptions: [],
+      statusSampleOptions: [],
+      itens: [],
     };
   },
-
+  components:{
+    Icon
+  },
   async created() {
-    const dados = await this.buscarDadosDaTabela();
-    this.dadosDaTabela = dados;
-    this.items = this.dadosDaTabela.map(dado => {
-      return {
-        item: dado.item,
-        statusSample: dado.statusSample
+    await this.inicializarDadosTabela();
+  },
+  methods: {
+    async inicializarDadosTabela() {
+      try {
+        const response = await axios.get('consultor/2');
+
+        const dados = response.data;
+        this.dadosDaTabela = dados;
+        this.items = this.dadosDaTabela.map(dado => {
+          return {
+            item: dado.item,
+            statusSample: dado.statusSample,
+            chassi: dado.chassi,
+          }
+        });
+        this.obterOpcoesUnicas();
+      } catch (error) {
+        console.log(error);
       }
+    },
+
+    async filtrarTabela() {
+      const { chassi, item, statusSample } = this.filtros;
+      try {
+        const response = await axios.get('consultor/2', {
+          params: { chassi, item, statusSample }
+        });
+        const dadosFiltrados = response.data;
+        this.items = dadosFiltrados.map(dado => {
+          return {
+            item: dado.item,
+            statusSample: dado.statusSample,
+            chassi: dado.chassi,
+          }
+        });
+      } catch (error) {
+        console.log(error);
+        this.items = [];
+      }
+
+      this.page = 1;
+    },
+    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
+    obterOpcoesUnicas() {
+      const { dadosDaTabela } = this;
+      const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
+      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
+      const statusSampleOptions = new Set(dadosDaTabela.map(dado => dado.statusSample));
+      this.chassiOptions = Array.from(chassiOptions).sort();
+      // this.itemOptions = Array.from(itemOptions).sort();
+      this.statusSampleOptions = Array.from(statusSampleOptions).sort();
+    },
+    // SETANDO CORES DOS STATUS DA TABELA
+    getStatusColor(status) {
+      switch (status) {
+        case "INCORPORATED":
+          return "success";
+        case "NOT INCORPORATED":
+          return "error";
+        // case "Em Análise":
+        //   return "warning";
+        // default:
+        //   return "";
+      }
+    },
+      onClick() {
+      axios({
+    url: 'pdf/2/10000153',
+    method: 'GET',
+    responseType: 'blob',
+}).then((response) => {
+     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+     var fileLink = document.createElement('a');
+  
+     fileLink.href = fileURL;
+     fileLink.setAttribute('download', 'relatório.pdf');
+     document.body.appendChild(fileLink);
+   
+     fileLink.click();
+});
+}
+  },
+  // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
+  computed: {
+    filteredItems() {
+  const { chassi, statusSample } = this.filtros;
+  const filterByChassi = chassi !== "";
+  // const filterByItem = item !== "";
+  const filterByStatusSample = statusSample !== "";
+
+  return this.items.filter(item => {
+    let matches = true;
+    if (filterByChassi) {
+      matches = matches && item.chassi === chassi;
+    }
+    // if (filterByItem) {
+    //   matches = matches && item.item === this.filtros.item;
+    // }
+    if (filterByStatusSample) {
+      matches = matches && item.statusSample === statusSample;
+    }
+    return matches;
     });
   },
 
-  methods: {
-    getStatusColor(status) {
-      if (status === 'INCORPORATED') {
-        return 'green';
-      } else if (status === 'NOT INCORPORATED') {
-        return 'red';
-      }
-    },
-    async buscarDadosDaTabela() {
-      const response = await axios.get('/consultor/1');
-      const dados = response.data;
-      return dados;
-    }
-  },
-
-  computed: {
+    // PAGINACAO
     paginatedItems() {
-      const start = (this.page - 1) * this.perPage;
-      const end = start + this.perPage;
-      return this.items.slice(start, end);
-    },
-  },
-
-  watch: {
-    page() {
-      this.page = parseInt(this.page);
-    },
-  },
+      const startIndex = (this.page - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.filteredItems.slice(startIndex, endIndex);
+    }
+  }
 };
 </script>
 
 
 <style scoped>
+.card-select{
+margin-top: 0px;
+max-width: 100%;
+padding: 20px;
+}
+.filtro1{
+width: 200px;
+display: flex;
+margin-top: 15px;
+margin-right: 20px;
+margin-left: 20px
+}
+.filtro2{
+width: 200px;
+display: flex;
+margin-top: 15px;
+margin-right: 20px;
+margin-left: 20px;
+}
+
+
 @media only screen and (max-width: 600px) {
   .table {
     width: 100%;

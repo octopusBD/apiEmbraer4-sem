@@ -4,23 +4,33 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-
     
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
         path: '/',
-        name: 'Home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/TelaHome.vue'),
+        name: 'TelaHome',
+    
+        component: () => import('@/views/TelaHome.vue'),
       },
       {
         path: '/consultor',
         name: 'TelaConsulta',
         component: () => import("@/views/TelaConsulta.vue"),
-      }
+      },
+
+      {
+        path: '/editor',
+        name:  'TelaEditor',
+        component: () => import("@/views/TelaEditor.vue"),
+      },
+
+      {
+        path: '/administrador',
+        name:  'Tela_Admin',
+        component: () => import("@/views/Tela_Admin.vue"),
+      },
+      
     ],
   },
   

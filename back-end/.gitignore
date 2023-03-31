@@ -32,7 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+
 *.gz
 *.tmp
 *.log
-/.apt_generated_tests/
+
