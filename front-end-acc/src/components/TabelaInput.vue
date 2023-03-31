@@ -60,6 +60,7 @@
           </tr>
         </tbody>
       </v-table>
+
       <!-- Paginação da tabela -->
       <v-pagination
         v-model="page"
@@ -168,44 +169,52 @@ export default {
       }
     },
       onClick() {
-      axios({
-    url: 'pdf/2/10000153',
-    method: 'GET',
-    responseType: 'blob',
-}).then((response) => {
-     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-     var fileLink = document.createElement('a');
+      
+        const selecao = this.filtros.chassi; // obter a seleção
+        console.log(selecao); // exibir a seleção no console
+        if (selecao == ''){
+          alert("Please select a chassi");
+          return
+        }
+        axios({
+        url: 'pdf/2/' + selecao,
+
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
   
-     fileLink.href = fileURL;
-     fileLink.setAttribute('download', 'relatório.pdf');
-     document.body.appendChild(fileLink);
-   
-     fileLink.click();
-});
-}
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'relatório.pdf');
+        document.body.appendChild(fileLink);
+      
+        fileLink.click();
+     });
+    }
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-  const { chassi, statusSample } = this.filtros;
-  const filterByChassi = chassi !== "";
-  // const filterByItem = item !== "";
-  const filterByStatusSample = statusSample !== "";
+      const { chassi, statusSample } = this.filtros;
+      const filterByChassi = chassi !== "";
+      // const filterByItem = item !== "";
+      const filterByStatusSample = statusSample !== "";
 
-  return this.items.filter(item => {
-    let matches = true;
-    if (filterByChassi) {
-      matches = matches && item.chassi === chassi;
-    }
-    // if (filterByItem) {
-    //   matches = matches && item.item === this.filtros.item;
-    // }
-    if (filterByStatusSample) {
-      matches = matches && item.statusSample === statusSample;
-    }
-    return matches;
-    });
-  },
+      return this.items.filter(item => {
+        let matches = true;
+        if (filterByChassi) {
+          matches = matches && item.chassi === chassi;
+        } 
+          // if (filterByItem) {
+          //   matches = matches && item.item === this.filtros.item;
+          // }
+        if (filterByStatusSample) {
+          matches = matches && item.statusSample === statusSample;
+        }
+        return matches;
+      });
+    },
 
     // PAGINACAO
     paginatedItems() {
@@ -218,46 +227,46 @@ export default {
 </script>
 
 <style scoped>
-.card-select{
-margin-top: 0px;
-max-width: 100%;
-padding: 20px;
-}
-.filtro1{
-width: 200px;
-display: flex;
-margin-top: 15px;
-margin-right: 20px;
-margin-left: 20px
-}
-.filtro2{
-width: 200px;
-display: flex;
-margin-top: 15px;
-margin-right: 20px;
-margin-left: 20px;
-}
+  .card-select{
+  margin-top: 0px;
+  max-width: 100%;
+  padding: 20px;
+  }
+  .filtro1{
+  width: 200px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px
+  }
+  .filtro2{
+  width: 200px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+  }
 
 
-@media only screen and (max-width: 600px) {
-  .table {
-    width: 100%;
+  @media only screen and (max-width: 600px) {
+    .table {
+      width: 100%;
+    }
+    .col-1,
+    .col-2,
+    .col-3 {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .v-card {
+    width: 90%;
   }
-  .col-1,
-  .col-2,
-  .col-3 {
-    display: block;
-    width: 100%;
-    text-align: center;
+    .container {
+      font-size: 14px;
+    }
+    .v-table td, .v-table th {
+      padding: 5px;
+    }
   }
-  .v-card {
-  width: 90%;
-}
-  .container {
-    font-size: 14px;
-  }
-  .v-table td, .v-table th {
-    padding: 5px;
-  }
-}
 </style>
