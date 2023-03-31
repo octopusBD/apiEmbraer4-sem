@@ -217,7 +217,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .card-select{
 margin-top: 0px;
