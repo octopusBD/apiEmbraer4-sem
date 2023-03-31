@@ -30,5 +30,13 @@ public class ListarController {
         return result;
     }
     
+    @GetMapping("/{idUsuario}/{chassi}/{statusSample}")
+    @ResponseBody
+    public List<ViewSampleEntity> getViewSample(@PathVariable Integer idUsuario, @PathVariable String chassi, @PathVariable String statusSample) {
+        List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, chassi, statusSample);
+        System.err.println(result);
+        return result;
+    }
+    
    
 }
