@@ -142,7 +142,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 ## Data Dictionary
 
-[Clique aqui para acessar o dicionário de dados]()
+[Clique aqui para acessar o dicionário de dados](https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1.pdf)
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
