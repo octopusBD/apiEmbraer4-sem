@@ -1,10 +1,8 @@
 <template>
   <div class="container">
-
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-
       <!-- Primeiro filtro -->
       <div class="filtro1">
         <v-select
@@ -17,7 +15,6 @@
           @input="filtrarTabela"
         ></v-select>
       </div>
-
       <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
@@ -30,17 +27,14 @@
           @input="filtrarTabela"
         ></v-select>
       </div>
-
       <v-spacer></v-spacer>
     </v-toolbar>
-
     <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
       <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-left: 94%;">
         <Icon icon="carbon:document-export" width="35"/>
       </v-btn>
-
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
@@ -60,7 +54,6 @@
           </tr>
         </tbody>
       </v-table>
-
       <!-- Paginação da tabela -->
       <v-pagination
         v-model="page"
@@ -72,7 +65,6 @@
     </v-card>
   </div>
 </template>
-
 
 <script>
 import axios from 'axios';
@@ -108,7 +100,6 @@ export default {
     async inicializarDadosTabela() {
       try {
         const response = await axios.get('consultor/2');
-
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map(dado => {
@@ -123,7 +114,6 @@ export default {
         console.log(error);
       }
     },
-
     async filtrarTabela() {
       const { chassi, item, statusSample } = this.filtros;
       try {
@@ -142,7 +132,6 @@ export default {
         console.log(error);
         this.items = [];
       }
-
       this.page = 1;
     },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
@@ -168,8 +157,7 @@ export default {
         //   return "";
       }
     },
-      onClick() {
-      
+      onClick() { 
         const selecao = this.filtros.chassi; // obter a seleção
         console.log(selecao); // exibir a seleção no console
         if (selecao == ''){
@@ -178,19 +166,16 @@ export default {
         }
         axios({
         url: 'pdf/2/' + selecao,
-
         method: 'GET',
         responseType: 'blob',
       }).then((response) => {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement('a');
-  
         fileLink.href = fileURL;
         fileLink.setAttribute('download', 'relatório.pdf');
         document.body.appendChild(fileLink);
-      
         fileLink.click();
-     });
+      });
     }
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
