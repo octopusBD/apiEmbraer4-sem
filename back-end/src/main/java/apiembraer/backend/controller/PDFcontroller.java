@@ -23,9 +23,9 @@ import apiembraer.backend.service.ListarService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/consultapdf")
+@RequestMapping(value = "/pdf")
 public class PDFcontroller {
-	
+
     @Autowired
     ListarService ListarService;
     

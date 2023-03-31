@@ -1,7 +1,11 @@
 <template>
   <div class="container">
+
+    <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
+
+      <!-- Primeiro filtro -->
       <div class="filtro1">
         <v-select
           label="Chassis"
@@ -13,6 +17,8 @@
           @input="filtrarTabela"
         ></v-select>
       </div>
+
+      <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
           label="Status Sample"
@@ -24,12 +30,18 @@
           @input="filtrarTabela"
         ></v-select>
       </div>
+
       <v-spacer></v-spacer>
-    </v-toolbar>  
+    </v-toolbar>
+
+    <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
+      <!-- Botão de exportação -->
       <v-btn  class="pdf" variant="text" style="margin-left: 94%;">
-        <Icon icon="carbon:document-pdf" width="35" />
+        <Icon icon="carbon:document-export" width="35"/>
       </v-btn>
+
+      <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
           <tr class="cabecalho" style="background-color: #333333; ">
@@ -38,14 +50,17 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black;">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black;">
+              <!-- Chips coloridos com o status da amostra -->
               <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
           </tr>
         </tbody>
       </v-table>
+      <!-- Paginação da tabela -->
       <v-pagination
         v-model="page"
         :length="Math.ceil(filteredItems.length / perPage)"
@@ -156,7 +171,7 @@ export default {
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-  const { chassi, item, statusSample } = this.filtros;
+  const { chassi, statusSample } = this.filtros;
   const filterByChassi = chassi !== "";
   // const filterByItem = item !== "";
   const filterByStatusSample = statusSample !== "";

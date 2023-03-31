@@ -23,6 +23,7 @@ public class NotificarController {
 	
 	@GetMapping("/{idChassi}")
     @ResponseBody
+    @CrossOrigin
     public List<UpdateSampleEntity> getUpdateSampleEntities(@PathVariable Integer idChassi) {
         List<UpdateSampleEntity> result = NotificarService.getUpdateSampleEntities(idChassi);
         System.err.println(result);
