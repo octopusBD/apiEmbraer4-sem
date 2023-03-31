@@ -1,18 +1,13 @@
 package apiembraer.backend.util;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.itextpdf.text.*;
+/*import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.text.SimpleDateFormat;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.util.List;
@@ -22,8 +17,7 @@ import apiembraer.backend.entity.ViewSampleEntity;
 import org.springframework.data.repository.query.Param;
 
 public class PDFGenerator {
-    public static ByteArrayInputStream generatePDF(List<ViewSampleEntity> entities, String filename)
-    throws FileNotFoundException, DocumentException, IOException {
+    public static ByteArrayInputStream generatePDF(List<ViewSampleEntity> entities) throws IOException {
 
         Document document = new Document(
             PageSize.A4.rotate(), 25, 25, 25, 25
@@ -32,10 +26,9 @@ public class PDFGenerator {
 
         try {
             //Criando a tabela para o relatório
-            PdfPTable table = new PdfPTable(new float[]{3, 2});
+            PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
-            table.setSpacingBefore(20f);
-            table.setSpacingAfter(20f);
+            table.setWidths(new int[] { 4, 4});
 
             //Criando o cabeçalho da tabela
             Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.WHITE);
@@ -100,34 +93,33 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, out);
             document.open();
 
-            //Definindo parágrafos para o título do documento PDF
-            Paragraph textoItens = new Paragraph(new Phrase(
-                "Item " + entities.get(0).getItem()
-                + ", " + "Status " + entities.get(0).getStatusSample(), FontFactory.getFont(
-                    FontFactory.HELVETICA_BOLD, 24, BaseColor.BLACK
-                )
-            ));
-            textoItens.setAlignment(Element.ALIGN_LEFT);
+            //Adicionando imagem
+            Image img = Image.getInstance("https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png");
+            img.setAbsolutePosition(635f, PageSize.A4.getHeight() - img.getScaledHeight() - 90);
+            img.scaleAbsolute(175f, 115f);
 
-            Paragraph textoDados = new Paragraph(new Phrase(
-                "PDF", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK)
-            ));
+            //Definindo parágrafos para o título do documento PDF
+            Paragraph textoDados = new Paragraph(new Phrase("Sample - " + "Chassi " + entities.get(0).getChassi(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK)));
             textoDados.setAlignment(Element.ALIGN_CENTER);
 
-            Paragraph pulaLinha = new Paragraph(new Phrase(
-                " ", FontFactory.getFont(FontFactory.HELVETICA, 18, BaseColor.BLACK)
-            ));
+            Paragraph pulaLinha = new Paragraph(new Phrase(" ", FontFactory.getFont(FontFactory.HELVETICA, 18, BaseColor.BLACK)));
 
-            document.add(textoItens);
+            //Adicionando os parágrafos, imagem e tabela ao documento PDF
+            document.add(img);
+            //document.add(textoEstacao);
+            //document.add(textoDataHora);
             document.add(pulaLinha);
             document.add(textoDados);
             document.add(pulaLinha);
             document.add(table);
-
             document.close();
+
         } catch (DocumentException ex) {
 
         }
+        
         return new ByteArrayInputStream(out.toByteArray());
+        
     }
 }
+*/
