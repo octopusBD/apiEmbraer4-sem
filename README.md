@@ -34,10 +34,10 @@ Currently, many pilots work as freelancers and do not operate just one aircraft/
 
 <li>Functional Requirements</li>
 <ul>
-      <li>Use of APIs for future integration with web platform systems</li>
-      <li>Access to the customer database (user, password, and equipment)</li>
-      <li>Users must have different profiles (administrator, editor, and viewer)</li>
-      <li>Possibility to apply selection filters (by item category)</li>
+      <li>Use of APIs for future integration with web platform systems;</li>
+      <li>Access to the customer database (user, password, and equipment);</li>
+      <li>Users must have different profiles (administrator, editor, and viewer);</li>
+      <li>Possibility to apply selection filters (by item category);</li>
       <li>View PDF files in the App and possibility of export in the same format, with a record of the date of file generation and the user.</li>
 </ul>
 
@@ -46,10 +46,10 @@ Currently, many pilots work as freelancers and do not operate just one aircraft/
 <li>Non-Functional Requirements</li>
 <ul>
       <li>
-            The system must be protected against unauthorized access, ensuring that only authenticated users can perform operations within the system.
+            The system must be protected against unauthorized access, ensuring that only authenticated users can perform operations within the system;
       </li>
-      <li>The system must be able to efficiently process a large amount of data, without presenting delays or slowness to the users.</li>
-      <li>The system must be available for use most of the time, minimizing downtime for maintenance or updates.</li>
+      <li>The system must be able to efficiently process a large amount of data, without presenting delays or slowness to the users;</li>
+      <li>The system must be available for use most of the time, minimizing downtime for maintenance or updates;</li>
       <li>
             The system must be easy to use and intuitive, allowing users to perform operations quickly and efficiently, without the need for additional training.
       </li>
@@ -79,7 +79,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>
       <li>Structure and persistence of data to the database;</li>
       <li>
-            Develop the query interface with the following functionality: (Allow viewing the list of optional items for the vehicle)
+            Develop the query interface with the following functionality: (Allow viewing the list of optional items for the vehicle);
       </li>
       <li>Configure system of notifications for updates;</li>    
       <li>Generate consulting reports;</li>
@@ -100,7 +100,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <li>Sprint 3:</li>
 <ul>  
-      <li>Finalization of the administrator interface</li>
+      <li>Finalization of the administrator interface;</li>
       <li>Develop the functionality to generate a statistical visualization;</li>
       <li>
             Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
