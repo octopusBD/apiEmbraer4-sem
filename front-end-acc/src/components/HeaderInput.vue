@@ -1,10 +1,8 @@
 <template>
-  <!-- Define uma div com a classe "container" -->
   <div class="container">
-    <!-- Define um layout com uma altura fixa e uma cor de fundo -->
     <v-layout style="height: 138px; background-color: #253381;" class="border">
-      <!-- Define um botão com um ícone que leva à página inicial -->
-      <v-btn to="/h" class="home" variant="text">
+      <!--  Botão página inicial -->
+      <v-btn to="/" class="home" variant="text">
         <Icon icon="material-symbols:assignment-return-outline-rounded" width="35" />
       </v-btn>
       <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
@@ -13,9 +11,9 @@
           <img class="imgs" src="@/assets/logo-dois.png">
         </button>
       </div>
-      <!-- Define um componente para a entrada de notificações -->
+      <!-- Componente para a entrada de notificações -->
       <notificacao-input-vue class="notificacao"></notificacao-input-vue>
-      <!-- Define uma navegação na parte inferior com botões que levam a diferentes páginas -->
+      <!-- Botões que levam a diferentes páginas -->
       <v-bottom-navigation :active="active" color="#253381">
         <v-btn>
           <Icon icon="clarity:administrator-line" width="25" />

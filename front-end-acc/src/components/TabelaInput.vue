@@ -37,7 +37,7 @@
     <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
-      <v-btn  class="pdf" variant="text" style="margin-left: 94%;">
+      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-left: 94%;">
         <Icon icon="carbon:document-export" width="35"/>
       </v-btn>
 
@@ -167,6 +167,22 @@ export default {
         //   return "";
       }
     },
+      onClick() {
+      axios({
+    url: 'pdf/2/10000153',
+    method: 'GET',
+    responseType: 'blob',
+}).then((response) => {
+     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+     var fileLink = document.createElement('a');
+  
+     fileLink.href = fileURL;
+     fileLink.setAttribute('download', 'relatório.pdf');
+     document.body.appendChild(fileLink);
+   
+     fileLink.click();
+});
+}
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {

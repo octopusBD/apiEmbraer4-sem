@@ -8,7 +8,7 @@ const routes = [
     component: () => import('@/layouts/default/Default.vue'),
     children: [
       {
-        path: '/h',
+        path: '/',
         name: 'TelaHome',
     
         component: () => import('@/views/TelaHome.vue'),
