@@ -8,11 +8,10 @@
         <v-select
           label="Chassis"
           :items="chassiOptions"
-          dense
           background-color="white"
-          hide-selected
           v-model="filtros.chassi"
           @input="filtrarTabela"
+          variant="underlined"
         ></v-select>
       </div>
       <!-- Segundo filtro -->
@@ -20,11 +19,10 @@
         <v-select
           label="Status Sample"
           :items="statusSampleOptions"
-          dense
           background-color="white"
-          hide-selected
           v-model="filtros.statusSample"
           @input="filtrarTabela"
+          variant="underlined"
         ></v-select>
       </div>
       <v-spacer></v-spacer>
@@ -65,7 +63,6 @@
     </v-card>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import { Icon } from '@iconify/vue';
@@ -185,7 +182,6 @@ export default {
       const filterByChassi = chassi !== "";
       // const filterByItem = item !== "";
       const filterByStatusSample = statusSample !== "";
-
       return this.items.filter(item => {
         let matches = true;
         if (filterByChassi) {
@@ -200,7 +196,6 @@ export default {
         return matches;
       });
     },
-
     // PAGINACAO
     paginatedItems() {
       const startIndex = (this.page - 1) * this.perPage;
@@ -237,9 +232,13 @@ export default {
     .table {
       width: 100%;
     }
-    .col-1,
-    .col-2,
-    .col-3 {
+    .filtro1{
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .filtro2{
       display: block;
       width: 100%;
       text-align: center;

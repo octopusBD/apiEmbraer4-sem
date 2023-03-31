@@ -17,11 +17,11 @@
       <v-bottom-navigation :active="active" color="#253381">
         <v-btn>
           <Icon icon="clarity:administrator-line" width="25" />
-          <span class="d-none d-sm-inline">ADMINISTRADOR</span>
+          <span class="d-none d-sm-inline">ADMINISTRAtOR</span>
         </v-btn>
         <v-btn to="/consultor">
           <Icon icon="ic:outline-person-search" width="25" />
-          <span class="d-none d-sm-inline">CONSULTOR</span>
+          <span class="d-none d-sm-inline">CONSULTANT</span>
         </v-btn>
         <v-btn to="/editor">
           <Icon icon="ph:pen" width="25" />
