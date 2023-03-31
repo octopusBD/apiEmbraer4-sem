@@ -67,7 +67,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Schedule
 
 <p align="center">
-      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/b92089563bafd98ceac265983ccba1574dacab6e/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
+      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/cronograma.png" width="100%" height="100%">
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
