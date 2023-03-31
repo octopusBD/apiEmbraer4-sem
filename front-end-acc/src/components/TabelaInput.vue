@@ -13,7 +13,7 @@
           @input="filtrarTabela"
         ></v-select>
       </div>
-      <div class="filtro3">
+      <div class="filtro2">
         <v-select
           label="Status Sample"
           :items="statusSampleOptions"
@@ -27,6 +27,9 @@
       <v-spacer></v-spacer>
     </v-toolbar>  
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
+      <v-btn  class="pdf" variant="text" style="margin-left: 94%;">
+        <Icon icon="carbon:document-pdf" width="35" />
+      </v-btn>
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
           <tr class="cabecalho" style="background-color: #333333; ">
@@ -57,6 +60,7 @@
 
 <script>
 import axios from 'axios';
+import { Icon } from '@iconify/vue';
 
 export default {
   data() {
@@ -77,6 +81,9 @@ export default {
       statusSampleOptions: [],
       itens: [],
     };
+  },
+  components:{
+    Icon
   },
   async created() {
     await this.inicializarDadosTabela();
@@ -166,11 +173,11 @@ export default {
       matches = matches && item.statusSample === statusSample;
     }
     return matches;
-   });
+    });
   },
 
     // PAGINACAO
-     paginatedItems() {
+    paginatedItems() {
       const startIndex = (this.page - 1) * this.perPage;
       const endIndex = startIndex + this.perPage;
       return this.filteredItems.slice(startIndex, endIndex);
@@ -180,6 +187,27 @@ export default {
 </script>
 
 <style scoped>
+.card-select{
+margin-top: 0px;
+max-width: 100%;
+padding: 20px;
+}
+.filtro1{
+width: 200px;
+display: flex;
+margin-top: 15px;
+margin-right: 20px;
+margin-left: 20px
+}
+.filtro2{
+width: 200px;
+display: flex;
+margin-top: 15px;
+margin-right: 20px;
+margin-left: 20px;
+}
+
+
 @media only screen and (max-width: 600px) {
   .table {
     width: 100%;
