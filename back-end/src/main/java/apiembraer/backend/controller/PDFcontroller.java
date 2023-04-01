@@ -30,6 +30,7 @@ public class PDFcontroller {
     @Autowired
     ListarService ListarService;
 
+    //Este método retorna um relatório em formato PDF contendo informações das amostras de um determinado usuário e chassi que foram consultadas.
 	@GetMapping(value = "/{idUsuario}/{chassi}", produces = MediaType.APPLICATION_PDF_VALUE)
 
 	public ResponseEntity<InputStreamResource> relatorioConsulta (
@@ -38,14 +39,18 @@ public class PDFcontroller {
 		@PathVariable("chassi") String chassi
 	) throws IOException {
 
+		// Chama o método que retorna a lista de amostras da consulta
 		List<ViewSampleEntity> result = ListarService.getViewSampleConsulta(idUsuario, chassi);
+		
+		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsulta.exportarPdfConsulta(result);
 
 		HttpHeaders headers = new HttpHeaders();
 
-		//headers.add("Content-Disposition", "attachment;filename=Relatório Precipitação " + estNome + "(" + new SimpleDateFormat("dd-MM-yyyy").format(precipitacao.get(0).getDatahoraCaptacao()) + " até " + new SimpleDateFormat("dd-MM-yyyy").format(precipitacao.get(precipitacao.size() - 1).getDatahoraCaptacao()) +").pdf");
+		// Define o cabeçalho HTTP com o nome do arquivo do relatório a ser baixado
 		headers.add("Content-Disposition", "attachment;filename=RelatorioConsulta.pdf");
 
+		// Retorna a resposta HTTP com o conteúdo do relatório em PDF
 		return ResponseEntity
 			.ok()
 			.headers(headers)

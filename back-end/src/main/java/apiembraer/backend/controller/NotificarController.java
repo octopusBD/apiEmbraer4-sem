@@ -20,7 +20,9 @@ public class NotificarController {
 
 	@Autowired
     NotificarService NotificarService;
-
+	
+	
+	//Este método retorna os itens que foram atualizados 
 	@GetMapping("/{idChassi}")
     @ResponseBody
     @CrossOrigin

@@ -16,37 +16,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/consultor")
 public class ListarController {
 
-    @Autowired
-    ListarService ListarService;
+	@Autowired
+	ListarService ListarService;
 
-    @Autowired
-    ViewSampleRepository viewSampleRepository;
+	@Autowired
+	ViewSampleRepository viewSampleRepository;
 
-    @GetMapping("/{idUsuario}")
-    @ResponseBody
-    public List<ViewSampleEntity> getViewSampleEntities(@PathVariable Integer idUsuario) {
+	// Este metodo retorna todos os dados de um usuário.
+	@GetMapping("/{idUsuario}")
+	@ResponseBody
+	public List<ViewSampleEntity> getViewSampleEntities(@PathVariable Integer idUsuario) {
 
-        List<ViewSampleEntity> result = ListarService.getViewSampleEntities(idUsuario);
-        System.err.println(result);
-        return result;
+		List<ViewSampleEntity> result = ListarService.getViewSampleEntities(idUsuario);
+		System.err.println(result);
+		return result;
 
-    }
+	}
 
-    @GetMapping("/{idUsuario}/{chassi}/{statusSample}")
-    @ResponseBody
-    public List<ViewSampleEntity> getViewSample(
-        @PathVariable Integer idUsuario, @PathVariable String chassi, @PathVariable String statusSample
-    ) {
+	// Este metodo retorna os dados de um usuário com determinado chassi e status.
+	@GetMapping("/{idUsuario}/{chassi}/{statusSample}")
+	@ResponseBody
+	public List<ViewSampleEntity> getViewSample(@PathVariable Integer idUsuario, @PathVariable String chassi,
+			@PathVariable String statusSample
 
-        List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, chassi, statusSample);
-        System.err.println(result);
-        return result;
+	) {
 
-    }
+		List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, chassi, statusSample);
+		System.err.println(result);
+		return result;
+
+	}
 }

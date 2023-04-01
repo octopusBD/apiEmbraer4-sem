@@ -14,6 +14,7 @@ public class NotificarService {
 	@Autowired
 	NotificarRepository notificarRepository;
 
+	// Método que retorna as atualizações de determinado chassi
 	public List<UpdateSampleEntity> getUpdateSampleEntities(Integer idChassi) {
         return notificarRepository.findByidChassi(idChassi);
     }
