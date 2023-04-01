@@ -128,7 +128,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Conceptual Model
 
 <p align="center">
-      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/der_photoshop.png" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-1/Imagens%20documentacao/doc/der_photoshop1.png" width="100%" height="100%">
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -136,10 +136,18 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Logical Model
 
 <p align="center">
-      <img src="https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/modelologico_photoshop.png" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-1/Imagens%20documentacao/doc/modelologico_photoshop1.png" width="100%" height="100%">
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
+
+## Burndown
+ 
+<p align="center">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-1/Imagens%20documentacao/doc/burndown-sprint1-photo.png" width="100%" height="100%">
+<p align="center">
+
+<p align="right">(<a href="#top">voltar ao topo</a>)</p>
 
 ## Data Dictionary
 
@@ -200,6 +208,11 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
 <br>
+
+<p align="center">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-1/Imagens%20documentacao/doc/rodape.png" height="100%">
+<p align="center">
+
 ---
 
 > GitHub [@Octopus](https://github.com/octopusBD) &nbsp;&middot;&nbsp;
