@@ -13,7 +13,7 @@
         <v-card-text>
 
           <v-list>
-                    <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index" @click="selectedNotification = notification; numNotifications--;">
+                    <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index">
                       <v-list-item-title><v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;"><v-icon class="iconclose">mdi-close</v-icon></v-btn> {{ notification.mensagem }}</v-list-item-title> 
                     </v-list-item>
           </v-list>
