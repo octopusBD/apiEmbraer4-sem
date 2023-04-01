@@ -31,9 +31,10 @@
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
       <div>
-      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-left: 94%;">
-        Export - <Icon icon="carbon:document-export" width="35"/> 
+      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-right: 94%;">
+        Export - <Icon icon="carbon:document-export" width="35"/> 
       </v-btn>
+      <hr>
     </div>
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
@@ -229,6 +230,9 @@ export default {
   margin-left: 20px;
   }
 
+  .pdf{
+    margin-right: 500px;
+  }
 
   @media only screen and (max-width: 600px) {
     .table {
@@ -244,6 +248,7 @@ export default {
       display: block;
       width: 100%;
       text-align: center;
+      margin-top: 40px;
     }
     .v-card {
     width: 90%;
