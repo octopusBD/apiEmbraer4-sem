@@ -81,7 +81,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
       <li>
             Develop the query interface with the following functionality: (Allow viewing the list of optional items for the vehicle);
       </li>
-      <li>Configure system of notifications for updates;</li>    
+      <li>Begining the configuration system of notifications for updates;</li>    
       <li>Generate consulting reports;</li>
       <li>Filters.</li>
 </ul>
@@ -92,18 +92,18 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>
       <li>Develop login and authentication interface for each user type;</li>
       <li>
-            Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.
+            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
       </li>
+      <li>Finishing the configuration system of notifications for updates;</li>
 </ul>
 
 <br>
 
 <li>Sprint 3:</li>
 <ul>  
-      <li>Finalization of the administrator interface;</li>
       <li>Develop the functionality to generate a statistical visualization;</li>
       <li>
-            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
+            Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.
       </li>
 </ul>
 
@@ -111,6 +111,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <li>Sprint 4:</li>
 <ul>
+      <li>Finalization of the administrator interface;</li>
       <li>Generate administrative reports;</li>
       <li>Test and validate the system;</li>
       <li>Prepare documentation for end users.</li>
@@ -142,7 +143,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 ## Data Dictionary
 
-[Clique aqui para acessar o dicionário de dados](https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1.pdf)
+[Click here to accesses the Data Dictionary](https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1.pdf)
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
