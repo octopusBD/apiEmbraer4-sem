@@ -11,22 +11,21 @@
         <v-card-title class="card">Notification</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
+
           <v-list>
-            <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index" @click="selectedNotification = notification; numNotifications--;">
-              <v-list-item-action>
-                <v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </v-list-item-action>
-              <v-list-item-title>{{ notification.mensagem }}</v-list-item-title>
-            </v-list-item>
+                    <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index" @click="selectedNotification = notification; numNotifications--;">
+                      <v-list-item-title><v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;"><v-icon class="iconclose">mdi-close</v-icon></v-btn> {{ notification.mensagem }}</v-list-item-title> 
+                    </v-list-item>
           </v-list>
+          
         </v-card-text>
       </v-card>
     </v-dialog>
   </div>
 </template>
 
+<!-- <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index" @click="selectedNotification = notification; numNotifications--;"><v-list-item-title>{{ notification.mensagem }}</v-list-item-title></v-list-item> -->
+<!-- <v-list-item-action><v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;"><v-icon>mdi-close</v-icon></v-btn></v-list-item-action> -->
 <script>
 import axios from 'axios';
 import { Icon } from '@iconify/vue';
@@ -103,15 +102,26 @@ export default {
   overflow-x: auto;
 }
 .fechar-popup {
-  position: absolute;
+
+  max-width: 20px;
+  max-height: 20px;
+  color: white;
+  background-color: #D2042D;
+  /* position: absolute;
   top: 5px;
   right: 5px;
   margin-left: 500px;
   max-width: 20px;
   max-height: 20px;
   color: white;
-  background-color: #D2042D;
+  background-color: #D2042D; */
 }
+
+.iconclose {
+max-width: 5px;
+max-height: 5px;
+}
+
 
 notification-card {
   background-color: #fff;
@@ -136,8 +146,8 @@ notification-card {
   }
 
   .fechar-popup {
-    top: 10px;
-    right: 10px;
+    /* top: 10px;
+    right: 10px; */
   }
 }
 </style>
