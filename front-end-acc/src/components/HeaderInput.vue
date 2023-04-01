@@ -17,7 +17,7 @@
       <v-bottom-navigation :active="active" color="#253381">
         <v-btn>
           <Icon icon="clarity:administrator-line" width="25" />
-          <span class="d-none d-sm-inline">ADMINISTRAtOR</span>
+          <span class="d-none d-sm-inline">ADMINISTRATOR</span>
         </v-btn>
         <v-btn to="/consultor">
           <Icon icon="ic:outline-person-search" width="25" />
