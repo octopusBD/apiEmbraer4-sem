@@ -24,6 +24,11 @@
           @input="filtrarTabela"
           variant="underlined"
         ></v-select>
+        <div>
+          <v-col cols="auto">
+            <v-btn class="limpar" density="comfortable"  @click="limparFiltro" icon="mdi-eraser" size="50" height="50" width="50"></v-btn>
+          </v-col>
+        </div>
       </div>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -134,6 +139,10 @@ export default {
       }
       this.page = 1;
     },
+  limparFiltro() {
+    this.filtros.statusSample = "";
+    this.filtrarTabela();
+  },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
@@ -216,14 +225,14 @@ export default {
   padding: 20px;
   }
   .filtro1{
-  width: 200px;
+  width: 280px;
   display: flex;
   margin-top: 15px;
   margin-right: 20px;
   margin-left: 20px
   }
   .filtro2{
-  width: 200px;
+  width: 280px;
   display: flex;
   margin-top: 15px;
   margin-right: 20px;
@@ -236,20 +245,21 @@ export default {
 
   @media only screen and (max-width: 600px) {
     .table {
-      width: 100%;
-    }
-    .filtro1{
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 40px;
-    }
-    .filtro2{
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 40px;
-    }
+    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+  } 
+  .filtro1, .filtro2 {
+    width: 100px;
+    margin-right: 10px;
+    margin-top: 20px;
+  }
+  .limpar {
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 20px;
+  }
+  .filtro1, .filtro2 {
+    margin-top: 20px;
+  }
     .v-card {
     width: 90%;
   }
