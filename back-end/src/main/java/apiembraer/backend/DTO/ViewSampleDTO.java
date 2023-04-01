@@ -16,5 +16,5 @@ public class ViewSampleDTO {
 	private String chassi;
 	private String ultUsuAlt;
 	private Timestamp dtUltEdicao;
-	
+
 }

@@ -14,6 +14,7 @@ import lombok.Data;
 @Data
 @Table(name = "BOLETIM")
 public class BoletimEntity {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_boletim")
     @SequenceGenerator(name = "seq_boletim", sequenceName = "SEQ_BOLETIM", allocationSize = 1)
@@ -25,4 +26,5 @@ public class BoletimEntity {
 
 	@Column(name = "ITEM")
 	private String item;
+
 }

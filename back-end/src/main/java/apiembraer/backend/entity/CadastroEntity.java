@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 @Table(name = "CADASTRO")
 public class CadastroEntity {
+
 	@Id
 	@Column(name = "ID_CADASTRO")
 	private Integer idCadastro;
@@ -24,4 +25,5 @@ public class CadastroEntity {
 	@ManyToOne
 	@JoinColumn(name = "ID_CHASSI", referencedColumnName = "ID_CHASSI")
 	private ChassiEntity idChassi;
+
 }

@@ -1,46 +1,46 @@
 <template>
   <div class="container">
-
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-
       <!-- Primeiro filtro -->
       <div class="filtro1">
         <v-select
           label="Chassis"
           :items="chassiOptions"
-          dense
           background-color="white"
-          hide-selected
           v-model="filtros.chassi"
           @input="filtrarTabela"
+          variant="underlined"
         ></v-select>
       </div>
-
       <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
           label="Status Sample"
           :items="statusSampleOptions"
-          dense
           background-color="white"
-          hide-selected
           v-model="filtros.statusSample"
           @input="filtrarTabela"
+          variant="underlined"
         ></v-select>
+        <div>
+          <v-col cols="auto">
+            <v-btn class="limpar" density="comfortable"  @click="limparFiltro" icon="mdi-eraser" size="50" height="50" width="50"></v-btn>
+          </v-col>
+        </div>
       </div>
-
       <v-spacer></v-spacer>
     </v-toolbar>
-
     <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
-      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-left: 94%;">
-        <Icon icon="carbon:document-export" width="35"/>
+      <div>
+      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-right: 94%;">
+        Export - <Icon icon="carbon:document-export" width="35"/> 
       </v-btn>
-
+      <hr>
+    </div>
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
@@ -71,8 +71,6 @@
     </v-card>
   </div>
 </template>
-
-
 <script>
 import axios from 'axios';
 import { Icon } from '@iconify/vue';
@@ -107,7 +105,6 @@ export default {
     async inicializarDadosTabela() {
       try {
         const response = await axios.get('consultor/2');
-
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map(dado => {
@@ -122,7 +119,6 @@ export default {
         console.log(error);
       }
     },
-
     async filtrarTabela() {
       const { chassi, item, statusSample } = this.filtros;
       try {
@@ -141,9 +137,12 @@ export default {
         console.log(error);
         this.items = [];
       }
-
       this.page = 1;
     },
+  limparFiltro() {
+    this.filtros.statusSample = "";
+    this.filtrarTabela();
+  },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
@@ -167,46 +166,48 @@ export default {
         //   return "";
       }
     },
-      onClick() {
-      axios({
-    url: 'pdf/2/10000153',
-    method: 'GET',
-    responseType: 'blob',
-}).then((response) => {
-     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-     var fileLink = document.createElement('a');
-  
-     fileLink.href = fileURL;
-     fileLink.setAttribute('download', 'relatório.pdf');
-     document.body.appendChild(fileLink);
-   
-     fileLink.click();
-});
-}
+      onClick() { 
+        const selecao = this.filtros.chassi; // obter a seleção
+        console.log(selecao); // exibir a seleção no console
+        if (selecao == ''){
+          alert("Please select a chassi");
+          return
+        }
+        axios({
+        url: 'pdf/2/' + selecao,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'relatório.pdf');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      });
+    }
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-  const { chassi, statusSample } = this.filtros;
-  const filterByChassi = chassi !== "";
-  // const filterByItem = item !== "";
-  const filterByStatusSample = statusSample !== "";
-
-  return this.items.filter(item => {
-    let matches = true;
-    if (filterByChassi) {
-      matches = matches && item.chassi === chassi;
-    }
-    // if (filterByItem) {
-    //   matches = matches && item.item === this.filtros.item;
-    // }
-    if (filterByStatusSample) {
-      matches = matches && item.statusSample === statusSample;
-    }
-    return matches;
-    });
-  },
-
+      const { chassi, statusSample } = this.filtros;
+      const filterByChassi = chassi !== "";
+      // const filterByItem = item !== "";
+      const filterByStatusSample = statusSample !== "";
+      return this.items.filter(item => {
+        let matches = true;
+        if (filterByChassi) {
+          matches = matches && item.chassi === chassi;
+        } 
+          // if (filterByItem) {
+          //   matches = matches && item.item === this.filtros.item;
+          // }
+        if (filterByStatusSample) {
+          matches = matches && item.statusSample === statusSample;
+        }
+        return matches;
+      });
+    },
     // PAGINACAO
     paginatedItems() {
       const startIndex = (this.page - 1) * this.perPage;
@@ -217,48 +218,56 @@ export default {
 };
 </script>
 
-
 <style scoped>
-.card-select{
-margin-top: 0px;
-max-width: 100%;
-padding: 20px;
-}
-.filtro1{
-width: 200px;
-display: flex;
-margin-top: 15px;
-margin-right: 20px;
-margin-left: 20px
-}
-.filtro2{
-width: 200px;
-display: flex;
-margin-top: 15px;
-margin-right: 20px;
-margin-left: 20px;
-}
+  .card-select{
+  margin-top: 0px;
+  max-width: 100%;
+  padding: 20px;
+  }
+  .filtro1{
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px
+  }
+  .filtro2{
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+  }
 
+  .pdf{
+    margin-right: 500px;
+  }
 
-@media only screen and (max-width: 600px) {
-  .table {
-    width: 100%;
+  @media only screen and (max-width: 600px) {
+    .table {
+    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+  } 
+  .filtro1, .filtro2 {
+    width: 100px;
+    margin-right: 10px;
+    margin-top: 20px;
   }
-  .col-1,
-  .col-2,
-  .col-3 {
-    display: block;
-    width: 100%;
-    text-align: center;
+  .limpar {
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 20px;
   }
-  .v-card {
-  width: 90%;
-}
-  .container {
-    font-size: 14px;
+  .filtro1, .filtro2 {
+    margin-top: 20px;
   }
-  .v-table td, .v-table th {
-    padding: 5px;
+    .v-card {
+    width: 90%;
   }
-}
+    .container {
+      font-size: 14px;
+    }
+    .v-table td, .v-table th {
+      padding: 5px;
+    }
+  }
 </style>

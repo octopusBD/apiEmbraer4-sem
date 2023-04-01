@@ -16,14 +16,14 @@ import lombok.Data;
 @Data
 @Table(name = "view_sample")
 public class ViewSampleEntity {
-	
+
 	@Id
 	@Column(name = "ID_SAMPLE")
 	private Integer idSample;
-	
+
 	@Column(name = "ID_USUARIO")
 	private Integer idUsuario;
-	
+
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;
 
@@ -32,16 +32,16 @@ public class ViewSampleEntity {
 
 	@Column(name = "NOME_USUARIO")
 	private String nomeUsuario;
-	
+
 	@Column(name = "BOLETIM")
 	private String boletim;
-	
+
 	@Column(name = "ITEM")
 	private String item;
-	
+
 	@Column(name = "STATUS_SAMPLE")
 	private String statusSample;
-	
+
 	@Column(name = "CHASSI")
 	private String chassi;
 
@@ -50,7 +50,7 @@ public class ViewSampleEntity {
 
 	@Column(name = "DT_ULT_EDICAO")
 	private Timestamp dtUltEdicao;
-	
+
 	@Column(name = "ULTIMO_USUARIO_ALTERADO")
 	private String ultimoUsuarioAlterado;
 

@@ -21,13 +21,17 @@ public class NotificarController {
 	@Autowired
     NotificarService NotificarService;
 	
+	
+	//Este método retorna os itens que foram atualizados 
 	@GetMapping("/{idChassi}")
     @ResponseBody
     @CrossOrigin
     public List<UpdateSampleEntity> getUpdateSampleEntities(@PathVariable Integer idChassi) {
+
         List<UpdateSampleEntity> result = NotificarService.getUpdateSampleEntities(idChassi);
         System.err.println(result);
+
         return result;
+
     }
-	
 }
