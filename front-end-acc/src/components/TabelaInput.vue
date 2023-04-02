@@ -26,7 +26,7 @@
         ></v-select>
         <div>
           <v-col cols="auto">
-            <v-btn class="limpar" density="comfortable"  @click="limparFiltro" icon="mdi-eraser" size="50" height="50" width="50"></v-btn>
+            <v-btn class="limpar" v-show="!isMobile" density="comfortable"  @click="limparFiltro" icon="mdi-eraser" size="50" height="50" width="50"></v-btn>
           </v-col>
         </div>
       </div>
@@ -83,6 +83,7 @@ export default {
       dadosDaTabela: [],
       items: [],
       page: 1,
+      isMobile: false,
       // FILTROS
       filtros: {
         chassi: "",
@@ -97,6 +98,10 @@ export default {
   },
   components:{
     Icon
+  },
+   mounted() {
+    window.addEventListener("resize", this.checkMobile);
+    this.checkMobile();
   },
   async created() {
     await this.inicializarDadosTabela();
@@ -138,6 +143,9 @@ export default {
         this.items = [];
       }
       this.page = 1;
+    },
+    checkMobile() {
+      this.isMobile = window.innerWidth < 768;
     },
   limparFiltro() {
     this.filtros.statusSample = "";
@@ -248,15 +256,15 @@ export default {
     font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
   } 
   .filtro1, .filtro2 {
-    width: 100px;
+    width: 200px;
     margin-right: 10px;
     margin-top: 20px;
   }
-  .limpar {
+  /* .limpar {
     margin-left: auto;
     margin-right: 0;
     margin-top: 20px;
-  }
+  } */
   .filtro1, .filtro2 {
     margin-top: 20px;
   }
