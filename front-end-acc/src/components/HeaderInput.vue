@@ -2,7 +2,7 @@
   <div class="container">
     <v-layout style="height: 138px; background-color: #253381;" class="border">
       <!--  Botão página inicial -->
-      <v-btn class="home" variant="text">
+      <v-btn to="home" class="home" variant="text">
         <Icon icon="material-symbols:assignment-return-outline-rounded" width="35" />
       </v-btn>
       <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
@@ -19,7 +19,7 @@
           <Icon icon="clarity:administrator-line" width="25" />
           <span class="d-none d-sm-inline">ADMINISTRATOR</span>
         </v-btn>
-        <v-btn >
+        <v-btn to="consulta" >
           <Icon icon="ic:outline-person-search" width="25" />
           <span class="d-none d-sm-inline">CONSULTANT</span>
         </v-btn>
