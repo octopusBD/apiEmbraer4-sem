@@ -10,14 +10,12 @@
       <v-card class="notification-card" style="max-height: 400px;">
         <v-card-title class="card">Notification</v-card-title>
         <v-divider></v-divider>
-        <v-card-text>
-
+        <v-card-text class="scroll-y">
           <v-list>
                     <v-list-item style="size:8px" v-for="(notification, index) in notifications" :key="index">
-                      <v-list-item-title><v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;"><v-icon class="iconclose">mdi-close</v-icon></v-btn> {{ notification.mensagem }}</v-list-item-title> 
+                      <v-list-item-title class="text-wrap"><v-btn class="fechar-popup" icon @click.stop="notifications.splice(index, 1); selectedNotification = notification; numNotifications--;"><v-icon class="iconclose">mdi-close</v-icon></v-btn> {{ notification.mensagem }}</v-list-item-title> 
                     </v-list-item>
           </v-list>
-          
         </v-card-text>
       </v-card>
     </v-dialog>
