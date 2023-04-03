@@ -34,6 +34,7 @@
   @media only screen and (max-width: 600px) {
     .video-container {
       padding-bottom: 70%;
+      margin-top:195px;
     }
   }
 
