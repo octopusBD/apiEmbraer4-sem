@@ -89,6 +89,9 @@ def upload():
 
     insert(df_boletim, query_boletim, 'boletim')
     insert(df_chassi, query_chassi, 'chassi')
+
+    #from flask import redirect
+    #return redirect('http://localhost:3000/')
     return 'Arquivos processados com sucesso!'
 
 if __name__ == '__main__':
