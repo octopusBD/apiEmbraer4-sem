@@ -24,8 +24,8 @@ export default {
   }
 
   #footer {
-    height: 30px;
-    background-color: #333333;
+    height: 40px;
+    background-color: #333333 ;
     color: white;
     display: flex;
     align-items: center;

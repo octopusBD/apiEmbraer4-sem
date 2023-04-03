@@ -1,45 +1,54 @@
 <template>
   <HeaderInput />
-  <v-card>
-  <!-- <img  class="ima" 
-            src="@/assets/"> -->
+
+  <div class="video-container">
+    <video src="@/assets/video.mp4" controls autoplay muted loop></video>
+  </div>
+
   <Footersrinput/>
-</v-card>
 </template>
 
 <script setup>
   import HeaderInput from '@/components/HeaderInput.vue'
-  import Footersrinput from '@/components/Footersrinput.vue';
-  
+  import Footersrinput from '@/components/Footersrinput.vue'
 </script>
 
 <style>
-  .ima {
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
     max-width: 100%;
-    height: auto;
-    opacity: 70%;
-    display: block;
-    margin: 0 auto;
   }
 
-  /* Media query for screens between 480px and 767px */
-  @media (min-width: 480px) and (max-width: 767px) {
-    .ima {
-      max-width: 80%;
+  .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .video-container {
+      padding-bottom: 70%;
+      margin-top:195px;
     }
   }
 
-  /* Media query for screens between 768px and 1023px */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .ima {
-      max-width: 50%;
-    }
+  .img{
+    margin-top:0.3%;
+    width: 12%;
   }
 
-  /* Media query for screens larger than 1024px */
-  @media (min-width: 1024px) {
-    .ima {
-      max-width: 30%;
+  @media only screen and (max-width: 600px) {
+    .img {
+      width: 20%;
     }
   }
+  
+  /* adicione outras regras de mídia para outros elementos aqui */
+
 </style>
