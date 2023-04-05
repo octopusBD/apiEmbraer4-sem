@@ -16,6 +16,13 @@ const routes = [
       },
       
       {
+        path: 'login',
+        name: 'TelaLogin',
+    
+        component: () => import('@/views/TelaLogin.vue'),
+      },
+      
+      {
         path: 'consulta',
         name: 'TelaConsulta',
         component: () => import("@/views/TelaConsulta.vue"),
