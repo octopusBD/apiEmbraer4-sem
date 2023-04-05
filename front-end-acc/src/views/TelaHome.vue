@@ -2,7 +2,7 @@
   <HeaderInput />
 
   <div class="video-container">
-    <video src="@/assets/video.mp4" controls autoplay muted loop></video>
+    <video src="@/assets/video2.mp4" controls autoplay muted loop></video>
   </div>
 
   <Footersrinput/>

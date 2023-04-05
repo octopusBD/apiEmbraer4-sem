@@ -28,15 +28,21 @@ def upload():
             cursor1 = connection.cursor()
             cursor1.execute("SELECT * FROM ADMIN.BOLETIM")
             df_boletim = pd.DataFrame(list(cursor1))
-            list_processado = df_boletim[1].unique().tolist()
-            dataframe = dataframe.drop(dataframe[dataframe['Boletim de serviço'].isin(list_processado)].index)
+            if df_boletim.empty:
+                print('nada')
+            else:
+                list_processado = df_boletim[1].unique().tolist()
+                dataframe = dataframe.drop(dataframe[dataframe['Boletim de serviço'].isin(list_processado)].index)
 
         if table == 'chassi':
             cursor2 = connection.cursor()
             cursor2.execute("SELECT * FROM ADMIN.CHASSI")
             df_chassi = pd.DataFrame(list(cursor2))
-            list_processado = df_chassi[1].unique().tolist()
-            dataframe = dataframe.drop(dataframe[dataframe['chassi'].isin(list_processado)].index)
+            if df_chassi.empty:
+                print('nada')
+            else:
+                list_processado = df_chassi[1].unique().tolist()
+                dataframe = dataframe.drop(dataframe[dataframe['chassi'].isin(list_processado)].index)
 
         # converter o dataframe em uma lista de tuplas
         values = [tuple(x) for x in dataframe.values]
