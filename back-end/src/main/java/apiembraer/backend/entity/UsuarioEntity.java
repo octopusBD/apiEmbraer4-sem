@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "USUARIO_SPRINT2")
+@Table(name = "USUARIO")
 public class UsuarioEntity {
 
 	@Id
