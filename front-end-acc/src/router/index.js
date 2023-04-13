@@ -28,11 +28,11 @@ const routes = [
         component: () => import("@/views/TelaConsulta.vue"),
       },
 
-      // {
-      //   path: '/editor',
-      //   name:  'TelaEditor',
-      //   component: () => import("@/views/TelaEditor.vue"),
-      // },
+      {
+        path: '/editor',
+        name:  'TelaEditor',
+        component: () => import("@/views/TelaEditor.vue"),
+      },
 
       // {
       //   path: '/administrador',
