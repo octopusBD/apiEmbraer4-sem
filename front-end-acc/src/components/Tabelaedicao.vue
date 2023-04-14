@@ -145,11 +145,11 @@
                 <v-icon class="mdi mdi-pencil"></v-icon>
               </v-btn>
             </td>
-            <!-- <td style="border-bottom: 1px solid black">
+            <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(index)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-            </td> -->
+            </td>
           </tr>
         </tbody>
       </v-table>
