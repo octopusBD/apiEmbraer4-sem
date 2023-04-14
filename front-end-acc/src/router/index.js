@@ -32,7 +32,13 @@ const routes = [
         path: '/editor',
         name:  'TelaEditor',
         component: () => import("@/views/TelaEditor.vue"),
-      },
+      }, 
+
+      {
+        path: 'teste',
+        name:  'Tela_Teste',
+        component: () => import("@/views/Tela_Teste.vue"),
+      },                       
 
       // {
       //   path: '/administrador',

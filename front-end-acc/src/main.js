@@ -20,3 +20,10 @@ const app = createApp(App)
 registerPlugins(app)
 
 app.mount('#app')
+
+
+import { createVuetify } from 'vuetify'
+
+export const vuetify = createVuetify({
+  theme: { defaultTheme: 'light' },
+})
