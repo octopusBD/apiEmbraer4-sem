@@ -13,7 +13,7 @@ import apiembraer.backend.repository.EditarRepository;
 public class EditarService{
 
 	@Autowired
-    private EditarRepository editarRepository;;
+    private EditarRepository editarRepository;
 
     // LISTAR //
     public List<SampleEntity> getAllSamples() {
