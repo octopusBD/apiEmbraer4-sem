@@ -12,23 +12,20 @@ import lombok.Data;
 @Entity
 @Immutable
 @Data
-@Table(name = "view_estatistica_qtd_contido")
-public class ViewEstatisticaQtdContido {
+@Table(name = "view_estatistica_qtd_boletim")
+public class ViewEstatisticaQtdBoletimEntity {
 
 	@Id
-	@Column(name = "ID_QTD_CONTIDO")
-	private Integer idQtdContido;
+	@Column(name = "ID_QTD_BOLETIM")
+	private Integer idQtdBoletim;
 	
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;
 	
 	@Column(name = "CHASSI")
 	private String chassi;
-	
-	@Column(name = "STATUS")
-	private String status;
 
-	@Column(name = "QTD_CONTIDO")
+	@Column(name = "QTD_BOLETINS")
 	private Integer qtdBoletins;
 	
 }

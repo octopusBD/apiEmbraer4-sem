@@ -6,22 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
-import apiembraer.backend.repository.EstatisticaRepository;
+import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
+import apiembraer.backend.repository.EstatisticaDisponibilidadeRepository;
+import apiembraer.backend.repository.EstatisticaQtdBoletimRepository;
 
 @Service
 public class EstatisticaService {
 	
 	@Autowired
-    private EstatisticaRepository estatisticarepository;
+    private EstatisticaDisponibilidadeRepository estatisticaDisponibilidadeRepository;
 	
-	 // LISTAR //
-    public List<ViewEstatisticaDisponibilidadeEntity> getAll() {
-        return estatisticarepository.findAll();
+	@Autowired
+    private EstatisticaQtdBoletimRepository estatisticaQtdBoletimrRepository;
+	
+	// LISTAR //
+    public List<ViewEstatisticaDisponibilidadeEntity> getAllDisponibilidade() {
+        return estatisticaDisponibilidadeRepository.findAll();
     }
     
     // LISTAR POR ID //
 	public List<ViewEstatisticaDisponibilidadeEntity> findByIdUsuario(Integer idUsuario) {
-		return estatisticarepository.findByIdUsuario(idUsuario);
+		return estatisticaDisponibilidadeRepository.findByIdUsuario(idUsuario);
 	}
     
+	 // LISTAR BOLETIM //
+    public List<ViewEstatisticaQtdBoletimEntity> getAllQtdBoletim() {
+        return estatisticaQtdBoletimrRepository.findAll();
+    }
+    
+	
 }

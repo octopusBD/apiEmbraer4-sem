@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 
 @Repository
-public interface EstatisticaRepository extends JpaRepository<ViewEstatisticaDisponibilidadeEntity, Integer>{
+public interface EstatisticaDisponibilidadeRepository extends JpaRepository<ViewEstatisticaDisponibilidadeEntity, Integer>{
 	
 	public List <ViewEstatisticaDisponibilidadeEntity> findByIdUsuario(Integer idUsuario);
 	
