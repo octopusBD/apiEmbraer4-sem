@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
+import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.repository.EstatisticaDisponibilidadeRepository;
 import apiembraer.backend.repository.EstatisticaQtdBoletimRepository;
+import apiembraer.backend.repository.EstatisticaQtdContidoRepository;
 
 @Service
 public class EstatisticaService {
@@ -17,22 +19,29 @@ public class EstatisticaService {
     private EstatisticaDisponibilidadeRepository estatisticaDisponibilidadeRepository;
 	
 	@Autowired
-    private EstatisticaQtdBoletimRepository estatisticaQtdBoletimrRepository;
+    private EstatisticaQtdBoletimRepository estatisticaQtdBoletimRepository;
 	
-	// LISTAR //
+	@Autowired
+    private EstatisticaQtdContidoRepository estatisticaQtdContidoRepository;
+	
+	// LISTAR DISPONIBILIDADE //
     public List<ViewEstatisticaDisponibilidadeEntity> getAllDisponibilidade() {
         return estatisticaDisponibilidadeRepository.findAll();
     }
     
-    // LISTAR POR ID //
+    // LISTAR DISPONIBILIDADE POR ID //
 	public List<ViewEstatisticaDisponibilidadeEntity> findByIdUsuario(Integer idUsuario) {
 		return estatisticaDisponibilidadeRepository.findByIdUsuario(idUsuario);
 	}
     
-	 // LISTAR BOLETIM //
+	// LISTAR BOLETIM //
     public List<ViewEstatisticaQtdBoletimEntity> getAllQtdBoletim() {
-        return estatisticaQtdBoletimrRepository.findAll();
+        return estatisticaQtdBoletimRepository.findAll();
     }
     
-	
+    // LISTAR CONTIDO //
+    public List<ViewEstatisticaQtdContidoEntity> getAllQtdContido() {
+        return estatisticaQtdContidoRepository.findAll();
+    }
+    
 }

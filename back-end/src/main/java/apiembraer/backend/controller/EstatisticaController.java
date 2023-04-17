@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
+import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.service.EstatisticaService;
 
 @RestController
@@ -24,14 +25,14 @@ public class EstatisticaController {
     @Autowired
     private EstatisticaService estatisticaservice;
 	
-	// LISTAR //
+	// LISTAR DISPONIBILIDADE //
     @GetMapping("/listar/disponibilidade")
     public ResponseEntity<List<ViewEstatisticaDisponibilidadeEntity>> getAllDisponibilidade() {
         List<ViewEstatisticaDisponibilidadeEntity> samples = estatisticaservice.getAllDisponibilidade();
         return new ResponseEntity<>(samples, HttpStatus.OK);
     }
     
-	// LISTAR POR ID //
+	// LISTAR DISPONIBILIDADE POR ID //
 	@GetMapping("/listar/disponibilidade/{idUsuario}")
 	@ResponseBody
 	public List<ViewEstatisticaDisponibilidadeEntity> getViewSampleEntities(@PathVariable Integer idUsuario) {
@@ -46,17 +47,12 @@ public class EstatisticaController {
     	return new ResponseEntity<>(samples, HttpStatus.OK);
     }
     
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    // LISTAR QTD CONTIDO //
+    @GetMapping("/listar/contido")
+    public ResponseEntity<List<ViewEstatisticaQtdContidoEntity>> getAllQtdContido() {
+    	List<ViewEstatisticaQtdContidoEntity> samples = estatisticaservice.getAllQtdContido();
+    	return new ResponseEntity<>(samples, HttpStatus.OK);
+    }
 	
 	
 	
