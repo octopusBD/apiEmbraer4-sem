@@ -14,16 +14,16 @@
       <!-- Componente para a entrada de notificações -->
       <notificacao-input-vue class="notificacao"></notificacao-input-vue>
       <!-- Botões que levam a diferentes páginas -->
-      <v-bottom-navigation :active="active" color="#253381">
-        <v-btn>
+      <v-bottom-navigation :active="active" color="">
+        <v-btn to="administrador">
           <Icon icon="clarity:administrator-line" width="25" />
           <span class="d-none d-sm-inline">ADMINISTRATOR</span>
         </v-btn>
-        <v-btn to="consulta" >
+        <v-btn to="consulta">
           <Icon icon="ic:outline-person-search" width="25" />
           <span class="d-none d-sm-inline">CONSULTANT</span>
         </v-btn>
-        <v-btn to="editor" >
+        <v-btn to="editor">
           <Icon icon="ph:pen" width="25" />
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>

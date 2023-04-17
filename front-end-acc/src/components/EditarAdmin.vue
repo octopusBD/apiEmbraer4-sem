@@ -1,20 +1,14 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="desserts"
-    :sort-by="[{ key: 'calories', order: 'asc' }]"
-    class="elevation-1"
-  >
+    <v-data-table
+      :headers="headers"
+      :items="desserts"
+      :sort-by="[{ key: 'calories', order: 'asc' }]"
+      class="elevation-1"
+    >
     <template v-slot:top>
       <v-toolbar
         flat
       >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
         <v-spacer></v-spacer>
         <v-dialog
           v-model="dialog"
@@ -27,7 +21,7 @@
               class="mb-2"
               v-bind="props"
             >
-              New Item
+                Editar User
             </v-btn>
           </template>
           <v-card>
@@ -124,7 +118,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item ="{ item }">
+    <template v-slot:item="{ item }">
       <v-icon
         size="small"
         class="me-2"
@@ -188,7 +182,7 @@
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return 'Editar User' 
       },
     },
 
