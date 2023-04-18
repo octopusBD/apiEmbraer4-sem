@@ -24,6 +24,7 @@ public class EstatisticaService {
 	@Autowired
     private EstatisticaQtdContidoRepository estatisticaQtdContidoRepository;
 	
+	
 	// LISTAR DISPONIBILIDADE //
     public List<ViewEstatisticaDisponibilidadeEntity> getAllDisponibilidade() {
         return estatisticaDisponibilidadeRepository.findAll();
@@ -41,7 +42,7 @@ public class EstatisticaService {
     }
     
     // LISTAR BOLETIM POR ID CHASSI //
- 	public List<ViewEstatisticaQtdBoletimEntity> findByIdChassi(Integer idChassi) {
+ 	public List<ViewEstatisticaQtdBoletimEntity> findByIdChassiBol(Integer idChassi) {
  		return estatisticaQtdBoletimRepository.findByIdChassi(idChassi);
  	}
     
@@ -50,5 +51,10 @@ public class EstatisticaService {
     public List<ViewEstatisticaQtdContidoEntity> getAllQtdContido() {
         return estatisticaQtdContidoRepository.findAll();
     }
+    
+    // LISTAR CONTIDO POR ID CHASSI //
+  	public List<ViewEstatisticaQtdContidoEntity> findByIdChassiCon(Integer idChassi) {
+  		return estatisticaQtdContidoRepository.findByIdChassi(idChassi);
+  	}
     
 }

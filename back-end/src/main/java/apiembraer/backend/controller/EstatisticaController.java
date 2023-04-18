@@ -40,6 +40,7 @@ public class EstatisticaController {
 		return result;
 	}
 	
+	
 	// LISTAR QTD BOLETIM //
     @GetMapping("/listar/boletim")
     public ResponseEntity<List<ViewEstatisticaQtdBoletimEntity>> getAllQtdBoletim() {
@@ -51,7 +52,7 @@ public class EstatisticaController {
  	@GetMapping("/listar/boletim/{idChassi}")
  	@ResponseBody
  	public List<ViewEstatisticaQtdBoletimEntity> getViewSampleEntitiesBol(@PathVariable Integer idChassi) {
- 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByIdChassi(idChassi);
+ 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByIdChassiBol(idChassi);
  		return result;
  	}
     
@@ -63,6 +64,12 @@ public class EstatisticaController {
     	return new ResponseEntity<>(samples, HttpStatus.OK);
     }
 	
-	
+    // LISTAR QTD CONTIDO POR ID CHASSI //
+  	@GetMapping("/listar/contido/{idChassi}")
+  	@ResponseBody
+  	public List<ViewEstatisticaQtdContidoEntity> getViewSampleEntitiesCon(@PathVariable Integer idChassi) {
+  		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByIdChassiCon(idChassi);
+  		return result;
+  	}
 	
 }
