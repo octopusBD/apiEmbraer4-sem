@@ -34,6 +34,9 @@ public class ViewEstatisticaStatusEntity {
 
 	@Column(name = "STATUS_SAMPLE")
 	private String status;
+	
+	@Column(name = "ITEM")
+	private String item;
 
 
 }
