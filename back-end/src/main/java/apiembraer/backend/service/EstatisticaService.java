@@ -34,10 +34,17 @@ public class EstatisticaService {
 		return estatisticaDisponibilidadeRepository.findByIdUsuario(idUsuario);
 	}
     
+	
 	// LISTAR BOLETIM //
     public List<ViewEstatisticaQtdBoletimEntity> getAllQtdBoletim() {
         return estatisticaQtdBoletimRepository.findAll();
     }
+    
+    // LISTAR BOLETIM POR ID CHASSI //
+ 	public List<ViewEstatisticaQtdBoletimEntity> findByIdChassi(Integer idChassi) {
+ 		return estatisticaQtdBoletimRepository.findByIdChassi(idChassi);
+ 	}
+    
     
     // LISTAR CONTIDO //
     public List<ViewEstatisticaQtdContidoEntity> getAllQtdContido() {
