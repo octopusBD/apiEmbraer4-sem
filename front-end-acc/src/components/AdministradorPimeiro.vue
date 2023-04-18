@@ -1,31 +1,31 @@
 <template>
-    <div class="container">
-      <!-- Barra de ferramentas com filtros -->
-      <v-toolbar class="card-select" prominent>
-        <v-spacer></v-spacer>
-        <!-- Primeiro filtro -->
-        <div class="filtro1">
-          <v-select
-            label="User"
-            :items="chassiOptions"
-            background-color="white"
-            v-model="filtros.chassi"
-            @input="filtrarTabela"
-            variant="underlined"
-          ></v-select>
-        </div>
-        <!-- Segundo filtro -->
-        <div class="filtro2">
-          <v-select
-            label="Permission"
-            :items="statusSampleOptions"
-            background-color="white"
-            v-model="filtros.statusSample"
-            @input="filtrarTabela"
-            variant="underlined"
-          ></v-select>
-        </div>
-        <!-- Terceiro filtro
+  <div class="container">
+    <!-- Barra de ferramentas com filtros -->
+    <v-toolbar class="card-select" prominent>
+      <v-spacer></v-spacer>
+      <!-- Primeiro filtro -->
+      <div class="filtro1">
+        <v-select
+          label="User"
+          :items="chassiOptions"
+          background-color="white"
+          v-model="filtros.chassi"
+          @input="filtrarTabela"
+          variant="underlined"
+        ></v-select>
+      </div>
+      <!-- Segundo filtro -->
+      <div class="filtro2">
+        <v-select
+          label="Permission"
+          :items="statusSampleOptions"
+          background-color="white"
+          v-model="filtros.statusSample"
+          @input="filtrarTabela"
+          variant="underlined"
+        ></v-select>
+      </div>
+      <!-- Terceiro filtro
         <div class="filtro3">
           <v-select
             label="Permission"
@@ -36,80 +36,117 @@
             variant="underlined"
           ></v-select>
         </div> -->
-        <div>
-          <v-col cols="auto">
-            <v-btn
-              class="limpar"
-              v-show="!isMobile"
-              density="comfortable"
-              @click="limparFiltro"
-              icon="mdi-eraser"
-              size="50"
-              height="50"
-              width="50"
-            ></v-btn>
-          </v-col>
-        </div>
-  
-        <v-spacer></v-spacer>
-      </v-toolbar>
-      <!-- Tabela de dados -->
-      <v-card
-        class="mx-auto"
-        max-width="1200"
-        style="
-          height: 80%;
-          text-align: center;
-          margin-top: 70px;
-          margin: 40px;
-          width: 50;
-        "
+      <div>
+        <v-col cols="auto">
+          <v-btn
+            class="limpar"
+            v-show="!isMobile"
+            density="comfortable"
+            @click="limparFiltro"
+            icon="mdi-eraser"
+            size="50"
+            height="50"
+            width="50"
+          ></v-btn>
+        </v-col>
+      </div>
+
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <!-- Tabela de dados -->
+    <v-card
+      class="mx-auto"
+      max-width="1200"
+      style="
+        height: 80%;
+        text-align: center;
+        margin-top: 70px;
+        margin: 40px;
+        width: 50;
+      "
+    >
+      <!-- Tabela em si -->
+      <v-table
+        width="800"
+        height="450"
+        style="margin: 60 auto; border-spacing: 10px; margin: 30px"
       >
-  
-        <!-- Tabela em si -->
-        <v-table
-          width="800"
-          height="450"
-          style="margin: 60 auto; border-spacing: 10px; margin: 30px"
-        >
-          <thead>
-            <tr class="cabecalho" style="background-color: #333333">
-              <th style="color: white; text-align: center">User</th>
-              <th style="color: white; text-align: center">Permission</th>
-              <th style="color: white; text-align: center">Update</th>  
-              <th style="color: white; text-align: center">Delete</th>
-            </tr>
-          </thead>
-  
-          <tbody style="align-items: center">
-            <!-- Linhas da tabela, renderizadas com um loop -->
-            <tr v-for="(item, index) in paginatedItems" :key="index">
-              <td style="border-bottom: 1px solid black"> {{ item.item }}</td>
+        <thead>
+          <tr class="cabecalho" style="background-color: #333333">
+            <th style="color: white; text-align: center;">User</th>
+            <th style="color: white; text-align: center;">Permission</th>
+            <th style="color: white; text-align: center;">Update</th>
+            <th style="color: white; text-align: center;">Delete</th>
+          </tr>
+        </thead>
+
+        <tbody style="align-items: center">
+          <!-- Linhas da tabela, renderizadas com um loop -->
+          <tr v-for="(item, index) in paginatedItems" :key="index">
+            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
+            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
+
+            <td style="border-bottom: 1px solid black">
+              <v-btn class="editar" flat @click="showModal = true; selectedItem = item">
+                <v-icon class="mdi mdi-pencil"></v-icon>
+              </v-btn>
+            </td>
+            <v-dialog v-model="showModal" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5">Update</v-card-title>
+                <v-card-text>
+                  <v-text-field v-model="selectedItem.name" label="User"></v-text-field>
+                  <v-select v-model="selectedItem.description" label="Permission"></v-select>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn color="blue-darken-1" variant="text" @click="showModal = false">Cancel</v-btn>
+                  <v-btn color="blue-darken-1" variant="text" @click="updateItem">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
             
-              <td style="border-bottom: 1px solid black">
-                <v-btn class="editar" flat @click="editItem(index)">
-                  <v-icon class="mdi mdi-pencil"></v-icon>
-                </v-btn>
-              </td>
-              <td style="border-bottom: 1px solid black">
-                <v-btn class="deletar" flat @click="deleteItem(index)">
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
-        <!-- Paginação da tabela -->
-        <v-pagination
-          v-model="page"
-          :length="Math.ceil(filteredItems.length / perPage)"
-          prev-icon="mdi-menu-left"
-          next-icon="mdi-menu-right"
-          style="margin: 20px"
-        ></v-pagination>
-      </v-card>
-    </div>
-  </template>
+            <td style="border-bottom: 1px solid black">
+              <v-btn class="deletar" flat @click="showModals = true">
+                <v-icon class="mdi mdi-delete"></v-icon>
+              </v-btn>
+              <v-dialog v-model="showModals" max-width="500px">
+                <v-card>
+                  <v-card-title class="text-h5"
+                    >Are you sure you want to delete this item?</v-card-title
+                  >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="text"
+                      @click="showModals = false"
+                      >Cancel</v-btn
+                    >
+                    <v-btn
+                      color="blue-darken-1"
+                      variant="text"
+                      @click="deleteItemConfirm"
+                      >OK</v-btn
+                    >
+                    <v-spacer></v-spacer>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
+      <!-- Paginação da tabela -->
+      <v-pagination
+        v-model="page"
+        :length="Math.ceil(filteredItems.length / perPage)"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+        style="margin: 20px"
+      ></v-pagination>
+    </v-card>
+  </div>
+</template>
       <script>
   import axios from "axios";
   import { Icon } from "@iconify/vue";
@@ -135,7 +172,7 @@
         itens: [],
       };
     },
-    component: {
+    components: {
       Icon,
     },
     mounted() {
@@ -271,100 +308,98 @@
   </script>
       
       <style scoped>
-  .card-select {
-    margin-top: 0px;
-    max-width: 100%;
-    padding: 20px;
+.card-select {
+  margin-top: 0px;
+  max-width: 100%;
+  padding: 20px;
+}
+.filtro1 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 60px;
+}
+
+.filtro2 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+thead {
+  text-align: center;
+}
+.filtro3 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.filtro4 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.filtro5 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.pdf {
+  margin-right: 500px;
+}
+
+.editar {
+  background-color: transparent;
+  border: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .table {
+    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
   }
-  .filtro1 {
-    width: 280px;
-    display: flex;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-left: 60px;
-  }
-  
-  .filtro2 {
-    width: 280px;
-    display: flex;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  
-  thead {
-    text-align: center;
-  }
-  .filtro3 {
-    width: 280px;
-    display: flex;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  
-  .filtro4 {
-    width: 280px;
-    display: flex;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  
+  .filtro1,
+  .filtro2,
+  .filtro3,
+  .filtro4,
   .filtro5 {
-    width: 280px;
-    display: flex;
-    margin-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
+    width: 200px;
+    margin-right: 10px;
+    margin-top: 20px;
   }
-  
-  .pdf {
-    margin-right: 500px;
-  }
-  
-  .editar {
-    background-color: transparent;
-    border: none;
-  }
-  
-  .deletar {
-  }
-  
-  @media only screen and (max-width: 600px) {
-    .table {
-      font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
-    }
-    .filtro1,
-    .filtro2,
-    .filtro3,
-    .filtro4,
-    .filtro5 {
-      width: 200px;
-      margin-right: 10px;
-      margin-top: 20px;
-    }
-    /* .limpar {
+  /* .limpar {
           margin-left: auto;
           margin-right: 0;
           margin-top: 20px;
           } */
-    .filtro1,
-    .filtro2,
-    .filtro3,
-    .filtro4,
-    .filtro5 {
-      margin-top: 20px;
-    }
-    .v-card {
-      width: 90%;
-    }
-    .container {
-      font-size: 14px;
-    }
-    .v-table td,
-    .v-table th {
-      padding: 5px;
-    }
+  .filtro1,
+  .filtro2,
+  .filtro3,
+  .filtro4,
+  .filtro5 {
+    margin-top: 20px;
   }
-  </style>
+  .v-card {
+    width: 90%;
+  }
+  .container {
+    font-size: 14px;
+  }
+  .v-table td,
+  .v-table th {
+    padding: 5px;
+  }
+}
+</style>

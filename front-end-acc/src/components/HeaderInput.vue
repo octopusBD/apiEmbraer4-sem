@@ -23,7 +23,8 @@
           <Icon icon="ic:outline-person-search" width="25" />
           <span class="d-none d-sm-inline">CONSULTANT</span>
         </v-btn>
-        <v-btn to="editor">
+        <v-btn > 
+          <!-- to="editor" -->
           <Icon icon="ph:pen" width="25" />
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>

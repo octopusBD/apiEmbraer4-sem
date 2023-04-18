@@ -98,10 +98,10 @@
     >
         <thead>
         <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">User</th>
-            <th style="color: white; text-align: center">Chassi</th>
-            <th style="color: white; text-align: center">Item</th>
-            <th style="color: white; text-align: center">Status</th>  
+            <th style="color: white; text-align: center;">User</th>
+            <th style="color: white; text-align: center;">Chassi</th>
+            <th style="color: white; text-align: center;">Item</th>
+            <th style="color: white; text-align: center;">Status</th>  
         </tr>
         </thead>
 
@@ -109,34 +109,9 @@
         <!-- Linhas da tabela, renderizadas com um loop -->
         <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black"> {{ item.item }}</td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-            <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 36px"
-            ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-            <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 60px"
-            ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-            <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 50px"
-            ></v-checkbox>
-            </td>
-            <!-- <td style="border-bottom: 1px solid black">
-            <v-btn class="editar" flat @click="editItem(index)">
-                <v-icon class="mdi mdi-pencil"></v-icon>
-            </v-btn>
-            </td>
-            <td style="border-bottom: 1px solid black">
-            <v-btn class="deletar" flat @click="deleteItem(index)">
-                <v-icon>mdi-delete</v-icon>
-            </v-btn>
-            </td> -->
+            <td style="border-bottom: 1px solid black"> {{ item.item }}</td>
+            <td style="border-bottom: 1px solid black"> {{ item.item }}</td>
+            <td style="border-bottom: 1px solid black"> {{ item.item }}</td>
         </tr>
         </tbody>
     </v-table>

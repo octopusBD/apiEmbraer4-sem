@@ -45,8 +45,8 @@
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
           <tr class="cabecalho" style="background-color: #333333; ">
-            <th style="color: white;">Itens</th>
-            <th style="color: white;">Status</th>
+            <th style="color: white; text-align: center;">Itens</th>
+            <th style="color: white; text-align: center;">Status</th>
           </tr>
         </thead>
         <tbody>
