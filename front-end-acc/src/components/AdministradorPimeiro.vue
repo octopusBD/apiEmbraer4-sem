@@ -135,7 +135,7 @@
         itens: [],
       };
     },
-    components: {
+    component: {
       Icon,
     },
     mounted() {
