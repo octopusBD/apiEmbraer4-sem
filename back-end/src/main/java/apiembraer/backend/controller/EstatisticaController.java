@@ -26,59 +26,75 @@ public class EstatisticaController {
     @Autowired
     private EstatisticaService estatisticaservice;
 	
-	// LISTAR DISPONIBILIDADE //
-    @GetMapping("/listar/disponibilidade")
-    public ResponseEntity<List<ViewEstatisticaDisponibilidadeEntity>> getAllDisponibilidade() {
-        List<ViewEstatisticaDisponibilidadeEntity> samples = estatisticaservice.getAllDisponibilidade();
-        return new ResponseEntity<>(samples, HttpStatus.OK);
-    }
-    
-	// LISTAR DISPONIBILIDADE POR ID //
-	@GetMapping("/listar/disponibilidade/{idUsuario}")
-	@ResponseBody
-	public List<ViewEstatisticaDisponibilidadeEntity> getViewSampleEntitiesDisp(@PathVariable Integer idUsuario) {
-		List<ViewEstatisticaDisponibilidadeEntity> result = estatisticaservice.findByIdUsuario(idUsuario);
-		return result;
-	}
-	
-	
-	// LISTAR QTD BOLETIM //
-    @GetMapping("/listar/boletim")
-    public ResponseEntity<List<ViewEstatisticaQtdBoletimEntity>> getAllQtdBoletim() {
-    	List<ViewEstatisticaQtdBoletimEntity> samples = estatisticaservice.getAllQtdBoletim();
-    	return new ResponseEntity<>(samples, HttpStatus.OK);
-    }
-    
-    // LISTAR QTD BOLETIM POR ID CHASSI //
- 	@GetMapping("/listar/boletim/{idChassi}")
- 	@ResponseBody
- 	public List<ViewEstatisticaQtdBoletimEntity> getViewSampleEntitiesBol(@PathVariable Integer idChassi) {
- 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByIdChassiBol(idChassi);
- 		return result;
- 	}
-    
-    
-    // LISTAR QTD CONTIDO //
-    @GetMapping("/listar/contido")
-    public ResponseEntity<List<ViewEstatisticaQtdContidoEntity>> getAllQtdContido() {
-    	List<ViewEstatisticaQtdContidoEntity> samples = estatisticaservice.getAllQtdContido();
-    	return new ResponseEntity<>(samples, HttpStatus.OK);
-    }
-	
-    // LISTAR QTD CONTIDO POR ID CHASSI //
-  	@GetMapping("/listar/contido/{idChassi}")
-  	@ResponseBody
-  	public List<ViewEstatisticaQtdContidoEntity> getViewSampleEntitiesCon(@PathVariable Integer idChassi) {
-  		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByIdChassiCon(idChassi);
-  		return result;
-  	}
+	// VIEW_ESTATISTICA_STATUS //
   	
-	// LISTAR //
-    @GetMapping("/listar/status")
-    public ResponseEntity<List<ViewEstatisticaStatusEntity>> getAllStatus() {
-        List<ViewEstatisticaStatusEntity> samples = estatisticaservice.getAllStatus();
-        return new ResponseEntity<>(samples, HttpStatus.OK);
-    }
+		// LISTAR //
+	    @GetMapping("/listar/status")
+	    public ResponseEntity<List<ViewEstatisticaStatusEntity>> getAllStatus() {
+	        List<ViewEstatisticaStatusEntity> samples = estatisticaservice.getAllStatus();
+	        return new ResponseEntity<>(samples, HttpStatus.OK);
+	    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	// VIEW_ESTATISTICA_QTD_BOLETIM //
+		
+		// LISTAR QTD BOLETIM //
+	    @GetMapping("/listar/boletim")
+	    public ResponseEntity<List<ViewEstatisticaQtdBoletimEntity>> getAllQtdBoletim() {
+	    	List<ViewEstatisticaQtdBoletimEntity> samples = estatisticaservice.getAllQtdBoletim();
+	    	return new ResponseEntity<>(samples, HttpStatus.OK);
+	    }
+	    
+	    // LISTAR QTD BOLETIM POR ID CHASSI //
+	 	@GetMapping("/listar/boletim/{idChassi}")
+	 	@ResponseBody
+	 	public List<ViewEstatisticaQtdBoletimEntity> getViewSampleEntitiesBol(@PathVariable Integer idChassi) {
+	 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByIdChassiBol(idChassi);
+	 		return result;
+	 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    
+	 	
+	// VIEW_ESTATISTICA_QTD_CONTIDO //
+		 	
+	    // LISTAR QTD CONTIDO //
+	    @GetMapping("/listar/contido")
+	    public ResponseEntity<List<ViewEstatisticaQtdContidoEntity>> getAllQtdContido() {
+	    	List<ViewEstatisticaQtdContidoEntity> samples = estatisticaservice.getAllQtdContido();
+	    	return new ResponseEntity<>(samples, HttpStatus.OK);
+	    }
+		
+	    // LISTAR QTD CONTIDO POR ID CHASSI //
+	  	@GetMapping("/listar/contido/{idChassi}")
+	  	@ResponseBody
+	  	public List<ViewEstatisticaQtdContidoEntity> getViewSampleEntitiesCon(@PathVariable Integer idChassi) {
+	  		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByIdChassiCon(idChassi);
+	  		return result;
+	  	}
+  	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  	
+	  	
+	// VIEW_ESTATISTICA_DISPONIBILIDADE //
+	    
+			// LISTAR DISPONIBILIDADE //
+		    @GetMapping("/listar/disponibilidade")
+		    public ResponseEntity<List<ViewEstatisticaDisponibilidadeEntity>> getAllDisponibilidade() {
+		        List<ViewEstatisticaDisponibilidadeEntity> samples = estatisticaservice.getAllDisponibilidade();
+		        return new ResponseEntity<>(samples, HttpStatus.OK);
+		    }
+		    
+			// LISTAR DISPONIBILIDADE POR ID //
+			@GetMapping("/listar/disponibilidade/{idUsuario}")
+			@ResponseBody
+			public List<ViewEstatisticaDisponibilidadeEntity> getViewSampleEntitiesDisp(@PathVariable Integer idUsuario) {
+				List<ViewEstatisticaDisponibilidadeEntity> result = estatisticaservice.findByIdUsuario(idUsuario);
+				return result;
+			}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	  	
+
 	
 }
