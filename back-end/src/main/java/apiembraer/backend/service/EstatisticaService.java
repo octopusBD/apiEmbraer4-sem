@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
+import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.repository.EstatisticaDisponibilidadeRepository;
 import apiembraer.backend.repository.EstatisticaQtdBoletimRepository;
 import apiembraer.backend.repository.EstatisticaQtdContidoRepository;
+import apiembraer.backend.repository.EstatisticaStatusRepository;
 
 @Service
 public class EstatisticaService {
@@ -23,6 +25,10 @@ public class EstatisticaService {
 	
 	@Autowired
     private EstatisticaQtdContidoRepository estatisticaQtdContidoRepository;
+	
+	@Autowired
+    private EstatisticaStatusRepository estatisticastatusrepository;
+	
 	
 	
 	// LISTAR DISPONIBILIDADE //
@@ -56,5 +62,11 @@ public class EstatisticaService {
   	public List<ViewEstatisticaQtdContidoEntity> findByIdChassiCon(Integer idChassi) {
   		return estatisticaQtdContidoRepository.findByIdChassi(idChassi);
   	}
+  	
+    
+	 // LISTAR //
+    public List<ViewEstatisticaStatusEntity> getAllStatus() {
+        return estatisticastatusrepository.findAll();
+    }
     
 }

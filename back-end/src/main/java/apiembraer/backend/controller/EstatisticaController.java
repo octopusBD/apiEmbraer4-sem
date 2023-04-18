@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
+import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.service.EstatisticaService;
 
 @RestController
@@ -71,5 +72,13 @@ public class EstatisticaController {
   		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByIdChassiCon(idChassi);
   		return result;
   	}
+  	
+	// LISTAR //
+    @GetMapping("/listar/status")
+    public ResponseEntity<List<ViewEstatisticaStatusEntity>> getAllStatus() {
+        List<ViewEstatisticaStatusEntity> samples = estatisticaservice.getAllStatus();
+        return new ResponseEntity<>(samples, HttpStatus.OK);
+    }
+    
 	
 }
