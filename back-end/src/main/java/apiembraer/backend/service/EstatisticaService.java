@@ -47,9 +47,9 @@ public class EstatisticaService {
         return estatisticaQtdBoletimRepository.findAll();
     }
     
-    // LISTAR BOLETIM POR ID CHASSI //
- 	public List<ViewEstatisticaQtdBoletimEntity> findByIdChassiBol(Integer idChassi) {
- 		return estatisticaQtdBoletimRepository.findByIdChassi(idChassi);
+    // LISTAR BOLETIM POR CHASSI //
+ 	public List<ViewEstatisticaQtdBoletimEntity> findByChassiBol(String chassi) {
+ 		return estatisticaQtdBoletimRepository.findByChassi(chassi);
  	}
     
     
