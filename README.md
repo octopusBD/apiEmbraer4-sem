@@ -92,7 +92,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>
       <li>Develop login and authentication interface for each user type;</li>
       <li>
-            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
+            Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.
       </li>
       <li>Finishing the configuration system of notifications for updates;</li>
 </ul>
@@ -103,7 +103,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul>  
       <li>Develop the functionality to generate a statistical visualization;</li>
       <li>
-            Development of the administrator interface with the following functionalities: Create, modify and remove clients from the database.
+            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
       </li>
 </ul>
 
