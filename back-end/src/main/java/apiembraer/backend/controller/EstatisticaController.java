@@ -46,11 +46,11 @@ public class EstatisticaController {
 	    	return new ResponseEntity<>(samples, HttpStatus.OK);
 	    }
 	    
-	    // LISTAR QTD BOLETIM POR ID CHASSI //
-	 	@GetMapping("/listar/boletim/{idChassi}")
+	    // LISTAR QTD BOLETIM POR CHASSI //
+	 	@GetMapping("/listar/boletim/{chassi}")
 	 	@ResponseBody
-	 	public List<ViewEstatisticaQtdBoletimEntity> getViewSampleEntitiesBol(@PathVariable Integer idChassi) {
-	 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByIdChassiBol(idChassi);
+	 	public List<ViewEstatisticaQtdBoletimEntity> getViewSampleEntitiesBol(@PathVariable String chassi) {
+	 		List<ViewEstatisticaQtdBoletimEntity> result = estatisticaservice.findByChassiBol(chassi);
 	 		return result;
 	 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
