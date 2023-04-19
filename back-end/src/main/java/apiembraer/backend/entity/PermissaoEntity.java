@@ -15,7 +15,6 @@ import lombok.Data;
 @Table(name = "PERMISSAO")
 public class PermissaoEntity {
 
-
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_permissao")
     @SequenceGenerator(name = "seq_permissao", sequenceName = "SEQ_PERMISSAO", allocationSize = 1)

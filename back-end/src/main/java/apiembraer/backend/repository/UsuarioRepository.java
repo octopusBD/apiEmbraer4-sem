@@ -8,9 +8,5 @@ import apiembraer.backend.entity.UsuarioEntity;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
 
-	
-
-
-
-
+	public UsuarioEntity findByNomeUsuario(String nomeUsuario);
 }

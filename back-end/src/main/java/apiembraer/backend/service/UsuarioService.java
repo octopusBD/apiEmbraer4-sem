@@ -10,6 +10,8 @@ import apiembraer.backend.entity.PermissaoEntity;
 import apiembraer.backend.entity.UsuarioEntity;
 import apiembraer.backend.repository.PermissaoRepository;
 import apiembraer.backend.repository.UsuarioRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UsuarioService {
@@ -19,7 +21,11 @@ public class UsuarioService {
 	
 	@Autowired
 	PermissaoRepository permissaoRepository;
+	
+    @Autowired
+    private PasswordEncoder encoder;
 
+    @PreAuthorize("hasRole('ADMIN')")
 	public UsuarioEntity atualizarUsuario(Integer idUsuario, UsuarioDTO usuarioNovo) {
 	    Optional<UsuarioEntity> optionalUsuario = usuarioRepository.findById(idUsuario);
 	    if (optionalUsuario.isPresent()) {
