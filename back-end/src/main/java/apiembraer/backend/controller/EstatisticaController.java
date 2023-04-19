@@ -66,11 +66,11 @@ public class EstatisticaController {
 	    	return new ResponseEntity<>(samples, HttpStatus.OK);
 	    }
 		
-	    // LISTAR QTD CONTIDO POR ID CHASSI //
-	  	@GetMapping("/listar/contido/{idChassi}")
+	    // LISTAR QTD CONTIDO POR CHASSI //
+	  	@GetMapping("/listar/contido/{chassi}")
 	  	@ResponseBody
-	  	public List<ViewEstatisticaQtdContidoEntity> getViewSampleEntitiesCon(@PathVariable Integer idChassi) {
-	  		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByIdChassiCon(idChassi);
+	  	public List<ViewEstatisticaQtdContidoEntity> getViewSampleEntitiesCon(@PathVariable String chassi) {
+	  		List<ViewEstatisticaQtdContidoEntity> result = estatisticaservice.findByChassiCon(chassi);
 	  		return result;
 	  	}
   	

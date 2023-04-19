@@ -58,9 +58,9 @@ public class EstatisticaService {
         return estatisticaQtdContidoRepository.findAll();
     }
     
-    // LISTAR CONTIDO POR ID CHASSI //
-  	public List<ViewEstatisticaQtdContidoEntity> findByIdChassiCon(Integer idChassi) {
-  		return estatisticaQtdContidoRepository.findByIdChassi(idChassi);
+    // LISTAR CONTIDO POR CHASSI //
+  	public List<ViewEstatisticaQtdContidoEntity> findByChassiCon(String chassi) {
+  		return estatisticaQtdContidoRepository.findByChassi(chassi);
   	}
   	
     
