@@ -1,6 +1,6 @@
 <template>
   <v-card class="grafico-bar card-size">
-    <v-card-title>My Chart</v-card-title>
+    <v-card-title>Itens por Chassi</v-card-title>
     <v-card-text>
       <canvas ref="chartCanvas"></canvas>
     </v-card-text>
@@ -17,13 +17,12 @@ export default {
     const chartCanvas = ref(null);
     const qtdBoletins = ref([]);
     const chassi = ref([]);
-    const labels = ref([]);
 
     const getData = async () => {
   try {
-    const response = await axios.get("/estatistica/listar/boletim");
-    chassi.value = response.data.map((item) => item.chassi);
-    qtdBoletins.value = response.data.map((item) => item.qtdBoletins);
+    const response = await axios.get("/estatistica/listar/boletim"); // STRING PARA ACESSO A API
+    chassi.value = response.data.map((item) => item.chassi); // PUXAR ITENS COMO ESSE EXEMPLO  
+    qtdBoletins.value = response.data.map((item) => item.qtdBoletins);  // PUXAR ITENS COMO ESSE EXEMPLO  
 
     console.log(response);
     
@@ -36,20 +35,20 @@ const createChart = () => {
   if (!chartCanvas.value) return;
 
   const data = {
-    labels: chassi.value,
+    labels: chassi.value, //EIXO X
     datasets: [
       
       {
         label: "chassi",
         borderColor: 'rgb(54, 162, 235)',
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        data: qtdBoletins.value // Alteração aqui
+        data: qtdBoletins.value // EIXO Y
       }
     ]
   };
 
   const config = {
-    type: 'line',
+    type: 'bar', // TIPO GRAFICO
     data: data,
     options: {
       scales: {
