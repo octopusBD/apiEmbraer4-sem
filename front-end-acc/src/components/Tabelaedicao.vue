@@ -44,10 +44,14 @@
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
         <thead>
-          <tr class="cabecalho" style="background-color: #333333; ">
-            <th style="color: white; text-align: center;">Itens</th>
-            <th style="color: white; text-align: center;">Status</th>
-          </tr>
+          <tr class="cabecalho" style="background-color: #333333;">
+          <th style="color: white; text-align: center;">Itens</th>
+          <th style="color: white; text-align: center;">Status</th>
+          <th style="color: white; text-align: center;">Update</th>
+          <th style="color: white; text-align: center;">Delete</th>
+              
+
+        </tr>
         </thead>
         <tbody>
           <!-- Linhas da tabela, renderizadas com um loop -->
@@ -57,6 +61,16 @@
               <!-- Chips coloridos com o status da amostra -->
               <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
+            <td style="border-bottom: 1px solid black">
+            <v-btn class="editar" flat @click="editItem(index)">
+              <v-icon class="mdi mdi-pencil"></v-icon>
+            </v-btn>
+          </td>
+          <td style="border-bottom: 1px solid black">
+            <v-btn class="deletar" flat @click="deleteItem(index)">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </td>
           </tr>
         </tbody>
       </v-table>

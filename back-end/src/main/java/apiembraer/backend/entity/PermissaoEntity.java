@@ -24,4 +24,5 @@ public class PermissaoEntity {
 	@Column(name = "PERMISSAO")
 	private String permissao;
 
+
 }

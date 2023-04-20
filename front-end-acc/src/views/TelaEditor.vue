@@ -1,13 +1,13 @@
 <template>
     <HeaderInput />
-    <TabelaInput />
+   <TabelaedicaoVue/>
     <Footersrinput />
-</template>
+</template>s
 
     <script setup>
         import HeaderInput from '@/components/HeaderInput.vue'
-        import TabelaInput from '@/components/TabelaInput.vue';
-        import Footersrinput from '@/components/Footersrinput.vue';
+        import TabelaedicaoVue from '@/components/Tabelaedicao.vue';
+        import Footersrinput from '@/components/Footersrinput.vue'
         </script>
 <style>
 </style>

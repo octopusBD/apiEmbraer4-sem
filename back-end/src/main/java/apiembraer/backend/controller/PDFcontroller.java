@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.entity.ViewSampleEntity;
 import apiembraer.backend.report.PdfConsulta;
+import apiembraer.backend.report.PdfConsultaEstatistica;
 import apiembraer.backend.service.ListarService;
 
 @CrossOrigin
@@ -44,6 +46,36 @@ public class PDFcontroller {
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsulta.exportarPdfConsulta(result);
+
+		HttpHeaders headers = new HttpHeaders();
+
+		// Define o cabeçalho HTTP com o nome do arquivo do relatório a ser baixado
+		headers.add("Content-Disposition", "attachment;filename=RelatorioConsulta.pdf");
+
+		// Retorna a resposta HTTP com o conteúdo do relatório em PDF
+		return ResponseEntity
+			.ok()
+			.headers(headers)
+			.contentType(MediaType.APPLICATION_PDF)
+			.body(new InputStreamResource(bis));
+
+    }
+	
+    //Este método retorna um relatório em formato PDF contendo informações das amostras de um determinado usuário e chassi que foram consultadas.
+	@GetMapping(value = "estatistica/{idUsuario}/{chassi}", produces = MediaType.APPLICATION_PDF_VALUE)
+	
+		public ResponseEntity<InputStreamResource> relatorioConsultaa (
+			HttpServletResponse response, 
+			@PathVariable("idUsuario") Integer idUsuario, 
+			@PathVariable("chassi") String chassi
+		) throws IOException {
+
+		// Chama o método que retorna a lista de amostras da consulta
+		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(idUsuario, chassi);
+		System.err.println(result);
+		
+		// Gera o relatório em PDF com base na lista de amostras retornada
+        ByteArrayInputStream bis = PdfConsultaEstatistica.exportarPdfConsulta(result);
 
 		HttpHeaders headers = new HttpHeaders();
 

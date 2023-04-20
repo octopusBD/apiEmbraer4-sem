@@ -21,6 +21,9 @@ public class ChassiEntity {
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;
 
+	@Column(name = "Parte")
+	private String parte;
+	
 	@Column(name = "Chassi")
 	private String chassi;
 
