@@ -16,6 +16,7 @@ import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 import apiembraer.backend.service.EstatisticaService;
 
 @RestController
@@ -95,6 +96,19 @@ public class EstatisticaController {
 			}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  	
-
+			// LISTAR VIEW STATUS USUARIO //
+		    @GetMapping("/listar/statususuario")
+		    public ResponseEntity<List<ViewStatusUsuarioEntity>> getAllStatusUsuario() {
+		        List<ViewStatusUsuarioEntity> samples = estatisticaservice.getAllStatusUsuario();
+		        return new ResponseEntity<>(samples, HttpStatus.OK);
+		    }
+			
+		    // LISTAR VIEW STATUS USUARIO POR ID//
+		    @GetMapping("/listar/statususuario/{idUsuario}")
+		    @ResponseBody
+			public List<ViewStatusUsuarioEntity> getViewSampleEntitiesStatusUsu(@PathVariable Integer idUsuario) {
+				List<ViewStatusUsuarioEntity> result = estatisticaservice.findByStatusUsuario(idUsuario);
+				return result;
+			}
 	
 }
