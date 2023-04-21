@@ -3,7 +3,7 @@
     <v-layout style="height: 138px; background-color: #253381;" class="border">
       <!--  Botão página inicial -->
       <v-btn to="home" class="home" variant="text">
-        <Icon icon="material-symbols:assignment-return-outline-rounded" width="35" />
+        <Icon icon="ic:outline-home" width="35" />
       </v-btn>
       <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
       <div class="mx-auto my-4">
@@ -28,6 +28,9 @@
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>
       </v-bottom-navigation>
+      <v-btn to="/" class="sair" variant="text">
+        <Icon icon="fluent:arrow-exit-20-regular" width="35" />
+      </v-btn>
     </v-layout>
   </div>
 </template>
@@ -88,14 +91,24 @@ export default {
 }
 
 .notificacao{
-  margin-top: 25px;
+  margin-top: 26px;
+  margin-left: 3px;
+  border-radius: 100rem;
+  color: white;
 }
 
 .home{
   margin-top: 26px;
   margin-left: 5px;
-  border-radius: 10rem;
+  border-radius: 100rem;
   color: white;
+}
+.sair{
+  margin-top: 26px;
+  margin-left: 3px;
+  border-radius: 100rem;
+  color: white;
+  margin-right: 5px;
 }
 
 @media only screen and (max-width: 600px) {

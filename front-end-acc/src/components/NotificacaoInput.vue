@@ -4,7 +4,8 @@
     <v-badge :content="numNotifications" color="error" floating>
     </v-badge>
     <!-- Botão para abrir o popup de notificações -->
-    <v-btn class="notification-button" @click="openPopup" prepend-icon="mdi-bell" variant="text"></v-btn>
+    <v-btn class="notification-button" @click="openPopup" prepend-icon="mdi-bell" style="size
+    35" variant="text"></v-btn>
     <!-- Popup de notificações -->
     <v-dialog v-model="showPopup" :max-width="isMobile ? 400 : 600">
       <v-card class="notification-card" style="max-height: 400px;">
