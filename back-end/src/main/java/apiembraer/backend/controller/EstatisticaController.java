@@ -16,6 +16,8 @@ import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewStatusChassiEntity;
+import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 import apiembraer.backend.service.EstatisticaService;
 
 @RestController
@@ -95,6 +97,34 @@ public class EstatisticaController {
 			}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	  	
-
+			// LISTAR VIEW STATUS USUARIO //
+		    @GetMapping("/listar/statususuario")
+		    public ResponseEntity<List<ViewStatusUsuarioEntity>> getAllStatusUsuario() {
+		        List<ViewStatusUsuarioEntity> samples = estatisticaservice.getAllStatusUsuario();
+		        return new ResponseEntity<>(samples, HttpStatus.OK);
+		    }
+			
+		    // LISTAR VIEW STATUS USUARIO POR ID //
+		    @GetMapping("/listar/statususuario/{nomeUsuario}")
+		    @ResponseBody
+			public List<ViewStatusUsuarioEntity> getViewSampleEntitiesStatusUsu(@PathVariable String nomeUsuario) {
+				List<ViewStatusUsuarioEntity> result = estatisticaservice.findByStatusUsuario(nomeUsuario);
+				return result;
+			}
 	
+		    // LISTAR VIEW STATUS CHASSI //
+		    @GetMapping("/listar/statuschassi")
+		    public ResponseEntity<List<ViewStatusChassiEntity>> getAllStatusChassi() {
+		        List<ViewStatusChassiEntity> samples = estatisticaservice.getAllStatusChassi();
+		        return new ResponseEntity<>(samples, HttpStatus.OK);
+		    }
+			
+		    // LISTAR VIEW STATUS CHASSI POR CHASSI //
+		    @GetMapping("/listar/statuschassi/{chassi}")
+		    @ResponseBody
+			public List<ViewStatusChassiEntity> getViewSampleEntitiesStatusCha(@PathVariable String chassi) {
+				List<ViewStatusChassiEntity> result = estatisticaservice.findByStatusChassi(chassi);
+				return result;
+			}
+		    
 }
