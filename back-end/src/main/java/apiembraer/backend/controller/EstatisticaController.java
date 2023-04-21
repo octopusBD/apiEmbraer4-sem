@@ -105,10 +105,10 @@ public class EstatisticaController {
 		    }
 			
 		    // LISTAR VIEW STATUS USUARIO POR ID //
-		    @GetMapping("/listar/statususuario/{idUsuario}")
+		    @GetMapping("/listar/statususuario/{nomeUsuario}")
 		    @ResponseBody
-			public List<ViewStatusUsuarioEntity> getViewSampleEntitiesStatusUsu(@PathVariable Integer idUsuario) {
-				List<ViewStatusUsuarioEntity> result = estatisticaservice.findByStatusUsuario(idUsuario);
+			public List<ViewStatusUsuarioEntity> getViewSampleEntitiesStatusUsu(@PathVariable String nomeUsuario) {
+				List<ViewStatusUsuarioEntity> result = estatisticaservice.findByStatusUsuario(nomeUsuario);
 				return result;
 			}
 	

@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 
 @Repository
-public interface ViewStatusUsuarioRepository extends JpaRepository<ViewStatusUsuarioEntity, Integer> {
+public interface ViewStatusUsuarioRepository extends JpaRepository<ViewStatusUsuarioEntity, String> {
 
-public List <ViewStatusUsuarioEntity> findByIdUsuario(Integer idUsuario);
+public List <ViewStatusUsuarioEntity> findByNomeUsuario(String nomeUsuario);
 	
-	@Query(value = "SELECT * FROM VIEW_STATUS_USUARIO WHERE ID_USUARIO = ?1",nativeQuery = true)
-	Optional<ViewStatusUsuarioEntity> findAllByidUsuario(Integer idUsuario);
+	@Query(value = "SELECT * FROM VIEW_STATUS_USUARIO WHERE NOME_USUARIO = ?1",nativeQuery = true)
+	Optional<ViewStatusUsuarioEntity> findAllBynomeUsuario(String nomeUsuario);
 	
 }

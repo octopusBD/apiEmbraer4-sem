@@ -16,8 +16,8 @@ import lombok.Data;
 public class ViewStatusUsuarioEntity {
 
 	@Id
-	@Column(name = "ID_USUARIO")
-	private Integer idUsuario;
+	@Column(name = "NOME_USUARIO")
+	private String nomeUsuario;
 	
 	@Column(name = "INCORPORATED")
 	private Integer incorporated;

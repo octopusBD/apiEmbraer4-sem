@@ -85,8 +85,8 @@ public class EstatisticaService {
     }    
     
     // LISTAR VIEW STATUS USUARIO POR ID //
-    public List<ViewStatusUsuarioEntity> findByStatusUsuario(Integer idUsuario) {
-        return statususuariorepository.findByIdUsuario(idUsuario);
+    public List<ViewStatusUsuarioEntity> findByStatusUsuario(String nomeUsuario) {
+        return statususuariorepository.findByNomeUsuario(nomeUsuario);
     } 
     
     
