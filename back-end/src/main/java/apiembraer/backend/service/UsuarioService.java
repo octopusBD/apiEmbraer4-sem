@@ -10,8 +10,11 @@ import apiembraer.backend.DTO.UsuarioDTO;
 import apiembraer.backend.entity.PermissaoEntity;
 import apiembraer.backend.entity.SampleEntity;
 import apiembraer.backend.entity.UsuarioEntity;
+import apiembraer.backend.entity.ViewListarUsuario;
 import apiembraer.backend.repository.PermissaoRepository;
 import apiembraer.backend.repository.UsuarioRepository;
+import apiembraer.backend.repository.ViewListarUsuarios;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,6 +26,11 @@ public class UsuarioService {
 	
 	@Autowired
 	PermissaoRepository permissaoRepository;
+	
+	@Autowired
+	ViewListarUsuarios viewlistarusuarios;
+	
+	
 	
     @Autowired
     private PasswordEncoder encoder;
@@ -54,8 +62,8 @@ public class UsuarioService {
 	    }
 	   
 	    // LISTAR //
-	    public List<UsuarioEntity> getAllUsuarios() {
-	        return usuarioRepository.findAll();
+	    public List<ViewListarUsuario> getAllUsuarios() {
+	        return viewlistarusuarios.findAll();
 	    }
 	   
 	}

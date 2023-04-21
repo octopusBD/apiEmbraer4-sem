@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import apiembraer.backend.DTO.UsuarioDTO;
 import apiembraer.backend.entity.UsuarioEntity;
+import apiembraer.backend.entity.ViewListarUsuario;
 import apiembraer.backend.service.UsuarioService;
 
 @RestController
@@ -43,8 +44,8 @@ public class UsuarioController {
 	  
 	    // LISTAR //
 	    @GetMapping("/listar")
-	    public ResponseEntity<List<UsuarioEntity>> getAllUsuarios() {
-	        List<UsuarioEntity> usuarios = usuarioService.getAllUsuarios();
+	    public ResponseEntity<List<ViewListarUsuario>> getAllUsuarios() {
+	        List<ViewListarUsuario> usuarios = usuarioService.getAllUsuarios();
 	        return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	    }
 

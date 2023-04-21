@@ -145,11 +145,11 @@ private EstatisticaService estatisticaservice;
 		return result;
 	} 
 
-	// LISTAR PERMISSAO //
-	@GetMapping("/listar/permissao")
-	public ResponseEntity<List<ViewPermissaoUsuarioEntity>> getAllPermissaoUsuario() {
-		List<ViewPermissaoUsuarioEntity> samples = estatisticaservice.getAllPermissoesUsuario();
-		return new ResponseEntity<>(samples, HttpStatus.OK);
-	}
+//	// LISTAR PERMISSAO //
+//	@GetMapping("/listar/permissao")
+//	public ResponseEntity<List<ViewPermissaoUsuarioEntity>> getAllPermissaoUsuario() {
+//		List<ViewPermissaoUsuarioEntity> samples = estatisticaservice.getAllPermissoesUsuario();
+//		return new ResponseEntity<>(samples, HttpStatus.OK);
+//	}
 
 }
