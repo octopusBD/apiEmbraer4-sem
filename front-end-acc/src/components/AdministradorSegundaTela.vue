@@ -19,10 +19,10 @@
       <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
-          label="Chassi"
-          :items="chassiOptions"
+          label="Status"
+          :items="statusOptions"
           background-color="white"
-          v-model="filtros.chassi"
+          v-model="filtros.status"
           @input="filtrarTabela"
           variant="underlined"
           class="filtro"
@@ -78,7 +78,6 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">User</th>
             <th style="color: white; text-align: center">Chassi</th>
             <th style="color: white; text-align: center">Item</th>
             <th style="color: white; text-align: center">Status</th>
@@ -88,9 +87,7 @@
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black">
-              {{ item.nomeUsuario }}
-            </td>
+          
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black">{{ item.status }}</td>
