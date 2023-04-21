@@ -212,14 +212,17 @@ export default {
     //   }
     // },
     onClick() {
-      const selecao = this.filtros.chassi; // obter a seleção
-      console.log(selecao); // exibir a seleção no console
-      if (selecao == "") {
-        alert("Please select a chassi");
+      
+      if (this.nomeUsuarioOptions == "") {
+        alert("Please select a user");
+        return;
+      }
+      if (this.statusOptions == "") {
+        alert("Please select a status");
         return;
       }
       axios({
-        url: "pdf/2/" + selecao,
+        url: "pdf/estatistica/" + this.nomeUsuarioOptions + "/" + this.statusOptions,
         method: "GET",
         responseType: "blob",
       }).then((response) => {

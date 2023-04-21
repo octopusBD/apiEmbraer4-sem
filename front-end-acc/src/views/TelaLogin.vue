@@ -5,82 +5,99 @@
         class="card"
         width="400"
         height="739px"
-        >
-        <v-img
-        class="logo-embraer"
-        :width="200"
-        src="@/assets/embraer-3.png"
-        ></v-img>
+      >
+        <!-- LOGO -->
+        <v-img class="logo-embraer" :width="200" src="@/assets/embraer-3.png"></v-img>
+        
+        <!-- CAMPOS -->
         <v-sheet width="300" class="mx-auto">
           <v-form fast-fail @submit.prevent>
             <v-text-field
-            density="compact"
-            bg-color="white"
-            hide-selected
-            v-model="email"
-            label="email"
-            :rules="emailRules"
-            ></v-text-field>
+              density="compact"
+              bg-color="white"
+              hide-selected
+              v-model="Login"
+              label="Login"
+            ></v-text-field
+            >
             <v-text-field
-            class="teste"
-            v-model="password"
-            density="compact"
-            bg-color="white"
-            hide-selected
-            label="password"
-            :rules="passwordRules"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
+              class="teste"
+              density="compact"
+              bg-color="white"
+              hide-selected
+              v-model="Password"
+              label="Password"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
+
+    
           </v-form>
         </v-sheet>
-          <a  class='referencia' href="/">Forgot your password?</a>  
-          <v-btn
-            class="btn-login"
-            color="#253381"
-            >
+
+        <a  class='referencia' href="/">Forgot your password?</a>  
+        <v-btn  @click="onClick()"  class="btn-login" color="#253381">
             <span>Login</span>
-            <v-icon  class="icon" right>
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="Login" aria-hidden="true" width="24" height="24" viewBox="0 0 32 32" role="img">
-                <path d="M22 16L12 26 10.6 24.6 19.2 16 10.6 7.4 12 6z"></path></svg>
-            </v-icon>
+            <v-icon class="icon" right> <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="Login" aria-hidden="true" width="24" height="24" viewBox="0 0 32 32" role="img"> <path d="M22 16L12 26 10.6 24.6 19.2 16 10.6 7.4 12 6z"></path></svg> </v-icon>
           </v-btn>
-          <!-- <div class="imgs">
-            <v-img
-            class="grupo"
-            :width="200"
-            src="@/assets/grupo.png"
-            ></v-img> 
-          </div> -->
-        </v-card>
+      </v-card>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import router from '@/router/index.js'
+
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      Login: '',
+      Password: '',
       showPassword: false
     }
     
   },
-  computed: {
-    passwordRules() {
-      return [
-        value => !!value || 'Required.',
-        value => (value && value.length >= 8) || 'Password must be at least 8 characters.'
-      ]
-    },
-    emailRules() {
-      return [
-        value => !!value || 'Required.',
-        value => /.+@.+\..+/.test(value) || 'Invalid email.'
-      ]
+  methods: {
+    async onClick() { 
+        if (this.Login == ''){
+          alert("Login Empty");
+          return
+        }
+
+        if (this.Password == ''){
+            alert("Password Empty");
+            return
+          }
+
+      try {
+          const response = await axios.post('login', {
+            loginUsuario: this.Login,
+            senhaUsuario: this.Password
+          });
+          const token = response.data.token;
+          const loginUsuario = response.data.loginUsuario;
+          const autorizacao = response.data.autorizacao;
+          sessionStorage.setItem('token', token);
+          sessionStorage.setItem('loginUsuario', loginUsuario);
+          sessionStorage.setItem('autorizacao', autorizacao);
+      
+          // Redirect to the home page
+          router.push('/home');
+          //alert("Login successful");
+          
+
+
+      } catch (error) {
+        if (error.response.status === 403) {
+          alert("Login failed. Please check your credentials and try again.");
+          return;
+        }
+        console.error(error);
+      }
     }
+
   }
 }
 </script>
@@ -126,3 +143,4 @@ export default {
   background-color: #253381;
 }
 </style>
+

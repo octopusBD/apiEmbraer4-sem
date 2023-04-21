@@ -1,6 +1,6 @@
 <template>
   <v-card class="grafico-bar card-size">
-    <v-card-title>Itens por Chassi</v-card-title>
+    <v-card-title>Items by Chassis</v-card-title>
     <v-card-text>
       <canvas ref="chartCanvas"></canvas>
     </v-card-text>

@@ -15,16 +15,15 @@
       <notificacao-input-vue class="notificacao"></notificacao-input-vue>
       <!-- Botões que levam a diferentes páginas -->
       <v-bottom-navigation :active="active" color="">
-        <v-btn to="administrador">
+        <v-btn @click="redirect('administrador')">
           <Icon icon="clarity:administrator-line" width="25" />
           <span class="d-none d-sm-inline">ADMINISTRATOR</span>
         </v-btn>
-        <v-btn to="consulta">
+        <v-btn @click="redirect('consulta')">
           <Icon icon="ic:outline-person-search" width="25" />
           <span class="d-none d-sm-inline">CONSULTANT</span>
         </v-btn>
-        <v-btn > 
-          <!-- to="editor" -->
+        <v-btn  @click="redirect('editor')"> 
           <Icon icon="ph:pen" width="25" />
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>
@@ -35,6 +34,7 @@
 <script>
 import NotificacaoInputVue from '@/components/NotificacaoInput.vue'
 import { Icon } from '@iconify/vue';
+import router from '@/router/index.js'
 export default {
   // Define um objeto de dados com uma variável booleana para exibir ou esconder notificações
   data: () => ({ active: true }),
@@ -47,7 +47,37 @@ export default {
     title: 'Dashboard',
     disabled: false,
     href: 'breadcrumbs_dashboard',
-  }]
+  }],
+  methods: {
+    async redirect(tela) { 
+
+      const token_header = sessionStorage.getItem('token');
+      const loginUsuario_header = sessionStorage.getItem('loginUsuario');
+      const autorizacao_header = sessionStorage.getItem('autorizacao');
+
+      if(tela == 'administrador'){
+        if(autorizacao_header != 'Administrator'){
+          alert("Alert! You do not have permission to access this page.")
+        }else{
+          router.push('/administrador');
+        }
+      }
+
+      if(tela == 'editor'){
+        if(autorizacao_header == 'Editor' || autorizacao_header == 'Administrator'){
+          
+        }else{
+          alert("Alert! You do not have permission to access this page.")
+         //router.push('/home');
+        }
+      }
+
+      if(tela == 'consulta'){
+        router.push('/consulta');
+      }
+    }
+  
+  }
 }
 </script>
 <style>
