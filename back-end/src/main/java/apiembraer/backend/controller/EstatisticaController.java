@@ -16,6 +16,7 @@ import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewEstatisticaUsuario;
 import apiembraer.backend.entity.ViewStatusChassiEntity;
 import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 import apiembraer.backend.service.EstatisticaService;
@@ -126,5 +127,51 @@ public class EstatisticaController {
 				List<ViewStatusChassiEntity> result = estatisticaservice.findByStatusChassi(chassi);
 				return result;
 			}
+		    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		    
+		    
+		// VIEW_ESTATISTICA_USUARIO //
+		    
+			// LISTAR PERMISSAO //
+		    @GetMapping("/listar/permissao")
+		    public ResponseEntity<List<ViewEstatisticaUsuario>> getAllPermissao() {
+		        List<ViewEstatisticaUsuario> samples = estatisticaservice.getAllPermissao();
+		        return new ResponseEntity<>(samples, HttpStatus.OK);
+		    }
+		    
+			// LISTAR DISPONIBILIDADE POR ID //
+			@GetMapping("/listar/permissao/{Permissao}")
+			@ResponseBody
+			public List<ViewEstatisticaUsuario> getPermissao(@PathVariable String Permissao) {
+				List<ViewEstatisticaUsuario> result = estatisticaservice.getPermissao(Permissao);
+				return result;
+			}    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    
 		    
 }

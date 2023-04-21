@@ -12,7 +12,7 @@ import apiembraer.backend.entity.ViewSampleEntity;
 public interface EstatisticaStatusRepository extends JpaRepository<ViewEstatisticaStatusEntity, Integer>{
 	
     // método que retorna uma lista de ViewSampleEntity filtrando pelo id do usuário e pelo chassi
-	public List <ViewEstatisticaStatusEntity> findByIdUsuarioAndChassi(Integer idUsuario, String chassi);
+	public List <ViewEstatisticaStatusEntity> findByNomeUsuarioAndStatus(String nomeUsuario, String status);
 	
 //	public List <ViewEstatisticaStatusEntity> findByIdUsuario(Integer idUsuario);
 //	

@@ -61,18 +61,17 @@ public class PDFcontroller {
 
     }
 	
-    //Este método retorna um relatório em formato PDF contendo informações das amostras de um determinado usuário e chassi que foram consultadas.
-	@GetMapping(value = "estatistica/{idUsuario}/{chassi}", produces = MediaType.APPLICATION_PDF_VALUE)
+    
+	@GetMapping(value = "estatistica/{nomeUsuario}/{status}", produces = MediaType.APPLICATION_PDF_VALUE)
 	
 		public ResponseEntity<InputStreamResource> relatorioConsultaa (
 			HttpServletResponse response, 
-			@PathVariable("idUsuario") Integer idUsuario, 
-			@PathVariable("chassi") String chassi
+			@PathVariable("nomeUsuario") String nomeUsuario, 
+			@PathVariable("status") String status
 		) throws IOException {
 
 		// Chama o método que retorna a lista de amostras da consulta
-		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(idUsuario, chassi);
-		System.err.println(result);
+		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(nomeUsuario, status);
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsultaEstatistica.exportarPdfConsulta(result);

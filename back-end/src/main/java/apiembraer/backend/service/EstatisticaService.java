@@ -9,9 +9,11 @@ import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewEstatisticaUsuario;
 import apiembraer.backend.entity.ViewStatusChassiEntity;
 import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 import apiembraer.backend.repository.EstatisticaDisponibilidadeRepository;
+import apiembraer.backend.repository.EstatisticaPermissao;
 import apiembraer.backend.repository.EstatisticaQtdBoletimRepository;
 import apiembraer.backend.repository.EstatisticaQtdContidoRepository;
 import apiembraer.backend.repository.EstatisticaStatusRepository;
@@ -39,6 +41,9 @@ public class EstatisticaService {
 	@Autowired
 	private ViewStatusChassiRepository statuschassirepository;
 	
+	@Autowired
+	private EstatisticaPermissao estatisticapermissao;
+	
 	// LISTAR DISPONIBILIDADE //
     public List<ViewEstatisticaDisponibilidadeEntity> getAllDisponibilidade() {
         return estatisticaDisponibilidadeRepository.findAll();
@@ -48,8 +53,18 @@ public class EstatisticaService {
 	public List<ViewEstatisticaDisponibilidadeEntity> findByIdUsuario(Integer idUsuario) {
 		return estatisticaDisponibilidadeRepository.findByIdUsuario(idUsuario);
 	}
-    
 	
+	// LISTAR PERMISSAO //
+    public List<ViewEstatisticaUsuario> getAllPermissao() {
+        return estatisticapermissao.findAll();
+    }
+    
+    // LISTAR PERMISSAO POR PERMISSAO //
+	public List<ViewEstatisticaUsuario> getPermissao(String Permissao) {
+		return estatisticapermissao.findByPermissao(Permissao);
+	}
+    
+ 
 	// LISTAR BOLETIM //
     public List<ViewEstatisticaQtdBoletimEntity> getAllQtdBoletim() {
         return estatisticaQtdBoletimRepository.findAll();

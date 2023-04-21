@@ -120,7 +120,7 @@ public class PdfConsultaEstatistica {
 		//Paragraph textoDataHora = new Paragraph(new Phrase("Dados de " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(viewsample.get(0).getDatahoraCaptacao()) + " até " +new SimpleDateFormat("dd/MM/yyyy HH:mm").format(viewsample.get(viewsample.size() - 1).getDatahoraCaptacao()),FontFactory.getFont(FontFactory.HELVETICA, 21, BaseColor.BLACK)));
 		//textoDataHora.setAlignment(Element.ALIGN_LEFT);
 
-		Paragraph textoDados = new Paragraph(new Phrase("Chassi " + viewsampleestatistica.get(0).getChassi(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK)));
+		Paragraph textoDados = new Paragraph(new Phrase("User - " + viewsampleestatistica.get(0).getNomeUsuario(), FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK)));
 		textoDados.setAlignment(Element.ALIGN_CENTER);
 
 		Paragraph pulaLinha = new Paragraph(new Phrase(" ", FontFactory.getFont(FontFactory.HELVETICA, 18, BaseColor.BLACK)));
