@@ -116,7 +116,7 @@ public class EstatisticaService {
     }
 
     // LISTAR CONTIDO POR PERMISSAO //
-    public List<ViewPermissaoUsuarioEntity> getAllPermissoes() {
+    public List<ViewPermissaoUsuarioEntity> getAllPermissoess() {
         return viewPermissaoUsuarioRepository.findAll();
     }
 }
