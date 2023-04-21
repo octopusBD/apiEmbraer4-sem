@@ -28,7 +28,7 @@
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>
       </v-bottom-navigation>
-      <v-btn to="/" class="sair" variant="text">
+      <v-btn @click="redirect('sair')" class="sair" variant="text">
         <Icon icon="fluent:arrow-exit-20-regular" width="35" />
       </v-btn>
     </v-layout>
@@ -52,7 +52,7 @@ export default {
     href: 'breadcrumbs_dashboard',
   }],
   methods: {
-    async redirect(tela) { 
+    redirect(tela) { 
 
       const token_header = sessionStorage.getItem('token');
       const loginUsuario_header = sessionStorage.getItem('loginUsuario');
@@ -77,6 +77,13 @@ export default {
 
       if(tela == 'consulta'){
         router.push('/consulta');
+      }
+
+      if(tela == 'sair'){
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('loginUsuario');
+        sessionStorage.removeItem('autorizacao');
+        router.push('/');
       }
     }
   
