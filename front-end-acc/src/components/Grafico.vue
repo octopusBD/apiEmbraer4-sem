@@ -44,7 +44,7 @@ const createChart = () => {
     datasets: [
       
     {
-        label: "administrador",
+        label: "Administrator",
         borderColor: 'rgba(131,111,255)',
         backgroundColor: 'rgba(131,111,255, 0.2)',
         data: administrador.value // EIXO Y
@@ -52,14 +52,14 @@ const createChart = () => {
 
 
        {
-        label: "editor",
+        label: "Editor",
         borderColor: 'rgb(54, 162, 235)',
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         data: editor.value // EIXO Y
       },
 
        {
-        label: "consultor",
+        label: "Consultant",
         borderColor: 'rgb(64,224,208)',
         backgroundColor: 'rgba(64,224,208, 0.2)',
         data: consultor.value // EIXO Y
