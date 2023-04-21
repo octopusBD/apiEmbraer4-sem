@@ -3,7 +3,7 @@
     <v-tabs v-model="tab">
       <v-tab class="PrimeiraOpcao" value="one">Users</v-tab>
       <v-tab class="SegundaOpcao" value="two">Statistic</v-tab>
-      <v-tab class="TerceiraOpcao" value="three">Graphcs</v-tab>
+      <v-tab class="TerceiraOpcao" value="three">Graphics</v-tab>
     </v-tabs>
     <v-card  style="padding: 50px;">
       <v-window v-model="tab">
