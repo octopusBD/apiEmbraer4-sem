@@ -45,8 +45,8 @@ const createChart = () => {
       
       {
         label: "Incorporated",
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(131,111,255)',
+        backgroundColor: 'rgba(131,111,255, 0.2)',
         data: incorporated.value // EIXO Y
       },
 
@@ -60,8 +60,8 @@ const createChart = () => {
 
        {
         label: "Not Applicable",
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgb(64,224,208)',
+        backgroundColor: 'rgb(64,224,208, 0.2)',
         data: notApplicable.value // EIXO Y
       }
     ]
