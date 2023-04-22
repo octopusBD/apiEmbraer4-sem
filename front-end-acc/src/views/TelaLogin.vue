@@ -53,6 +53,7 @@ import router from '@/router/index.js'
 export default {
   data() {
     return {
+    
       Login: '',
       Password: '',
       showPassword: false
@@ -76,12 +77,19 @@ export default {
             loginUsuario: this.Login,
             senhaUsuario: this.Password
           });
-          const token = response.data.token;
+          
+
+          const idUsuario = response.data.idUsuario;
+          const senhaUsuario = response.data.senhaUsuario;
           const loginUsuario = response.data.loginUsuario;
           const autorizacao = response.data.autorizacao;
-          sessionStorage.setItem('token', token);
+          const token = response.data.token;
+          
+          sessionStorage.setItem('idUsuario', idUsuario);
           sessionStorage.setItem('loginUsuario', loginUsuario);
+          sessionStorage.setItem('senhaUsuario', senhaUsuario);
           sessionStorage.setItem('autorizacao', autorizacao);
+          sessionStorage.setItem('token', token);
       
           // Redirect to the home page
           router.push('/home');

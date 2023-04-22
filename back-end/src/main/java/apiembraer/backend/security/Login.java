@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Login {
 
-	private String idUsuario;
+	private Integer idUsuario;
 	
     private String loginUsuario;
     

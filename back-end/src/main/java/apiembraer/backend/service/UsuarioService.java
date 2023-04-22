@@ -4,19 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import apiembraer.backend.DTO.UsuarioDTO;
 import apiembraer.backend.entity.PermissaoEntity;
-import apiembraer.backend.entity.SampleEntity;
 import apiembraer.backend.entity.UsuarioEntity;
 import apiembraer.backend.entity.ViewListarUsuario;
 import apiembraer.backend.repository.PermissaoRepository;
 import apiembraer.backend.repository.UsuarioRepository;
 import apiembraer.backend.repository.ViewListarUsuarios;
-
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UsuarioService {
@@ -30,14 +27,14 @@ public class UsuarioService {
 	@Autowired
 	ViewListarUsuarios viewlistarusuarios;
 	
-	
-	
     @Autowired
     private PasswordEncoder encoder;
 
 	    //@PreAuthorize("hasRole('ADMIN')")
 		public UsuarioEntity atualizarUsuario(Integer idUsuario, UsuarioDTO usuarioNovo) {
 		    Optional<UsuarioEntity> optionalUsuario = usuarioRepository.findById(idUsuario);
+		    System.err.println(optionalUsuario);
+		    System.err.println(usuarioNovo);
 		    if (optionalUsuario.isPresent()) {
 		        UsuarioEntity usuario = optionalUsuario.get();
 		        usuario.setNomeUsuario(usuarioNovo.getNomeUsuario());
@@ -65,6 +62,13 @@ public class UsuarioService {
 	    public List<ViewListarUsuario> getAllUsuarios() {
 	        return viewlistarusuarios.findAll();
 	    }
+	    
+	    // LISTAR VIEW STATUS USUARIO POR ID //
+	    public List<ViewListarUsuario> findByLoginUsuario(String LoginUsuario) {
+	        return viewlistarusuarios.findByLoginUsuario(LoginUsuario);
+	        
+	    } 
+
 	   
 	}
 

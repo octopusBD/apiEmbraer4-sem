@@ -13,11 +13,13 @@
 
   // EVENTO QUE REALIZA A VALIDAÇÃO //
   onMounted(() => {
-    const token = sessionStorage.getItem('token');
+    const idUsuario =  sessionStorage.getItem('idUsuario');
     const loginUsuario = sessionStorage.getItem('loginUsuario');
+    const senhaUsuario = sessionStorage.getItem('senhaUsuario');
     const autorizacao = sessionStorage.getItem('autorizacao');
+    const token = sessionStorage.getItem('token');
+    //alert("idUsuario:" + idUsuario + " " + "loginUsuario:" + loginUsuario + " " + "senhaUsuario:" + senhaUsuario + " " + "autorizacao:" + autorizacao + " " + "token:" + token);
 
-    //alert("loginUsuario:" + loginUsuario + " " + "autorizacao:" + autorizacao);
     //alert(props.Tela);
     
     if (!token) {
