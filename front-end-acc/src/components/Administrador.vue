@@ -8,7 +8,7 @@
     <v-card >
       <v-window v-model="tab">
         <v-window-item value="one">
-          <administrador-pimeiro></administrador-pimeiro>
+          <administrador-primeiro></administrador-primeiro>
         </v-window-item>
         <v-window-item value="two">
           <administrador-segunda-tela-vue></administrador-segunda-tela-vue>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import AdministradorPimeiro from "./AdministradorPimeiro.vue";
+import AdministradorPrimeiro from "./AdministradorPrimeiro.vue";
 import AdministradorSegundaTelaVue from "./AdministradorSegundaTela.vue";
 import GraficoLinhaVue from "./GraficoLinha.vue";
 import GraficoBarVue from "./GraficoBar.vue";
@@ -49,7 +49,7 @@ export default {
   }),
 
   components: {
-    AdministradorPimeiro,
+    AdministradorPrimeiro,
     AdministradorSegundaTelaVue,
     GraficoLinhaVue,
     GraficoBarVue,
