@@ -1,6 +1,6 @@
 <template>
     <v-card class="grafico-linha">
-      <v-card-title>Chassis Status</v-card-title>
+      <v-card-title style="text-align: center;">Chassis Status</v-card-title>
       <v-card-text>
         <canvas ref="chartCanvas"></canvas>
       </v-card-text>

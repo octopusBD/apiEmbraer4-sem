@@ -7,20 +7,21 @@
       <div class="filtro1">
         <v-select
           label="User"
-          :items="chassiOptions"
+          :items="nomeUsuarioOptions"
           background-color="white"
-          v-model="filtros.chassi"
+          v-model="filtros.loginUsuario"
           @input="filtrarTabela"
           variant="underlined"
         ></v-select>
       </div>
+
       <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
           label="Permission"
-          :items="statusSampleOptions"
+          :items="permissaoOptions"
           background-color="white"
-          v-model="filtros.statusSample"
+          v-model="filtros.permissao"
           @input="filtrarTabela"
           variant="underlined"
         ></v-select>
@@ -124,6 +125,7 @@
         :length="Math.ceil(filteredItems.length / perPage)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
+        :total-visible="2"
         style="margin: 20px"
       ></v-pagination>
     </v-card>
@@ -209,6 +211,7 @@ export default {
             "/usuario/update/" + this.usuarioEditado.idUsuario,
             { ...this.usuarioEditado }
           );
+          alert("Updated successfully.");
         } else {
           alert("Alert! Please provide a valid permission.");
         }
@@ -253,41 +256,42 @@ export default {
       this.isMobile = window.innerWidth < 768;
     },
     limparFiltro() {
-      this.filtros.statusSample = "";
+      this.filtros.permissao = "";
+      this.filtros.loginUsuario = "";
       this.filtrarTabela();
     },
-    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
+    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/loginUsuarioS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
       const nomeUsuarioOptions = new Set(
         dadosDaTabela.map((dado) => dado.loginUsuario)
       );
       // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-      // const statusSampleOptions = new Set(
-      //   dadosDaTabela.map((dado) => dado.statusSample)
-      // );
+      const permissaoOptions = new Set(
+        dadosDaTabela.map((dado) => dado.permissao)
+      );
       this.nomeUsuarioOptions = Array.from(nomeUsuarioOptions).sort();
       // this.itemOptions = Array.from(itemOptions).sort();
-      // this.statusSampleOptions = Array.from(statusSampleOptions).sort();
+      this.permissaoOptions = Array.from(permissaoOptions).sort();
     },
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-      const { chassi, statusSample } = this.filtros;
-      const filterByChassi = chassi !== "";
+      const { loginUsuario, permissao } = this.filtros;
+      const filterByloginUsuario = loginUsuario !== "";
       // const filterByItem = item !== "";
-      const filterByStatusSample = statusSample !== "";
+      const filterBypermissao = permissao !== "";
       return this.items.filter((item) => {
         let matches = true;
-        if (filterByChassi) {
-          matches = matches && item.chassi === chassi;
+        if (filterByloginUsuario) {
+          matches = matches && item.loginUsuario === loginUsuario;
         }
         // if (filterByItem) {
         //   matches = matches && item.item === this.filtros.item;
         // }
-        if (filterByStatusSample) {
-          matches = matches && item.statusSample === statusSample;
+        if (filterBypermissao) {
+          matches = matches && item.permissao === permissao;
         }
         return matches;
       });

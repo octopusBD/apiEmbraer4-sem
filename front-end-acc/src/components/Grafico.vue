@@ -1,6 +1,6 @@
 <template>
   <v-card class="grafico-bar card-size">
-    <v-card-title>Users by Permission</v-card-title>
+    <v-card-title style="text-align: center;">Users by Permission</v-card-title>
     <v-card-text>
       <canvas ref="chartCanvas"></canvas>
     </v-card-text>
@@ -15,8 +15,7 @@ import { onMounted, ref } from 'vue';
 export default {
   setup() {
     const chartCanvas = ref(null);
-    const permissao = ref([]);
-    const qtdPermissao = ref([]);
+ 
 
     const administrador = ref([]);
     const editor = ref([]);

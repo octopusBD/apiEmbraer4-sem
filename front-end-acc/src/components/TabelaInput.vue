@@ -67,6 +67,7 @@
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         style="margin: 20px;"
+        :total-visible="2"
       ></v-pagination>
     </v-card>
   </div>

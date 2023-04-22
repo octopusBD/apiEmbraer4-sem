@@ -1,6 +1,6 @@
 <template>
   <v-card class="grafico-pie">
-    <v-card-title>User Status</v-card-title>
+    <v-card-title style="text-align: center;" >User Status</v-card-title>
     <v-card-text>
       <canvas ref="chartCanvas"></canvas>
     </v-card-text>

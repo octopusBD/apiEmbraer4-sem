@@ -87,7 +87,6 @@
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-          
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black">{{ item.status }}</td>
@@ -95,12 +94,14 @@
         </tbody>
       </v-table>
       <v-pagination
-        v-model="page"
-        :length="Math.ceil(filteredItems.length / perPage)"
-        prev-icon="mdi-menu-left"
-        next-icon="mdi-menu-right"
-        style="margin: 20px"
-      ></v-pagination>
+  v-model="page"
+  :length="Math.ceil(filteredItems.length / perPage)"
+  prev-icon="mdi-menu-left"
+  next-icon="mdi-menu-right"
+  style="margin: 20px"
+  :total-visible="2"
+></v-pagination>
+
     </v-card>
   </div>
 </template>
@@ -158,7 +159,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.page = 1; // define a página atual como 1
     },
+
     async filtrarTabela() {
       const { nomeUsuario, status, chassi, item } = this.filtros;
       try {
@@ -183,10 +186,11 @@ export default {
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
-    // limparFiltro() {
-    // this.filtros.statusSample = "";
-    // this.filtrarTabela();
-    // },
+    limparFiltro() {
+      this.filtros.nomeUsuario = "";
+      this.filtros.status = "";
+      this.inicializarDadosTabela();
+    },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
@@ -209,11 +213,6 @@ export default {
         alert("Please select a user");
         return;
       }
-      if (selecao_status == "") {
-        alert("Please select a status");
-        return;
-      }
-      
       axios({
         url: "pdf/estatistica/" + selecao_nomeUsuario + "/" + selecao_status,
         method: "GET",
@@ -322,9 +321,6 @@ thead {
   border: none;
 }
 
-.deletar {
-}
-
 @media only screen and (max-width: 600px) {
   .table {
     font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
@@ -338,11 +334,7 @@ thead {
     margin-right: 10px;
     margin-top: 20px;
   }
-  /* .limpar {
-        margin-left: auto;
-        margin-right: 0;
-        margin-top: 20px;
-        } */
+
   .filtro1,
   .filtro2,
   .filtro3,

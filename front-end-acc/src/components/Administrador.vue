@@ -15,19 +15,19 @@
         </v-window-item>
         <v-window-item value="three">
           <v-row>
-            <v-col style="padding: 30px;" cols="6">
-              <grafico-linha-vue></grafico-linha-vue>
+            <v-col style="padding: 10px;" cols="12" sm="6">
+              <grafico-linha-vue class="grafico"></grafico-linha-vue>
             </v-col>
-            <v-col style="padding: 30px;" cols="6">
-              <grafico-bar-vue></grafico-bar-vue>
+            <v-col style="padding: 10px;" cols="12" sm="6">
+              <grafico-bar-vue class="grafico"></grafico-bar-vue>
             </v-col>
           </v-row>
           <v-row>
-            <v-col style="padding: 30px;" cols="6">
-              <grafico-vue></grafico-vue>
+            <v-col style="padding: 10px;" cols="12" sm="6">
+              <grafico-vue class="grafico"></grafico-vue>
             </v-col>
-            <v-col style="padding: 30px;" cols="6">
-              <grafico-pie></grafico-pie>
+            <v-col style="padding: 10px;" cols="12" sm="6">
+              <grafico-pie class="grafico"></grafico-pie>
             </v-col>
           </v-row>
         </v-window-item>
@@ -71,7 +71,11 @@ export default {
   justify-content: space-between;
 }
 .grafico {
+  min-height: 300px;
   width: 100%;
   border-top-color: #253381;
+  padding: 20px;
+  padding-bottom: 40px;
 }
+
 </style>
