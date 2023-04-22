@@ -25,17 +25,7 @@
           variant="underlined"
         ></v-select>
       </div>
-      <!-- Terceiro filtro
-        <div class="filtro3">
-          <v-select
-            label="Permission"
-            :items="statusSampleOptions"
-            background-color="white"
-            v-model="filtros.statusSample"
-            @input="filtrarTabela"
-            variant="underlined"
-          ></v-select>
-        </div> -->
+
       <div>
         <v-col cols="auto">
           <v-btn
@@ -73,65 +63,57 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center;">User</th>
-            <th style="color: white; text-align: center;">Permission</th>
-            <th style="color: white; text-align: center;">Update</th>
-            <th style="color: white; text-align: center;">Delete</th>
+            <th style="color: white; text-align: center">User</th>
+            <th style="color: white; text-align: center">Permission</th>
+            <th style="color: white; text-align: center">Update</th>
+            <th style="color: white; text-align: center">Delete</th>
           </tr>
         </thead>
 
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
-          <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
+          <tr v-for="item in paginatedItems" :key="item.idUsuario">
+            <td style="border-bottom: 1px solid black">
+              {{ item.loginUsuario }}
+            </td>
+            <td style="border-bottom: 1px solid black">{{ item.permissao }}</td>
 
             <td style="border-bottom: 1px solid black">
-              <v-btn class="editar" flat @click="showModal = true; selectedItem = item">
-                <v-icon class="mdi mdi-pencil"></v-icon>
+              <v-btn flat icon small @click="editarItem(item.idUsuario)">
+                <v-icon>mdi-pencil</v-icon>
               </v-btn>
             </td>
-            <v-dialog v-model="showModal" max-width="500px">
+
+            <v-dialog v-model="editModalOpen">
               <v-card>
-                <v-card-title class="text-h5">Update</v-card-title>
+                <v-card-title>Edit User</v-card-title>
                 <v-card-text>
-                  <v-text-field v-model="selectedItem.name" label="User"></v-text-field>
-                  <v-select v-model="selectedItem.description" label="Permission"></v-select>
+                  <v-form ref="form">
+                    <v-text-field
+                      label="Name"
+                      v-model="usuarioEditado.loginUsuario"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      label="Permission"
+                      v-model="usuarioEditado.permissao"
+                      required
+                    ></v-text-field>
+
+                    <!-- <v-checkbox label="Ativo" v-model="usuarioEditado.ativo"></v-checkbox> -->
+                  </v-form>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn color="blue-darken-1" variant="text" @click="showModal = false">Cancel</v-btn>
-                  <v-btn color="blue-darken-1" variant="text" @click="updateItem">Save</v-btn>
+                  <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                  <v-btn @click="salvarEdicao">Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            
+
             <td style="border-bottom: 1px solid black">
-              <v-btn class="deletar" flat @click="showModals = true">
-                <v-icon class="mdi mdi-delete"></v-icon>
-              </v-btn>
-              <v-dialog v-model="showModals" max-width="500px">
-                <v-card>
-                  <v-card-title class="text-h5"
-                    >Are you sure you want to delete this item?</v-card-title
-                  >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="blue-darken-1"
-                      variant="text"
-                      @click="showModals = false"
-                      >Cancel</v-btn
-                    >
-                    <v-btn
-                      color="blue-darken-1"
-                      variant="text"
-                      @click="deleteItemConfirm"
-                      >OK</v-btn
-                    >
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
+              <v-btn flat icon small @click="deleteItemConfirm(item.idUsuario)">
+                <v-icon>mdi-delete</v-icon></v-btn
+              >
             </td>
           </tr>
         </tbody>
@@ -147,165 +129,178 @@
     </v-card>
   </div>
 </template>
-      <script>
-  import axios from "axios";
-  import { Icon } from "@iconify/vue";
-  
-  export default {
-    data() {
-      return {
-        // TABELA
-        perPage: 8,
-        dadosDaTabela: [],
-        items: [],
-        page: 1,
-        isMobile: false,
-        // FILTROS
-        filtros: {
-          chassi: "",
-          item: "",
-          statusSample: "",
-        },
-        chassiOptions: [],
-        itemOptions: [],
-        statusSampleOptions: [],
-        itens: [],
-      };
-    },
-    components: {
-      Icon,
-    },
-    mounted() {
-      window.addEventListener("resize", this.checkMobile);
-      this.checkMobile();
-    },
-    async created() {
-      await this.inicializarDadosTabela();
-    },
-    methods: {
-      async inicializarDadosTabela() {
-        try {
-          const response = await axios.get("consultor/2");
-          const dados = response.data;
-          this.dadosDaTabela = dados;
-          this.items = this.dadosDaTabela.map((dado) => {
-            return {
-              item: dado.item,
-              statusSample: dado.statusSample,
-              chassi: dado.chassi,
-            };
-          });
-          this.obterOpcoesUnicas();
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      async filtrarTabela() {
-        const { chassi, item, statusSample } = this.filtros;
-        try {
-          const response = await axios.get("consultor/2", {
-            params: { chassi, item, statusSample },
-          });
-          const dadosFiltrados = response.data;
-          this.items = dadosFiltrados.map((dado) => {
-            return {
-              item: dado.item,
-              statusSample: dado.statusSample,
-              chassi: dado.chassi,
-            };
-          });
-        } catch (error) {
-          console.log(error);
-          this.items = [];
-        }
-        this.page = 1;
-      },
-      checkMobile() {
-        this.isMobile = window.innerWidth < 768;
-      },
-      limparFiltro() {
-        this.filtros.statusSample = "";
-        this.filtrarTabela();
-      },
-      // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
-      obterOpcoesUnicas() {
-        const { dadosDaTabela } = this;
-        const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
-        // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-        const statusSampleOptions = new Set(
-          dadosDaTabela.map((dado) => dado.statusSample)
-        );
-        this.chassiOptions = Array.from(chassiOptions).sort();
-        // this.itemOptions = Array.from(itemOptions).sort();
-        this.statusSampleOptions = Array.from(statusSampleOptions).sort();
-      },
-      // SETANDO CORES DOS STATUS DA TABELA
-      getStatusColor(status) {
-        switch (status) {
-          case "INCORPORATED":
-            return "success";
-          case "NOT INCORPORATED":
-            return "error";
-          // case "Em Análise":
-          //   return "warning";
-          // default:
-          //   return "";
-        }
-      },
-      onClick() {
-        const selecao = this.filtros.chassi; // obter a seleção
-        console.log(selecao); // exibir a seleção no console
-        if (selecao == "") {
-          alert("Please select a chassi");
-          return;
-        }
-        axios({
-          url: "pdf/2/" + selecao,
-          method: "GET",
-          responseType: "blob",
-        }).then((response) => {
-          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-          var fileLink = document.createElement("a");
-          fileLink.href = fileURL;
-          fileLink.setAttribute("download", "relatório.pdf");
-          document.body.appendChild(fileLink);
-          fileLink.click();
-        });
-      },
-    },
-    // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
-    computed: {
-      filteredItems() {
-        const { chassi, statusSample } = this.filtros;
-        const filterByChassi = chassi !== "";
-        // const filterByItem = item !== "";
-        const filterByStatusSample = statusSample !== "";
-        return this.items.filter((item) => {
-          let matches = true;
-          if (filterByChassi) {
-            matches = matches && item.chassi === chassi;
-          }
-          // if (filterByItem) {
-          //   matches = matches && item.item === this.filtros.item;
-          // }
-          if (filterByStatusSample) {
-            matches = matches && item.statusSample === statusSample;
-          }
-          return matches;
-        });
-      },
-      // PAGINACAO
-      paginatedItems() {
-        const startIndex = (this.page - 1) * this.perPage;
-        const endIndex = startIndex + this.perPage;
-        return this.filteredItems.slice(startIndex, endIndex);
-      },
+  <script>
+import axios from "axios";
+import { Icon } from "@iconify/vue";
 
-      
-
+export default {
+  data() {
+    return {
+      showModal: false,
+      // TABELA
+      perPage: 8,
+      dadosDaTabela: [],
+      items: [],
+      page: 1,
+      isMobile: false,
+      // FILTROS
+      filtros: {
+        loginUsuario: "",
+        permissao: "",
+        idUsuario: "",
+      },
+      nomeUsuarioOptions: [],
+      permissaoOptions: [],
+      idUsuarioOptions: [],
+      itens: [],
+      editModalOpen: false,
+      usuarioEditado: {
+        loginUsuario: "",
+        permissao: "",
+      },
+    };
+  },
+  component: {
+    Icon,
+  },
+  mounted() {
+    window.addEventListener("resize", this.checkMobile);
+    this.checkMobile();
+  },
+  async created() {
+    await this.inicializarDadosTabela();
+  },
+  methods: {
+    async inicializarDadosTabela() {
+      try {
+        const response = await axios.get("usuario/listar");
+        const dados = response.data;
+        this.dadosDaTabela = dados;
+        this.items = this.dadosDaTabela.map((dado) => {
+          return {
+            loginUsuario: dado.loginUsuario,
+            permissao: dado.permissao,
+            idUsuario: dado.idUsuario,
+          };
+        });
+        this.obterOpcoesUnicas();
+      } catch (error) {
+        console.log(error);
+      }
     },
-  };
-  </script>
+
+    editarItem(idUsuario) {
+      // Busca o usuário pelo ID e seta na variável usuarioEditado
+      this.usuarioEditado = this.paginatedItems.find(
+        (u) => u.idUsuario === idUsuario
+      );
+      this.editModalOpen = true;
+    },
+    async salvarEdicao() {
+      try {
+        //alert(this.usuarioEditado);
+
+        if (
+          this.usuarioEditado.permissao == "Administrator" ||
+          this.usuarioEditado.permissao == "Editor" ||
+          this.usuarioEditado.permissao == "Consultant"
+        ) {
+          const response = await axios.put(
+            "/usuario/update/" + this.usuarioEditado.idUsuario,
+            { ...this.usuarioEditado }
+          );
+        } else {
+          alert("Alert! Please provide a valid permission.");
+        }
+
+        //console.log(this.usuarioEditado);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.editModalOpen = false;
+      }
+    },
+
+    async filtrarTabela() {
+      const { loginUsuario, permissao } = this.filtros;
+      try {
+        const response = await axios.get("usuario/listar", {
+          params: { loginUsuario, permissao },
+        });
+        const dadosFiltrados = response.data;
+        this.items = dadosFiltrados.map((dado) => {
+          return {
+            loginUsuario: dado.loginUsuario,
+            permissao: dado.permissao,
+          };
+        });
+      } catch (error) {
+        console.log(error);
+        this.items = [];
+      }
+      this.page = 1;
+    },
+    deleteItemConfirm(itemId) {
+      if (confirm("Are you sure you want to delete this item?")) {
+        axios.delete("/usuario/delete/" + itemId).then((response) => {
+          this.inicializarDadosTabela();
+          console.log(response);
+        });
+      }
+    },
+
+    checkMobile() {
+      this.isMobile = window.innerWidth < 768;
+    },
+    limparFiltro() {
+      this.filtros.statusSample = "";
+      this.filtrarTabela();
+    },
+    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
+    obterOpcoesUnicas() {
+      const { dadosDaTabela } = this;
+      const nomeUsuarioOptions = new Set(
+        dadosDaTabela.map((dado) => dado.loginUsuario)
+      );
+      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
+      // const statusSampleOptions = new Set(
+      //   dadosDaTabela.map((dado) => dado.statusSample)
+      // );
+      this.nomeUsuarioOptions = Array.from(nomeUsuarioOptions).sort();
+      // this.itemOptions = Array.from(itemOptions).sort();
+      // this.statusSampleOptions = Array.from(statusSampleOptions).sort();
+    },
+  },
+  // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
+  computed: {
+    filteredItems() {
+      const { chassi, statusSample } = this.filtros;
+      const filterByChassi = chassi !== "";
+      // const filterByItem = item !== "";
+      const filterByStatusSample = statusSample !== "";
+      return this.items.filter((item) => {
+        let matches = true;
+        if (filterByChassi) {
+          matches = matches && item.chassi === chassi;
+        }
+        // if (filterByItem) {
+        //   matches = matches && item.item === this.filtros.item;
+        // }
+        if (filterByStatusSample) {
+          matches = matches && item.statusSample === statusSample;
+        }
+        return matches;
+      });
+    },
+    // PAGINACAO
+    paginatedItems() {
+      const startIndex = (this.page - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage;
+      return this.filteredItems.slice(startIndex, endIndex);
+    },
+  },
+};
+</script>
       
       <style scoped>
 .card-select {
@@ -364,7 +359,6 @@ thead {
   background-color: transparent;
   border: none;
 }
-
 
 @media only screen and (max-width: 600px) {
   .table {
