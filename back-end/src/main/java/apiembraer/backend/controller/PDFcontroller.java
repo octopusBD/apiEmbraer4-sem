@@ -62,16 +62,15 @@ public class PDFcontroller {
     }
 	
     
-	@GetMapping(value = "estatistica/{nomeUsuario}/{status}", produces = MediaType.APPLICATION_PDF_VALUE)
+	@GetMapping(value = "estatistica/{nomeUsuario}", produces = MediaType.APPLICATION_PDF_VALUE)
 	
 		public ResponseEntity<InputStreamResource> relatorioConsultaa (
 			HttpServletResponse response, 
-			@PathVariable("nomeUsuario") String nomeUsuario, 
-			@PathVariable("status") String status
+			@PathVariable("nomeUsuario") String nomeUsuario
 		) throws IOException {
 
 		// Chama o método que retorna a lista de amostras da consulta
-		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(nomeUsuario, status);
+		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(nomeUsuario);
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsultaEstatistica.exportarPdfConsulta(result);
