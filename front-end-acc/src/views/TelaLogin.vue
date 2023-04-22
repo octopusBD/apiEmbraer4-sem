@@ -5,40 +5,28 @@
         class="card"
       >
         <!-- LOGO -->
-        <v-img class="logo-embraer" :width="200" src="@/assets/embraer-3.png"></v-img>
-        
+        <div class="borderr">
+          <v-img class="borderrr" :width="200" src="@/assets/embraer-3.png"></v-img>
+        </div>
+
         <!-- CAMPOS -->
+        <div class="borderr">
         <v-sheet width="300" class="mx-auto">
           <v-form fast-fail @submit.prevent>
-            <v-text-field
-              density="compact"
-              bg-color="white"
-              hide-selected
-              v-model="Login"
-              label="Login"
-            ></v-text-field
-            >
-            <v-text-field
-  class="teste"
-  density="compact"
-  bg-color="white"
-  hide-selected
-  v-model="Password"
-  label="Password"
-  :type="showPassword ? 'text' : 'password'"
-  @click:append="showPassword = !showPassword"
->
-  <template #append>
-    <v-icon @click="showPassword = !showPassword">
-      {{ showPassword ? 'mdi-eye' : 'mdi-eye-off' }}
-    </v-icon>
-  </template>
-</v-text-field>
+            <v-text-field density="compact" bg-color="white" hide-selected v-model="Login" label="Login"></v-text-field>
+            <v-text-field class="teste" density="compact" bg-color="white" hide-selected v-model="Password" label="Password" :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword">
+            <template #append>
+              <v-icon @click="showPassword = !showPassword">
+                {{ showPassword ? 'mdi-eye' : 'mdi-eye-off' }}
+              </v-icon>
+            </template>
+            </v-text-field>
 
 
     
           </v-form>
         </v-sheet>
+        </div>
 
         <!-- <a  class='referencia' href="/">Forgot your password?</a>   -->
         <v-btn  @click="onClick()"  class="btn-login" color="#253381">
@@ -120,6 +108,14 @@ export default {
   width: 27.5%;
   height: 100%;
 }
+.borderr{
+  /* border: 5px solid red; */
+}
+.borderrr{
+  /* border: 5px solid red; */
+  margin: auto;
+  margin-top: 60px;
+}
 .mx-auto{
   margin-top: 100px;
 }
@@ -150,7 +146,7 @@ export default {
   width: 100%;
 }
 .logo-embraer{
-  margin-left: 118px;
+  margin-left: 50%;
   margin-top: 60px;
 }
 .fundo{

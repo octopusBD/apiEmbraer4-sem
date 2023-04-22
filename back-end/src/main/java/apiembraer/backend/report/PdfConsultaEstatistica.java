@@ -33,9 +33,10 @@ public class PdfConsultaEstatistica {
 
 	try {
 		//Criando a tabela para o relatório
-		PdfPTable table = new PdfPTable(2);
+		PdfPTable table = new PdfPTable(3);
 		table.setWidthPercentage(100);
-		table.setWidths(new int[] { 4, 4});
+		table.setWidths(new int[] { 4, 4, 4 });
+		
 		
 		
 		//Criando o cabeçalho da tabela
@@ -43,7 +44,13 @@ public class PdfConsultaEstatistica {
 
 		PdfPCell hcell;
 
-		//NOME_USUARIO CHASSI  STATUS_SAMPLE    ITEM   
+		hcell = new PdfPCell(new Phrase("Chassi", headFont));
+		hcell.setPaddingTop(9f);
+		hcell.setFixedHeight(40f);
+		hcell.setVerticalAlignment(Element.ALIGN_CENTER);
+		hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(hcell);
+		
 		hcell = new PdfPCell(new Phrase("Item", headFont));
 		hcell.setPaddingTop(9f);
 		hcell.setFixedHeight(40f);
@@ -66,6 +73,13 @@ public class PdfConsultaEstatistica {
 
 			PdfPCell cell;
 
+			cell = new PdfPCell(new Phrase(ViewSampleEntity.getChassi(), font));
+			cell.setPaddingTop(4f);
+			cell.setFixedHeight(25f);
+			cell.setVerticalAlignment(Element.ALIGN_CENTER);
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(cell);
+			
 			cell = new PdfPCell(new Phrase(ViewSampleEntity.getItem(), font));
 			cell.setPaddingTop(4f);
 			cell.setFixedHeight(25f);

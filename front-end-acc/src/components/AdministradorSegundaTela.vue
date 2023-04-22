@@ -203,17 +203,19 @@ export default {
       this.statusOptions = Array.from(statusOptions).sort();
     },
     onClick() {
-      
-      if (this.nomeUsuarioOptions == "") {
+      const selecao_nomeUsuario = this.filtros.nomeUsuario;
+      const selecao_status = this.filtros.status;
+      if (selecao_nomeUsuario == "") {
         alert("Please select a user");
         return;
       }
-      if (this.statusOptions == "") {
+      if (selecao_status == "") {
         alert("Please select a status");
         return;
       }
+      
       axios({
-        url: "pdf/estatistica/" + this.nomeUsuarioOptions + "/" + this.statusOptions,
+        url: "pdf/estatistica/" + selecao_nomeUsuario + "/" + selecao_status,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
