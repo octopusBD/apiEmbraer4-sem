@@ -37,12 +37,10 @@ public class UsuarioService {
 		    System.err.println(usuarioNovo);
 		    if (optionalUsuario.isPresent()) {
 		        UsuarioEntity usuario = optionalUsuario.get();
-		        usuario.setNomeUsuario(usuarioNovo.getNomeUsuario());
 		        usuario.setLoginUsuario(usuarioNovo.getLoginUsuario());
-		        usuario.setSenhaUsuario(usuarioNovo.getSenhaUsuario());
-		        usuario.setEmail(usuarioNovo.getEmail());
-	
-		        Optional<PermissaoEntity> optionalPermissao = permissaoRepository.findByIdPermissao(usuarioNovo.getIdPermissao().getIdPermissao());
+		        
+		        //Optional<PermissaoEntity> optionalPermissao = permissaoRepository.findByIdPermissao(usuarioNovo.getIdPermissao().getIdPermissao());
+		        Optional<PermissaoEntity> optionalPermissao = permissaoRepository.findByPermissao(usuarioNovo.getPermissao());
 		        if (optionalPermissao.isPresent()) {
 		            usuario.setIdPermissao(optionalPermissao.get());
 		        }

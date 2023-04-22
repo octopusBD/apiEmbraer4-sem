@@ -28,7 +28,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-		@PostMapping("/update/{idUsuario}")
+		@PutMapping("/update/{idUsuario}")
 		public ResponseEntity<UsuarioEntity> atualizarUsuario(@PathVariable Integer idUsuario, @RequestBody UsuarioDTO usuarioNovo) {
 			System.err.println(idUsuario);
 			System.err.println(usuarioNovo);
