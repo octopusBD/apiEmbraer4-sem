@@ -36,6 +36,7 @@ export default {
       selectedNotification: null,
       showPopup: false,
       snackbar: false,
+      idUsuario: "",
       text: '',
       numNotifications: 0
     }
@@ -50,7 +51,8 @@ export default {
   methods: {
     async inicializarDadosNotificacoes() {
       try {
-        const response = await axios.get('notificar/2');
+        const idUsuario =  sessionStorage.getItem('idUsuario');
+        const response = await axios.get('notificar/' + idUsuario);
         const dados = response.data;
         this.notifications = dados;
         this.numNotifications = this.notifications.length;

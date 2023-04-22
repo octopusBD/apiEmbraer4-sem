@@ -19,7 +19,6 @@
     const autorizacao = sessionStorage.getItem('autorizacao');
     const token = sessionStorage.getItem('token');
     //alert("idUsuario:" + idUsuario + " " + "loginUsuario:" + loginUsuario + " " + "senhaUsuario:" + senhaUsuario + " " + "autorizacao:" + autorizacao + " " + "token:" + token);
-
     //alert(props.Tela);
     
     if (!token) {

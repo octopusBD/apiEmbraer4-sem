@@ -83,6 +83,8 @@ export default {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('loginUsuario');
         sessionStorage.removeItem('autorizacao');
+        sessionStorage.removeItem('idUsuario');
+        sessionStorage.removeItem('senhaUsuario');
         router.push('/');
       }
     }

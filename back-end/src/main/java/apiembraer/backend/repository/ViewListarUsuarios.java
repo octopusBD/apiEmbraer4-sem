@@ -10,5 +10,6 @@ import apiembraer.backend.entity.ViewListarUsuario;
 @Repository
 public interface ViewListarUsuarios extends JpaRepository<ViewListarUsuario, Integer> {
 	public List <ViewListarUsuario> findByLoginUsuario(String LoginUsuario);
+	public List <ViewListarUsuario> findByNomeUsuario(String nomeUsuario);
 
 }

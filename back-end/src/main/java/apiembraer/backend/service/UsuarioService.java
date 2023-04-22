@@ -65,7 +65,7 @@ public class UsuarioService {
 	    
 	    // LISTAR VIEW STATUS USUARIO POR ID //
 	    public List<ViewListarUsuario> findByLoginUsuario(String LoginUsuario) {
-	        return viewlistarusuarios.findByLoginUsuario(LoginUsuario);
+	        return viewlistarusuarios.findByNomeUsuario(LoginUsuario);
 	        
 	    } 
 

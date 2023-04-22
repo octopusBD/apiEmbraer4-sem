@@ -80,6 +80,7 @@ export default {
     return {
       // TABELA
       perPage: 8,
+      idUsuario: "",
       dadosDaTabela: [],
       items: [],
       page: 1,
@@ -109,7 +110,8 @@ export default {
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get('consultor/2');
+        const idUsuario =  sessionStorage.getItem('idUsuario');
+        const response = await axios.get('consultor/ ' + idUsuario);
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map(dado => {
@@ -127,7 +129,8 @@ export default {
     async filtrarTabela() {
       const { chassi, item, statusSample } = this.filtros;
       try {
-        const response = await axios.get('consultor/2', {
+        const idUsuario =  sessionStorage.getItem('idUsuario');
+        const response = await axios.get('consultor/' + idUsuario, {
           params: { chassi, item, statusSample }
         });
         const dadosFiltrados = response.data;
