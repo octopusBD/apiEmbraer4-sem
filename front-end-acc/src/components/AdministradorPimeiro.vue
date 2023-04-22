@@ -155,8 +155,8 @@ export default {
       itens: [],
       editModalOpen: false,
       usuarioEditado: {
-        loginUsuario: "",
-        permissao: "",
+      loginUsuario: "",
+      permissao: "",
       },
     };
   },

@@ -5,7 +5,7 @@
       <v-tab class="SegundaOpcao" value="two">Statistic</v-tab>
       <v-tab class="TerceiraOpcao" value="three">Graphics</v-tab>
     </v-tabs>
-    <v-card  style="padding: 50px;">
+    <v-card >
       <v-window v-model="tab">
         <v-window-item value="one">
           <administrador-pimeiro></administrador-pimeiro>
