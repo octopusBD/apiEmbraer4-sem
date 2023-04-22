@@ -2,15 +2,16 @@
   <div class="container">
     <v-layout style="height: 138px; background-color: #253381" class="border">
       <!--  Botão página inicial -->
-      <v-btn to="home" class="home" variant="text">
+      <v-btn to="home" class="home"  size="50" height="50" width="50" variant="text">
         <Icon icon="ic:outline-home" width="35" />
       </v-btn>
       <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
-      <div class="mx-auto my-4">
-        <button style="background-color: #253381" @click="active = !active">
-          <img class="imgs" src="@/assets/logo-dois.png" />
-        </button>
-      </div>
+      <div class="mx-auto my-4 text-center">
+  <button style="background-color: #253381;" @click="active = !active">
+    <img class="imgs" src="@/assets/logo-dois.png" />
+  </button>
+</div>
+
       <!-- Componente para a entrada de notificações -->
       <notificacao-input-vue class="notificacao"></notificacao-input-vue>
       <!-- Botões que levam a diferentes páginas -->
@@ -28,7 +29,7 @@
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>
       </v-bottom-navigation>
-      <v-btn @click="redirect('sair')" class="sair" variant="text">
+      <v-btn @click="redirect('sair')" class="sair"  size="50" height="50" width="50" variant="text">
         <Icon icon="fluent:arrow-exit-20-regular" width="35" />
       </v-btn>
     </v-layout>
@@ -97,25 +98,26 @@ export default {
   margin-top: 0.08%;
   height: 55px;
   width: auto;
-  margin-left: 85px;
+  margin-right: 0px;
+  margin-left: 82px;
 
 }
 
 .notificacao {
-  margin-top: 26px;
+  margin-top: 15px;
   margin-left: 1px;
   border-radius: 100rem;
   color: white;
 }
 
 .home {
-  margin-top: 26px;
+  margin-top: 15px;
   margin-left: 5px;
   border-radius: 100rem;
   color: white;
 }
 .sair {
-  margin-top: 26px;
+  margin-top: 15px;
   margin-left: 3px;
   border-radius: 100rem;
   color: white;

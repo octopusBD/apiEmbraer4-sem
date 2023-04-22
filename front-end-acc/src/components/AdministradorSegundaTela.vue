@@ -94,14 +94,13 @@
         </tbody>
       </v-table>
       <v-pagination
-  v-model="page"
-  :length="Math.ceil(filteredItems.length / perPage)"
-  prev-icon="mdi-menu-left"
-  next-icon="mdi-menu-right"
-  style="margin: 20px"
-  :total-visible="2"
-></v-pagination>
-
+        v-model="page"
+        :length="Math.ceil(filteredItems.length / perPage)"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+        style="margin: 20px"
+        :total-visible="2"
+      ></v-pagination>
     </v-card>
   </div>
 </template>
@@ -273,34 +272,10 @@ export default {
   display: flex;
   margin-top: 15px;
   margin-right: 20px;
-  margin-left: 60px;
+  margin-left: 20px;
 }
 
 .filtro2 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro3 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro4 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro5 {
   width: 280px;
   display: flex;
   margin-top: 15px;
@@ -323,23 +298,16 @@ thead {
 
 @media only screen and (max-width: 600px) {
   .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+    font-size: 14px;
   }
   .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
+  .filtro2 {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
   }
-
   .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
+  .filtro2 {
     margin-top: 20px;
   }
   .v-card {
