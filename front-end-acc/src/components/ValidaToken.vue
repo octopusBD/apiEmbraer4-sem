@@ -25,7 +25,7 @@
       alert("Alert! You need to log into the application first.")
       setTimeout(() => {
         router.push('/');
-      }, 500);
+      }, 100);
     } else {
       console.log('Token found');
 
