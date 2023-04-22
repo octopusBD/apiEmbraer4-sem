@@ -202,15 +202,6 @@ export default {
       this.itemOptions = Array.from(itemOptions).sort();
       this.statusOptions = Array.from(statusOptions).sort();
     },
-    // SETANDO CORES DOS STATUS DA TABELA
-    // getStatusColor(status) {
-    //   switch (status) {
-    //     case "INCORPORATED":
-    //       return "success";
-    //     case "NOT INCORPORATED":
-    //       return "error";
-    //   }
-    // },
     onClick() {
       
       if (this.nomeUsuarioOptions == "") {

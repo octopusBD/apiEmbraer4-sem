@@ -3,8 +3,6 @@
     <div class="input-formatacao">
       <v-card
         class="card"
-        width="400"
-        height="739px"
       >
         <!-- LOGO -->
         <v-img class="logo-embraer" :width="200" src="@/assets/embraer-3.png"></v-img>
@@ -21,22 +19,28 @@
             ></v-text-field
             >
             <v-text-field
-              class="teste"
-              density="compact"
-              bg-color="white"
-              hide-selected
-              v-model="Password"
-              label="Password"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-            ></v-text-field>
+  class="teste"
+  density="compact"
+  bg-color="white"
+  hide-selected
+  v-model="Password"
+  label="Password"
+  :type="showPassword ? 'text' : 'password'"
+  @click:append="showPassword = !showPassword"
+>
+  <template #append>
+    <v-icon @click="showPassword = !showPassword">
+      {{ showPassword ? 'mdi-eye' : 'mdi-eye-off' }}
+    </v-icon>
+  </template>
+</v-text-field>
+
 
     
           </v-form>
         </v-sheet>
 
-        <a  class='referencia' href="/">Forgot your password?</a>  
+        <!-- <a  class='referencia' href="/">Forgot your password?</a>   -->
         <v-btn  @click="onClick()"  class="btn-login" color="#253381">
             <span>Login</span>
             <v-icon class="icon" right> <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="Login" aria-hidden="true" width="24" height="24" viewBox="0 0 32 32" role="img"> <path d="M22 16L12 26 10.6 24.6 19.2 16 10.6 7.4 12 6z"></path></svg> </v-icon>
@@ -112,14 +116,16 @@ export default {
 
 <style>
 .card{
-  margin-left: 555px;
+  margin-left: 37%;
+  width: 27.5%;
+  height: 100%;
 }
 .mx-auto{
   margin-top: 100px;
 }
 .btn-login{
   color: aliceblue !important;
-  margin-left: 150px;
+  margin-left: 37%;
   height: 45px !important ;
   width: 110px !important;
   margin-top: 25px;
@@ -135,20 +141,47 @@ export default {
   font-size: 12px;  
 }
 .imgs{
-  margin-left:25%;
+  margin-left:100%;
 }
 .v-text-field--enclosed:not(.v-text-field--readonly):not(.v-text-field--disabled) .v-input__control--is-focused {
   background-color: transparent !important;
 }
 .teste{
-  width: 335px;
+  width: 100%;
 }
 .logo-embraer{
-  margin-left: 90px;
+  margin-left: 118px;
   margin-top: 60px;
 }
 .fundo{
   background-color: #253381;
+  width: 100%;
+  height: 100%;
 }
+.input-formatacao{
+  height: 100%;
+}
+@media only screen and (max-width: 600px) {
+  .card {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .logo-embraer{
+    margin-left: 85.5px;
+  }
+  .teste{
+    width:290px ;
+  }
+  .btn-login{
+  color: aliceblue !important;
+  align-items: 30px;
+  height: 45px !important ;
+  width: 110px !important;
+  margin-top: 25px;
+  border-radius: 10px !important;
+}
+}
+
+
 </style>
 
