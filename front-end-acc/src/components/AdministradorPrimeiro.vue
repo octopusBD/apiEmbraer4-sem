@@ -64,10 +64,10 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">User</th>
-            <th style="color: white; text-align: center">Permission</th>
-            <th style="color: white; text-align: center">Update</th>
-            <th style="color: white; text-align: center">Delete</th>
+            <th style="color: white; text-align: center;">User</th>
+            <th style="color: white; text-align: center;">Permission</th>
+            <th style="color: white; text-align: center;">Update</th>
+            <th style="color: white; text-align: center;">Delete</th>
           </tr>
         </thead>
 
@@ -85,13 +85,13 @@
               </v-btn>
             </td>
 
-            <v-dialog v-model="editModalOpen">
+            <v-dialog v-model="editModalOpen" max-width="500px">
               <v-card>
                 <v-card-title>Edit User</v-card-title>
                 <v-card-text>
                   <v-form ref="form">
                     <v-text-field
-                      label="Name"
+                      label="User"
                       v-model="usuarioEditado.loginUsuario"
                       required
                     ></v-text-field>
@@ -107,6 +107,7 @@
                 <v-card-actions>
                   <v-btn @click="editModalOpen = false">Cancel</v-btn>
                   <v-btn @click="salvarEdicao">Save</v-btn>
+                  
                 </v-card-actions>
               </v-card>
             </v-dialog>

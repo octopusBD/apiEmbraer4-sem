@@ -66,6 +66,9 @@ export default {
 .SegundaOpcao {
   color: #253381;
 }
+.TerceiraOpcao{
+  color: #253381;
+}
 .graficos-container {
   display: flex;
   justify-content: space-between;
@@ -78,4 +81,31 @@ export default {
   padding-bottom: 40px;
 }
 
+@media only screen and (max-width: 720px) {
+  .PrimeiraOpcao,
+  .SegundaOpcao,
+  .TerceiraOpcao {
+  margin:10px; 
+  }
+  
+
+  @media only screen and (max-width: 400px) {
+  .PrimeiraOpcao,
+  .SegundaOpcao,
+  .TerceiraOpcao {
+  margin:11px;
+  }
+
+  
+}
+
+@media only screen and (max-width: 300px) {
+  .PrimeiraOpcao,
+  .SegundaOpcao,
+  .TerceiraOpcao {
+  margin:10px;
+  }
+}
+
+}
 </style>

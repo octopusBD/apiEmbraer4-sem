@@ -2,7 +2,7 @@
   <div id="footer">
     <div class="nav">
       <!-- Inicio do link para o repositório do OctopusBD no GitHub -->
-      <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy;{{ new Date().getFullYear() }} | v.0.4 version</a>
+      <a href="https://github.com/octopusBD/apiEmbraer4-sem">OctopusBD &copy;{{ new Date().getFullYear() }} | v.2.0 version</a>
       <!-- Fim do link para o repositório do OctopusBD no GitHub -->
     </div>
   </div>

@@ -71,6 +71,7 @@ const createChart = () => {
     type: 'bar', // TIPO GRAFICO
     data: data,
     options: {
+      maintainAspectRatio: false,
       scales: {
         yAxes: [{
           ticks: {
