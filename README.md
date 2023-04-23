@@ -95,25 +95,25 @@ The Octopus team will develop a web software for Embraer that will enable users 
             Development of the administrator interface with the following functionalities: Modify and remove clients from the database.
       </li>
       <li>Develop the functionality to generate a statistical visualization;</li>
+      <li>Generate administrative reports;</li>
       <li>Finishing the configuration system of notifications for updates;</li>
 </ul>
 
 <br>
 
 <li>Sprint 3:</li>
-<ul>  
+<ul> 
       <li>Business logic creation in the database;</li>
       <li>
             Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
       </li>
+      <li>Finalization of the administrator interface;</li>
 </ul>
 
 <br>
 
 <li>Sprint 4:</li>
 <ul>
-      <li>Finalization of the administrator interface;</li>
-      <li>Generate administrative reports;</li>
       <li>Test and validate the system;</li>
       <li>Prepare documentation for end users.</li>
 </ul>
