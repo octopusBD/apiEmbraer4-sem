@@ -3,6 +3,18 @@
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
+       <!-- Segundo filtro -->
+       <div class="filtro2">
+        <v-select
+          label="Permission"
+          :items="permissaoOptions"
+          background-color="white"
+          v-model="filtros.permissao"
+          @input="filtrarTabela"
+          variant="underlined"
+        ></v-select>
+      </div>
+
       <!-- Primeiro filtro -->
       <div class="filtro1">
         <v-select
@@ -15,18 +27,7 @@
         ></v-select>
       </div>
 
-      <!-- Segundo filtro -->
-      <div class="filtro2">
-        <v-select
-          label="Permission"
-          :items="permissaoOptions"
-          background-color="white"
-          v-model="filtros.permissao"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-
+     
       <div>
         <v-col cols="auto">
           <v-btn
@@ -85,7 +86,7 @@
               </v-btn>
             </td>
 
-            <v-dialog v-model="editModalOpen" max-width="500px">
+            <v-dialog  class="dialog" v-model="editModalOpen" max-width="500px">
               <v-card>
                 <v-card-title>Edit User</v-card-title>
                 <v-card-text>
@@ -347,7 +348,7 @@ thead {
   .filtro1,
   .filtro2 {
     width: 200px;
-    margin-right: 10px;
+    margin-right: 8px;
     margin-top: 20px;
   }
 
@@ -364,6 +365,9 @@ thead {
   .v-table td,
   .v-table th {
     padding: 5px;
+  }
+  .dialog{
+    margin-left: 30px;
   }
 }
 </style>
