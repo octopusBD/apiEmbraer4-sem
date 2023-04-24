@@ -24,17 +24,17 @@ public class JwtUtils {
       ObjectMapper mapper = new ObjectMapper();
       Login usuarioSemSenha = new Login();
 
+      
       usuarioSemSenha.setLoginUsuario(usuario.getName());
-      System.err.println(usuarioSemSenha);
- 
+     
+      
       if (!usuario.getAuthorities().isEmpty()) {
         usuarioSemSenha.setAutorizacao(usuario.getAuthorities().iterator().next().getAuthority());
       }
       String usuarioJson = mapper.writeValueAsString(usuarioSemSenha);
       Date agora = new Date();
       Long hora = 1000L * 60L * 60L; // Uma hora
-      System.err.println(Jwts.builder().claim("userDetails", usuarioJson).setIssuer("br.gov.sp.fatec").setSubject(usuario.getName())
-              .setExpiration(new Date(agora.getTime() + hora)).signWith(Keys.hmacShaKeyFor(KEY.getBytes()), SignatureAlgorithm.HS256).compact());
+     
       return Jwts.builder().claim("userDetails", usuarioJson).setIssuer("backend.security").setSubject(usuario.getName())
           .setExpiration(new Date(agora.getTime() + hora)).signWith(Keys.hmacShaKeyFor(KEY.getBytes()), SignatureAlgorithm.HS256).compact();
     }
@@ -45,8 +45,7 @@ public class JwtUtils {
       String credentialsJson = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(KEY.getBytes())).build()
           .parseClaimsJws(token).getBody().get("userDetails", String.class);
       Login usuario = mapper.readValue(credentialsJson, Login.class);
-      UserDetails userDetails = User.builder().username(usuario.getLoginUsuario()).password("secret")
-          .authorities(usuario.getAutorizacao()).build();
+      UserDetails userDetails = User.builder().username(usuario.getLoginUsuario()).password("secret").authorities(usuario.getAutorizacao()).build();
       return new UsernamePasswordAuthenticationToken(usuario.getLoginUsuario(), usuario.getSenhaUsuario(),
           userDetails.getAuthorities());
     }

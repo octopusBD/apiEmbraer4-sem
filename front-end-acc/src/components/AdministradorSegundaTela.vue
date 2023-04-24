@@ -19,10 +19,10 @@
       <!-- Segundo filtro -->
       <div class="filtro2">
         <v-select
-          label="Chassi"
-          :items="chassiOptions"
+          label="Status"
+          :items="statusOptions"
           background-color="white"
-          v-model="filtros.chassi"
+          v-model="filtros.status"
           @input="filtrarTabela"
           variant="underlined"
           class="filtro"
@@ -78,7 +78,6 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">User</th>
             <th style="color: white; text-align: center">Chassi</th>
             <th style="color: white; text-align: center">Item</th>
             <th style="color: white; text-align: center">Status</th>
@@ -88,9 +87,6 @@
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black">
-              {{ item.nomeUsuario }}
-            </td>
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black">{{ item.status }}</td>
@@ -103,6 +99,7 @@
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
         style="margin: 20px"
+        :total-visible="2"
       ></v-pagination>
     </v-card>
   </div>
@@ -161,7 +158,9 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.page = 1; // define a página atual como 1
     },
+
     async filtrarTabela() {
       const { nomeUsuario, status, chassi, item } = this.filtros;
       try {
@@ -186,10 +185,11 @@ export default {
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
-    // limparFiltro() {
-    // this.filtros.statusSample = "";
-    // this.filtrarTabela();
-    // },
+    limparFiltro() {
+      this.filtros.nomeUsuario = "";
+      this.filtros.status = "";
+      this.inicializarDadosTabela();
+    },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
@@ -205,24 +205,15 @@ export default {
       this.itemOptions = Array.from(itemOptions).sort();
       this.statusOptions = Array.from(statusOptions).sort();
     },
-    // SETANDO CORES DOS STATUS DA TABELA
-    // getStatusColor(status) {
-    //   switch (status) {
-    //     case "INCORPORATED":
-    //       return "success";
-    //     case "NOT INCORPORATED":
-    //       return "error";
-    //   }
-    // },
     onClick() {
-      const selecao = this.filtros.chassi; // obter a seleção
-      console.log(selecao); // exibir a seleção no console
-      if (selecao == "") {
-        alert("Please select a chassi");
+      const selecao_nomeUsuario = this.filtros.nomeUsuario;
+      const selecao_status = this.filtros.status;
+      if (selecao_nomeUsuario == "") {
+        alert("Please select a user");
         return;
       }
       axios({
-        url: "pdf/2/" + selecao,
+        url: "pdf/estatistica/" + selecao_nomeUsuario + "/" + selecao_status,
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -281,34 +272,10 @@ export default {
   display: flex;
   margin-top: 15px;
   margin-right: 20px;
-  margin-left: 60px;
+  margin-left: 20px;
 }
 
 .filtro2 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro3 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro4 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro5 {
   width: 280px;
   display: flex;
   margin-top: 15px;
@@ -329,32 +296,18 @@ thead {
   border: none;
 }
 
-.deletar {
-}
-
 @media only screen and (max-width: 600px) {
   .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+    font-size: 14px;
   }
   .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
+  .filtro2 {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
   }
-  /* .limpar {
-        margin-left: auto;
-        margin-right: 0;
-        margin-top: 20px;
-        } */
   .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
+  .filtro2 {
     margin-top: 20px;
   }
   .v-card {

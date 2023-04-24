@@ -1,13 +1,17 @@
 <template>
+ 
     <HeaderInput />
-   <TabelaedicaoVue/>
+    <TabelaedicaoVue/>
     <Footersrinput />
-</template>s
+    <ValidaToken :Tela="'Editor'" />
+</template>
 
     <script setup>
         import HeaderInput from '@/components/HeaderInput.vue'
-        import TabelaedicaoVue from '@/components/Tabelaedicao.vue';
+        import TabelaedicaoVue from '@/components/Tabelaedicao.vue'
         import Footersrinput from '@/components/Footersrinput.vue'
-        </script>
+        import ValidaToken from '@/components/ValidaToken.vue'
+        
+    </script>
 <style>
 </style>

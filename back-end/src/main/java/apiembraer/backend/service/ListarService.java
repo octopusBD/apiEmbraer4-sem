@@ -29,8 +29,8 @@ public class ListarService {
 		return listarRepository.findByIdUsuarioAndChassi(idUsuario, chassi);
 	}
 	
-	public List<ViewEstatisticaStatusEntity> getViewSampleConsultaa(Integer idUsuario, String chassi) {
-		return estatisticastatusrepository.findByIdUsuarioAndChassi(idUsuario, chassi);
+	public List<ViewEstatisticaStatusEntity> getViewSampleConsultaa(String nomeUsuario) {
+		return estatisticastatusrepository.findByNomeUsuario(nomeUsuario);
 	}
 	
 	// Método que retorna os registros de amostras de um determinado usuário, chassi e status

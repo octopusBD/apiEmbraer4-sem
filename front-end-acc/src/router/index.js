@@ -14,9 +14,9 @@ const routes = [
     
         component: () => import('@/views/TelaHome.vue'),
       },
-      
+
       {
-        path: 'login',
+        path: '/',
         name: 'TelaLogin',
     
         component: () => import('@/views/TelaLogin.vue'),

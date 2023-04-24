@@ -1,9 +1,12 @@
 <template>
+ 
   <HeaderInput />
+  
 
   <div class="video-container">
     <video src="@/assets/video2.mp4" controls autoplay muted loop></video>
   </div>
+  <ValidaToken :Tela="'Home'" />
 
   <Footersrinput/>
 </template>
@@ -11,6 +14,8 @@
 <script setup>
   import HeaderInput from '@/components/HeaderInput.vue'
   import Footersrinput from '@/components/Footersrinput.vue'
+  import ValidaToken from '@/components/ValidaToken.vue'
+
 </script>
 
 <style>
