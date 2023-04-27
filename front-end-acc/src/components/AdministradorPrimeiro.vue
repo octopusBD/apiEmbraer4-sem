@@ -3,8 +3,8 @@
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-       <!-- Segundo filtro -->
-       <div class="filtro2">
+      <!-- Segundo filtro -->
+      <div class="filtro2">
         <v-select
           label="Permission"
           :items="permissaoOptions"
@@ -27,7 +27,6 @@
         ></v-select>
       </div>
 
-     
       <div>
         <v-col cols="auto">
           <v-btn
@@ -65,10 +64,10 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center;">User</th>
-            <th style="color: white; text-align: center;">Permission</th>
-            <th style="color: white; text-align: center;">Update</th>
-            <th style="color: white; text-align: center;">Delete</th>
+            <th style="color: white; text-align: center">User</th>
+            <th style="color: white; text-align: center">Permission</th>
+            <th style="color: white; text-align: center">Update</th>
+            <th style="color: white; text-align: center">Delete</th>
           </tr>
         </thead>
 
@@ -86,7 +85,7 @@
               </v-btn>
             </td>
 
-            <v-dialog  class="dialog" v-model="editModalOpen" max-width="500px">
+            <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
               <v-card>
                 <v-card-title>Edit User</v-card-title>
                 <v-card-text>
@@ -96,19 +95,18 @@
                       v-model="usuarioEditado.loginUsuario"
                       required
                     ></v-text-field>
-                    <v-text-field
+                    <v-select
                       label="Permission"
+                      :items="['Administrator','Editor', 'Consultant']"
                       v-model="usuarioEditado.permissao"
                       required
-                    ></v-text-field>
-
+                    ></v-select>
                     <!-- <v-checkbox label="Ativo" v-model="usuarioEditado.ativo"></v-checkbox> -->
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
                   <v-btn @click="editModalOpen = false">Cancel</v-btn>
                   <v-btn @click="salvarEdicao">Save</v-btn>
-                  
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -366,7 +364,7 @@ thead {
   .v-table th {
     padding: 5px;
   }
-  .dialog{
+  .dialog {
     margin-left: 30px;
   }
 }
