@@ -162,8 +162,10 @@ export default {
   width: 100%;
 }
 .logo-embraer{
-  margin-left: 142px;
+  margin-left: 95px;
   margin-top: 60px;
+  position: fixed;
+
 }
 .fundo {
   background-color: #253381;

@@ -89,7 +89,9 @@
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black">{{ item.status }}</td>
+            
+            <td style="border-bottom: 1px solid black"><v-chip :color="getStatusColor(item.status)" >{{ item.status }}</v-chip></td>
+            <!-- <td style="border-bottom: 1px solid black">{{ item.status }}</td> -->
           </tr>
         </tbody>
       </v-table>
@@ -204,6 +206,19 @@ export default {
       this.chassiOptions = Array.from(chassiOptions).sort();
       this.itemOptions = Array.from(itemOptions).sort();
       this.statusOptions = Array.from(statusOptions).sort();
+    },
+    // SETANDO CORES DOS STATUS DA TABELA
+    getStatusColor(status) {
+      switch (status) {
+        case "INCORPORATED":
+          return "success";
+        case "NOT INCORPORATED":
+          return "error";
+        // case "Em Análise":
+        //   return "warning";
+        // default:
+        //   return "";
+      }
     },
     onClick() {
       const selecao_nomeUsuario = this.filtros.nomeUsuario;
