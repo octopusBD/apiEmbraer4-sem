@@ -18,6 +18,12 @@ public class UpdateSampleEntity {
 	@Id
 	@Column(name = "ID_UPDATE_SAMPLE")
 	private Integer idUpdateSample;
+	
+	@Column(name = "ID_USUARIO")
+	private Integer idUsuario;
+	
+	@Column(name = "NOME_USUARIO")
+	private String nomeUsuario;
 
 	@Column(name = "ID_CHASSI")
 	private Integer idChassi;

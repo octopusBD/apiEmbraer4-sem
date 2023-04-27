@@ -10,7 +10,7 @@ import apiembraer.backend.entity.UpdateSampleEntity;
 @Repository
 public interface NotificarRepository extends JpaRepository <UpdateSampleEntity, Integer>{
 
-	public List<UpdateSampleEntity> findByidChassi(Integer idChassi);
+	public List<UpdateSampleEntity> findByIdUsuario(Integer idUsuario);
 
 }
 

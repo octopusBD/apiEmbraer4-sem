@@ -15,8 +15,8 @@ public class NotificarService {
 	NotificarRepository notificarRepository;
 
 	// Método que retorna as atualizações de determinado chassi
-	public List<UpdateSampleEntity> getUpdateSampleEntities(Integer idChassi) {
-        return notificarRepository.findByidChassi(idChassi);
+	public List<UpdateSampleEntity> getUpdateSampleEntities(Integer idUsuario) {
+        return notificarRepository.findByIdUsuario(idUsuario);
     }
 
 }
