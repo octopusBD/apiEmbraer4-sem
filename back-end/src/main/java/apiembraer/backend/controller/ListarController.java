@@ -51,4 +51,15 @@ public class ListarController {
 		return result;
 
 	}
+	
+	// Este metodo retorna os dados de um usuário com determinado status.
+		@GetMapping("/{idUsuario}/{statusSample}")
+		@ResponseBody
+		public List<ViewSampleEntity> getViewSample(@PathVariable Integer idUsuario,@PathVariable String statusSample) {
+
+			List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, statusSample);
+			System.err.println(result);
+			return result;
+
+		}
 }

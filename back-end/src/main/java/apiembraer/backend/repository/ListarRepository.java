@@ -19,5 +19,7 @@ public interface ListarRepository extends JpaRepository <ViewSampleEntity, Integ
 
     // método que retorna uma lista de ViewSampleEntity filtrando pelo id do usuário, pelo chassi e pelo status da amostra
 	public List <ViewSampleEntity> findByIdUsuarioAndChassiAndStatusSample(Integer idUsuario, String Chassi, String statusSample);
-
+  
+    // método que retorna uma lista de ViewSampleEntity filtrando pelo id do usuário e pelo status da amostra
+	public List <ViewSampleEntity> findByIdUsuarioAndStatusSample(Integer idUsuario, String statusSample);
 }
