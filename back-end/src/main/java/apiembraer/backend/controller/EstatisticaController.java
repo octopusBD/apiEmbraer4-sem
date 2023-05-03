@@ -17,6 +17,7 @@ import apiembraer.backend.entity.ViewEstatisticaQtdBoletimEntity;
 import apiembraer.backend.entity.ViewEstatisticaQtdContidoEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.entity.ViewEstatisticaUsuario;
+import apiembraer.backend.entity.ViewItemChassiEntity;
 import apiembraer.backend.entity.ViewPermissaoUsuarioEntity;
 import apiembraer.backend.entity.ViewStatusChassiEntity;
 import apiembraer.backend.entity.ViewStatusUsuarioEntity;
@@ -151,5 +152,16 @@ private EstatisticaService estatisticaservice;
 		List<ViewPermissaoUsuarioEntity> samples = estatisticaservice.getAllPermissoess();
 		return new ResponseEntity<>(samples, HttpStatus.OK);
 	}
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//VIEW_ITEM_CHASSI //
+	
+	// LISTAR PERMISSAO //
+	@GetMapping("/listar/itemchassi")
+	public ResponseEntity<List<ViewItemChassiEntity>> getAllItemChassi() {
+		List<ViewItemChassiEntity> samples = estatisticaservice.getAllItemChassi();
+		return new ResponseEntity<>(samples, HttpStatus.OK);
+	}
+	
 }
