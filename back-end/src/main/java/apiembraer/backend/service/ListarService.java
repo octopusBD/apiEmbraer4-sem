@@ -37,6 +37,12 @@ public class ListarService {
 	public List<ViewSampleEntity> getViewSample(Integer idUsuario, String chassi, String statusSample) {
 		return listarRepository.findByIdUsuarioAndChassiAndStatusSample(idUsuario, chassi, statusSample);
 	}
+	
+	// Método que retorna os registros de amostras de um determinado usuário e status
+		public List<ViewSampleEntity> getViewSample(Integer idUsuario, String statusSample) {
+			return listarRepository.findByIdUsuarioAndStatusSample(idUsuario, statusSample);
+		}
+
 
 }
 
