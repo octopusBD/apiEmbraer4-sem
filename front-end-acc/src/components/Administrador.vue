@@ -1,39 +1,62 @@
 <template>
-  <v-card >
-    <v-tabs v-model="tab">
-      <v-tab class="PrimeiraOpcao" value="one">Users</v-tab>
-      <v-tab class="SegundaOpcao" value="two">Statistic</v-tab>
-      <v-tab class="TerceiraOpcao" value="three">Graphics</v-tab>
-    </v-tabs>
-    <v-card >
-      <v-window v-model="tab">
-        <v-window-item value="one">
-          <administrador-primeiro></administrador-primeiro>
-        </v-window-item>
-        <v-window-item value="two">
-          <administrador-segunda-tela-vue></administrador-segunda-tela-vue>
-        </v-window-item>
-        <v-window-item value="three">
-          <v-row>
-            <v-col style="padding: 10px;" cols="12" sm="6">
-              <grafico-linha-vue class="grafico"></grafico-linha-vue>
-            </v-col>
-            <v-col style="padding: 10px;" cols="12" sm="6">
-              <grafico-bar-vue class="grafico"></grafico-bar-vue>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col style="padding: 10px;" cols="12" sm="6">
-              <grafico-vue class="grafico"></grafico-vue>
-            </v-col>
-            <v-col style="padding: 10px;" cols="12" sm="6">
-              <grafico-pie class="grafico"></grafico-pie>
-            </v-col>
-          </v-row>
-        </v-window-item>
-      </v-window>
-    </v-card>
-  </v-card>
+  <v-tabs v-model="tab">
+    <v-tab class="PrimeiraOpcao" value="one">Users</v-tab>
+    <v-tab class="SegundaOpcao" value="two">Itens</v-tab>
+    <v-tab class="TerceiraOpcao" value="three">Statistic</v-tab>
+    <v-tab class="QuartaOpcao" value="four">Control</v-tab>
+  </v-tabs>
+  <v-window style="height: 85%" v-model="tab">
+    <v-window-item value="one">
+      <administrador-primeiro></administrador-primeiro>
+    </v-window-item>
+    <v-window-item style="height: 85%" value="two">
+      <administrador-segunda-tela-vue></administrador-segunda-tela-vue>
+    </v-window-item>
+    <v-window-item style="height: 85%" value="three">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%">
+            <grafico-linha-vue
+              class="grafico"
+              style="height: 350px; padding: 10px; margin: 5px"
+            ></grafico-linha-vue>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-card style="margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
+            <grafico-bar-vue
+              class="grafico"
+              style="height: 350px; padding: 10px; margin: 5px"
+            ></grafico-bar-vue>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-card style="margin-left: 2%; margin-bottom: 2%; margin-right: 2%;">
+            <grafico-pie
+              class="grafico"
+              style="height: 350px; padding: 10px; margin: 5px"
+            ></grafico-pie>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 2%">
+            <grafico-vue
+              style="height: 350px; padding: 10px; margin: 5px"
+            ></grafico-vue>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-window-item>
+    <v-window-item style="height: 85%" value="four" >
+      <v-card style="margin-left: 5%;  margin-bottom: 2%; margin-right: 5%; margin-top: 10%;" >
+        <grafico-itens
+        style="height: 50%; padding: 10px; margin: 5px"
+        ></grafico-itens>
+      </v-card>
+    </v-window-item>
+  </v-window>
 </template>
 
 <script>
@@ -42,7 +65,8 @@ import AdministradorSegundaTelaVue from "./AdministradorSegundaTela.vue";
 import GraficoLinhaVue from "./GraficoLinha.vue";
 import GraficoBarVue from "./GraficoBar.vue";
 import GraficoPie from "./GraficoPie.vue";
-import GraficoVue from './Grafico.vue';
+import GraficoVue from "./Grafico.vue";
+import GraficoItens from "./GraficoItens.vue";
 export default {
   data: () => ({
     tab: null,
@@ -54,7 +78,8 @@ export default {
     GraficoLinhaVue,
     GraficoBarVue,
     GraficoPie,
-    GraficoVue
+    GraficoVue,
+    GraficoItens,
   },
 };
 </script>
@@ -66,22 +91,23 @@ export default {
 .SegundaOpcao {
   color: #253381;
 }
-.TerceiraOpcao{
+.TerceiraOpcao {
   color: #253381;
 }
-.graficos-container {
+
+/* .graficos-container {
   display: flex;
-  justify-content: space-between;
-}
-.grafico {
-  min-height: 300px;
+
+  /* justify-content: space-between; */
+
+/* .grafico {
+
   width: 100%;
   border-top-color: #253381;
-  padding: 20px;
-  padding-bottom: 40px;
-}
+  border-style: solid red;
+} */
 
-@media only screen and (max-width: 720px) {
+/* @media only screen and (max-width: 720px) {
   .PrimeiraOpcao,
   .SegundaOpcao,
   .TerceiraOpcao {
@@ -89,7 +115,7 @@ export default {
   }
   
 
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 350px) {
   .PrimeiraOpcao,
   .SegundaOpcao,
   .TerceiraOpcao {
@@ -107,5 +133,5 @@ export default {
   }
 }
 
-}
+} */
 </style>

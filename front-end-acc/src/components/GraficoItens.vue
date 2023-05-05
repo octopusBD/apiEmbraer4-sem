@@ -1,10 +1,6 @@
 <template>
-  <!-- <v-card class="grafico-bar card-size">
-    <v-card-title style="text-align: center;">Items by Chassis</v-card-title>
-    <v-card-text> -->
-      <canvas ref="chartCanvas"></canvas>
-    <!-- </v-card-text>
-  </v-card> -->
+      <canvas style=" height: 100%;" ref="chartCanvas"></canvas>
+
 </template>
 
 <script>
@@ -15,16 +11,15 @@ import { onMounted, ref } from 'vue';
 export default {
   setup() {
     const chartCanvas = ref(null);
-    const qtdBoletins = ref([]);
-    const chassi = ref([]);
-
+    const item = ref([]);
+    const quantidade = ref([]);
+    
     const getData = async () => {
   try {
-    const response = await axios.get("/estatistica/listar/boletim"); // STRING PARA ACESSO A API
-    chassi.value = response.data.map((item) => item.chassi); // PUXAR ITENS COMO ESSE EXEMPLO  
-    qtdBoletins.value = response.data.map((item) => item.qtdBoletins);  // PUXAR ITENS COMO ESSE EXEMPLO  
-
-    console.log(response);
+    const response = await axios.get("/estatistica/listar/itemchassi");
+    console.log(response)
+    item.value = response.data.map((item) => item.item);  
+    quantidade.value = response.data.map((item) => item.quantidade);  
     
   } catch (error) {
     console.log(error);
@@ -35,15 +30,15 @@ const createChart = () => {
   if (!chartCanvas.value) return;
 
   const data = {
-    labels: chassi.value, //EIXO X
+    labels: item.value, //EIXO X
     datasets: [
       
       {
-        label: "chassi",
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        data: qtdBoletins.value // EIXO Y
-      }
+        label: "Incorporated",
+        borderColor: 'rgba(131,111,255)',
+        backgroundColor: 'rgba(131,111,255, 0.2)',
+        data: quantidade.value 
+      },
     ]
   };
 
@@ -51,6 +46,7 @@ const createChart = () => {
     type: 'bar', // TIPO GRAFICO
     data: data,
     options: {
+      
       maintainAspectRatio: false,
       scales: {
         yAxes: [{
@@ -60,6 +56,7 @@ const createChart = () => {
         }]
       },
       plugins: {
+        
         zoom: {
           zoom: {
             drag: {
@@ -87,3 +84,4 @@ const createChart = () => {
   }
 };
 </script>
+
