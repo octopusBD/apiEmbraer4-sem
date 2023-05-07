@@ -1,21 +1,37 @@
 <template>
-  <div class="container">
-    <v-layout style="height: 138px; background-color: #253381" class="border">
-      <!--  Botão página inicial -->
-      <v-btn to="home" class="home"  size="50" height="50" width="50" variant="text">
-        <Icon icon="ic:outline-home" width="35" />
-      </v-btn>
-      <!-- Define um div com uma imagem e um botão que exibe ou esconde notificações -->
-      <div class="mx-auto my-4 text-center">
-  <button style="background-color: #253381;" @click="active = !active">
-    <img class="imgs" src="@/assets/logo-dois.png" />
-  </button>
-</div>
-
-      <!-- Componente para a entrada de notificações -->
-      <notificacao-input-vue class="notificacao"></notificacao-input-vue>
-      <!-- Botões que levam a diferentes páginas -->
-      <v-bottom-navigation :active="active">
+  <v-app-bar class="bar-um" style="background-color: #253381;  border-radius: 0;
+  border-color: none;" rounded>
+    <v-btn
+      to="home"
+      class="home"
+      size="50"
+      height="50"
+      width="50"
+      variant="text"
+      
+    >
+      <Icon icon="ic:outline-home" width="35" />
+    </v-btn>
+    <div class="mx-auto my-4 text-center">
+      <button>
+        <img class="imgs" src="@/assets/logo-dois.png" />
+      </button>
+    </div>
+    <notificacao-input-vue class="notificacao"></notificacao-input-vue>
+    <v-btn
+      @click="redirect('sair')"
+      class="sair"
+      size="50"
+      height="50"
+      width="50"
+      variant="text"
+    >
+      <Icon icon="fluent:arrow-exit-20-regular" width="35" />
+    </v-btn>
+  </v-app-bar>
+  <v-layout class="overflow-visible" style="height: 56px;">
+    <v-bottom-navigation :active="active">
+      <div style="margin-right: 3%;">
         <v-btn @click="redirect('administrador')" class="administrador">
           <Icon icon="clarity:administrator-line" width="25" />
           <span class="d-none d-sm-inline">ADMINISTRATOR</span>
@@ -28,12 +44,9 @@
           <Icon icon="ph:pen" width="25" />
           <span class="d-none d-sm-inline">EDITOR</span>
         </v-btn>
-      </v-bottom-navigation>
-      <v-btn @click="redirect('sair')" class="sair"  size="50" height="50" width="50" variant="text">
-        <Icon icon="fluent:arrow-exit-20-regular" width="35" />
-      </v-btn>
-    </v-layout>
-  </div>
+      </div>
+    </v-bottom-navigation>
+  </v-layout >
 </template>
 <script>
 import NotificacaoInputVue from "@/components/NotificacaoInput.vue";
@@ -95,48 +108,38 @@ export default {
 </script>
 <style>
 .imgs {
-  margin-top: 0.08%;
+  margin-top: 5%;
   height: 55px;
-  width: auto;
-  margin-right: 0px;
-  margin-left: 82px;
-
 }
 
 .notificacao {
-  margin-top: 15px;
-  margin-left: 1px;
+  margin-top: 0.1%;
+  /* margin-left: 1%; */
   border-radius: 100rem;
   color: white;
 }
 
 .home {
-  margin-top: 15px;
-  margin-left: 5px;
+  margin-top: 0.1%;
+  margin-left: 0.5%;
   border-radius: 100rem;
   color: white;
 }
 .sair {
-  margin-top: 15px;
-  margin-left: 3px;
+  margin-top: 0.1%;
+  margin-left: 0.1%;
   border-radius: 100rem;
   color: white;
-  margin-right: 5px;
 }
 
 @media only screen and (max-width: 600px) {
-  .bottom-nav {
-    flex-direction: column;
-  }
-  .nav-btn {
-    margin: 1px 0;
-  }
-  .btn-home {
-    size: "small";
-  }
-  .imgs{
-    margin: 1px;
-  }
 
+
+  .imgs {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 150px;
+  
+  }
 }
 </style>
