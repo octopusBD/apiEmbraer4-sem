@@ -82,10 +82,8 @@ export default {
       }
 
       if (tela == "editor") {
-        if (
-          autorizacao_header == "Editor" ||
-          autorizacao_header == "Administrator"
-        ) {
+        if (autorizacao_header == "Editor" || autorizacao_header == "Administrator") {
+          router.push('/editor');
         } else {
           alert("Alert! You do not have permission to access this page.");
           //router.push('/home');
