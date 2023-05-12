@@ -11,6 +11,7 @@
           background-color="white"
           v-model="filtros.nomeUsuario"
           @input="filtrarTabela"
+          @update:model-value="filtrarStatus"
           variant="underlined"
           class="filtro"
         ></v-select>
@@ -26,6 +27,7 @@
           @input="filtrarTabela"
           variant="underlined"
           class="filtro"
+          :disabled="!filtros.nomeUsuario"
         ></v-select>
       </div>
       <div>
@@ -157,6 +159,7 @@ export default {
           };
         });
         this.obterOpcoesUnicas();
+        this.obterOpcoesStatus();
       } catch (error) {
         console.log(error);
       }
@@ -184,6 +187,14 @@ export default {
       }
       this.page = 1;
     },
+
+    async filtrarStatus() {
+      const { loginUsuario, permissao } = this.filtros;
+      this.obterOpcoesStatus(loginUsuario);
+      this.filtros.status = "";
+    },
+
+
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
@@ -200,13 +211,24 @@ export default {
       );
       const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
       const itemOptions = new Set(dadosDaTabela.map((dado) => dado.item));
-      const statusOptions = new Set(dadosDaTabela.map((dado) => dado.status));
 
       this.nomeUsuarioOptions = Array.from(nomeUsuarioOptions).sort();
       this.chassiOptions = Array.from(chassiOptions).sort();
       this.itemOptions = Array.from(itemOptions).sort();
+    },
+
+    obterOpcoesStatus(loginUsuario) {
+      const { dadosDaTabela } = this;
+      
+      const statusOptions = new Set(
+        dadosDaTabela
+        .filter((dado) => dado.loginUsuario === loginUsuario)
+        .map((dado) => dado.status)
+      );
       this.statusOptions = Array.from(statusOptions).sort();
     },
+
+
     // SETANDO CORES DOS STATUS DA TABELA
     getStatusColor(status) {
       switch (status) {

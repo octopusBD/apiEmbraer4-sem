@@ -265,7 +265,6 @@ export default {
     },
     async filtrarUser() {
       const { loginUsuario, permissao } = this.filtros;
-      console.log(permissao);
       this.obterOpcoesNomes(permissao);
       this.filtros.loginUsuario = "";
     },
