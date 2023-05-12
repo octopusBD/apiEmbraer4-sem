@@ -1,101 +1,128 @@
 <template>
-  <canvas ref="chartCanvas"></canvas>
+  <div>
+    <button @click="generatePdf">Generate PDF</button>
+    <canvas ref="chartCanvas"></canvas>
+  </div>
 </template>
 
 <script>
-import Chart from "chart.js/auto";
-import axios from "axios";
-import { onMounted, ref } from "vue";
+  import Chart from "chart.js/auto";
+  import axios from "axios";
+  import { onMounted, ref } from "vue";
+  import jsPDF from 'jspdf';
 
-export default {
-  setup() {
-    const chartCanvas = ref(null);
+  export default {
+    setup() {
+      const chartCanvas = ref(null);
+      const administrador = ref([]);
+      const editor = ref([]);
+      const consultor = ref([]);
 
-    const administrador = ref([]);
-    const editor = ref([]);
-    const consultor = ref([]);
-
-    const getData = async () => {
-      try {
-        const response = await axios.get("/estatistica/listar/permissao/tipo"); // STRING PARA ACESSO A API
-        administrador.value = response.data.map((item) => item.administrador); // PUXAR ITENS COMO ESSE EXEMPLO
-        editor.value = response.data.map((item) => item.editor); // PUXAR ITENS COMO ESSE EXEMPLO
-        consultor.value = response.data.map((item) => item.consultor); // PUXAR ITENS COMO ESSE EXEMPLO
-
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-      createChart();
-    };
-    const createChart = () => {
-      if (!chartCanvas.value) return;
-
-      const data = {
-        labels: ["Users"], //EIXO X
-        datasets: [
-          {
-            label: "Administrator",
-            borderColor: "rgba(131,111,255)",
-            backgroundColor: "rgba(131,111,255, 0.2)",
-            data: administrador.value, // EIXO Y
-          },
-
-          {
-            label: "Editor",
-            borderColor: "rgb(54, 162, 235)",
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            data: editor.value, // EIXO Y
-          },
-
-          {
-            label: "Consultant",
-            borderColor: "rgb(64,224,208)",
-            backgroundColor: "rgba(64,224,208, 0.2)",
-            data: consultor.value, // EIXO Y
-          },
-        ],
+      const getData = async () => {
+        try {
+          const response = await axios.get("/estatistica/listar/permissao/tipo");
+          administrador.value = response.data.map((item) => item.administrador);
+          editor.value = response.data.map((item) => item.editor);
+          consultor.value = response.data.map((item) => item.consultor);
+          createChart();
+        } catch (error) {
+          console.log(error);
+        }
       };
 
-      const config = {
-        type: "bar", // TIPO GRAFICO
-        data: data,
-        options: {
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
+      const createChart = () => {
+        if (!chartCanvas.value) return;
+
+        const data = {
+          labels: ["Users"],
+          datasets: [
+            {
+              label: "Administrator",
+              borderColor: "rgba(131,111,255)",
+              backgroundColor: "rgba(131,111,255, 0.2)",
+              data: administrador.value,
+            },
+            {
+              label: "Editor",
+              borderColor: "rgb(54, 162, 235)",
+              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              data: editor.value,
+            },
+            {
+              label: "Consultant",
+              borderColor: "rgb(64,224,208)",
+              backgroundColor: "rgba(64,224,208, 0.2)",
+              data: consultor.value,
+            },
+          ],
+        };
+
+        const config = {
+          type: "bar",
+          data: data,
+          options: {
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
                 },
-              },
-            ],
-          },
-          plugins: {
-            zoom: {
+              ],
+            },
+            plugins: {
               zoom: {
-                drag: {
-                  selection: true,
+                zoom: {
+                  drag: {
+                    selection: true,
+                  },
+                  mode: "xy",
                 },
-                mode: "xy",
-              },
-              onZoomComplete: function ({ chart }) {
-                console.log("Zoom complete", chart.scales);
+                onZoomComplete: function ({ chart }) {
+                  console.log("Zoom complete", chart.scales);
+                },
               },
             },
           },
-        },
+        };
+
+        chartCanvas.value = new Chart(chartCanvas.value, config);
       };
 
-      chartCanvas.value = new Chart(chartCanvas.value, config);
-    };
-    onMounted(() => {
-      getData();
-    });
+      const generatePdf = () => {
+        const canvasElement = chartCanvas.value;
+        const options = {
+          margin: 2.5,
+          filename: "chart.pdf",
+          image: { type: "png", quality: 1, imageCenter: true },
+          html2canvas: { dpi: 600, letterRendering: true, width: -55, height: -55, x: 5, y: 40 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
+        };
 
-    return {
-      chartCanvas,
-    };
-  },
-};
+        const doc = new jsPDF(options.jsPDF);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("Nome do Grafico", 70, 15);
+        const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+        const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
+        doc.addImage(imgData, "JPEG", 10, -12, 50, 50);
+        doc.setFont("helvetica", "not bold");
+        doc.setFontSize(12);
+        doc.text(`${dateTime}`, 23, 27);
+        const canvasImg = canvasElement.toDataURL("image/png", 1.0);
+        doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
+        doc.save(options.filename);
+      };
+
+      onMounted(() => {
+        getData();
+      });
+
+      return {
+        chartCanvas,
+        generatePdf
+      };
+    },
+  };
 </script>
