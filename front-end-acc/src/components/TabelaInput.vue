@@ -122,6 +122,7 @@ export default {
             chassi: dado.chassi,
           }
         });
+        console.log(this.items);
         this.obterOpcoesUnicas();
       } catch (error) {
         console.log(error);

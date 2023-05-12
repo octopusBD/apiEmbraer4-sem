@@ -11,6 +11,7 @@
           background-color="white"
           v-model="filtros.permissao"
           @input="filtrarTabela"
+          @update:model-value="filtrarUser"
           variant="underlined"
         ></v-select>
       </div>
@@ -24,6 +25,7 @@
           v-model="filtros.loginUsuario"
           @input="filtrarTabela"
           variant="underlined"
+          :disabled="!filtros.permissao"
         ></v-select>
       </div>
 
@@ -186,6 +188,7 @@ export default {
           };
         });
         this.obterOpcoesUnicas();
+        this.obterOpcoesNomes();
       } catch (error) {
         console.log(error);
       }
@@ -260,19 +263,29 @@ export default {
       this.filtros.loginUsuario = "";
       this.filtrarTabela();
     },
+    async filtrarUser() {
+      const { loginUsuario, permissao } = this.filtros;
+      console.log(permissao);
+      this.obterOpcoesNomes(permissao);
+      this.filtros.loginUsuario = "";
+    },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/loginUsuarioS
     obterOpcoesUnicas() {
-      const { dadosDaTabela } = this;
-      const nomeUsuarioOptions = new Set(
-        dadosDaTabela.map((dado) => dado.loginUsuario)
-      );
-      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
+      const { dadosDaTabela } = this;   
       const permissaoOptions = new Set(
         dadosDaTabela.map((dado) => dado.permissao)
       );
-      this.nomeUsuarioOptions = Array.from(nomeUsuarioOptions).sort();
-      // this.itemOptions = Array.from(itemOptions).sort();
       this.permissaoOptions = Array.from(permissaoOptions).sort();
+    },
+    obterOpcoesNomes(permissao) {
+      const { dadosDaTabela } = this;
+      
+      const nomeUsuarioOptions = new Set(
+        dadosDaTabela
+        .filter((dado) => dado.permissao === permissao)
+        .map((dado) => dado.loginUsuario)
+      );
+      this.nomeUsuarioOptions = Array.from(nomeUsuarioOptions).sort();
     },
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
