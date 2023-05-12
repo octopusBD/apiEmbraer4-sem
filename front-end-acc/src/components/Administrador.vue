@@ -5,54 +5,47 @@
     <v-tab class="TerceiraOpcao" value="three">Statistic</v-tab>
     <v-tab class="QuartaOpcao" value="four">Control</v-tab>
   </v-tabs>
-  <v-window style="height: 85%" v-model="tab">
+  <v-window style="height: 90%" v-model="tab">
     <v-window-item value="one">
       <administrador-primeiro></administrador-primeiro>
     </v-window-item>
     <v-window-item style="height: 85%" value="two">
       <administrador-segunda-tela-vue></administrador-segunda-tela-vue>
     </v-window-item>
-    <v-window-item style="height: 85%" value="three">
+    <v-window-item style="height: 100%;" value="three">
       <v-row>
         <v-col cols="12" md="6">
-          <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%">
-            <grafico-linha-vue
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+          <v-card style="margin-left: 2%; margin-right: 2%; ">
+            <grafico-linha-vue class="graphs"
             ></grafico-linha-vue>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card style="margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
-            <grafico-bar-vue
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+          <v-card style="margin-right: 2%; margin-left: 2%;">
+            <grafico-bar-vue class="graphs"
             ></grafico-bar-vue>
           </v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="6">
-          <v-card style="margin-left: 2%; margin-bottom: 2%; margin-right: 2%;">
-            <grafico-pie
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+          <v-card style="margin-left: 2%; margin-right: 2%;  margin-bottom: 30px; ">
+            <grafico-pie  class="graphs"
             ></grafico-pie>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 2%">
-            <grafico-vue
-              style="height: 350px; padding: 10px; margin: 5px"
+          <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 30px; ">
+            <grafico-vue class="graphs"
             ></grafico-vue>
           </v-card>
         </v-col>
       </v-row>
     </v-window-item>
-    <v-window-item style="height: 85%" value="four" >
-      <v-card style="margin-left: 5%;  margin-bottom: 2%; margin-right: 5%; margin-top: 10%;" >
-        <grafico-itens
-        style="height: 50%; padding: 10px; margin: 5px"
+    <v-window-item style="height: 85%" value="four">
+      <v-card class="grafico_control">
+        <grafico-itens class="graphs"
+          style="height: 400px; padding:10px; margin-bottom:50px;margin-top: 30px;"
         ></grafico-itens>
       </v-card>
     </v-window-item>
@@ -95,43 +88,56 @@ export default {
   color: #253381;
 }
 
-/* .graficos-container {
+.QuartaOpcao {
+  color: #253381;
+}
+.titulo1 {
+  font-size: 25px;
   display: flex;
-
-  /* justify-content: space-between; */
-
-/* .grafico {
-
-  width: 100%;
-  border-top-color: #253381;
-  border-style: solid red;
-} */
-
-/* @media only screen and (max-width: 720px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:10px; 
-  }
-  
-
-  @media only screen and (max-width: 350px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:11px;
-  }
-
-  
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.graphs{
+  height: 350px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.titulo2 {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(55, 53, 53);
+}
+.titulo3 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.titulo4 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
 }
 
-@media only screen and (max-width: 300px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:10px;
-  }
+.titulo5 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.grafico_control {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+  font-family: Arial, sans-serif;
+  color: #253381;
 }
 
-} */
 </style>

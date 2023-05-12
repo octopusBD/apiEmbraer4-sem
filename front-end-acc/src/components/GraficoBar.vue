@@ -118,3 +118,14 @@
     }
   };
 </script>
+
+<style>
+.Titulo1{
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+</style>
+
