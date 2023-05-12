@@ -12,6 +12,7 @@ import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.entity.ViewEstatisticaUsuario;
 import apiembraer.backend.entity.ViewItemChassiEntity;
 import apiembraer.backend.entity.ViewPermissaoUsuarioEntity;
+import apiembraer.backend.entity.ViewQtdStatus;
 import apiembraer.backend.entity.ViewStatusChassiEntity;
 import apiembraer.backend.entity.ViewStatusUsuarioEntity;
 import apiembraer.backend.repository.EstatisticaDisponibilidadeRepository;
@@ -21,6 +22,7 @@ import apiembraer.backend.repository.EstatisticaQtdContidoRepository;
 import apiembraer.backend.repository.EstatisticaStatusRepository;
 import apiembraer.backend.repository.ViewItemChassiRepository;
 import apiembraer.backend.repository.ViewPermissaoUsuarioRepository;
+import apiembraer.backend.repository.ViewQtdStatusRepository;
 import apiembraer.backend.repository.ViewStatusChassiRepository;
 import apiembraer.backend.repository.ViewStatusUsuarioRepository;
 
@@ -53,6 +55,10 @@ public class EstatisticaService {
     
     @Autowired
     private ViewItemChassiRepository viewItemChassiRepository;
+    
+    @Autowired
+    private ViewQtdStatusRepository viewqtdstatusrepository;
+    
 
 	// LISTAR DISPONIBILIDADE //
     public List<ViewEstatisticaDisponibilidadeEntity> getAllDisponibilidade() {
@@ -130,5 +136,9 @@ public class EstatisticaService {
         return viewItemChassiRepository.findAll();
     }
     
+  
+    public List<ViewQtdStatus> getAllQtdStatus() {
+        return viewqtdstatusrepository.findAll();
+    }
     
 }
