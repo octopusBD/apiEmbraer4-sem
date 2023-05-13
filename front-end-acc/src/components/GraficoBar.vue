@@ -85,13 +85,14 @@
         getData();
       });
 
+   
       const generatePdf = () => {
         const canvasElement = chartCanvas.value;
         const options = {
           margin: 2.5,
-          filename: "Itens By Chassi.pdf",
+          filename: "Quantity of Itens.pdf",
           image: { type: "png", quality: 1, imageCenter: true },
-          html2canvas: { dpi: 600, letterRendering: true, width: -53, height: -50, x: 2.5, y: 40 },
+          html2canvas: { dpi: 500, letterRendering: true, width: 794, height: 1123, x: 2.5, y: 40 },
           jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
         };
 
@@ -99,7 +100,7 @@
         doc.setFont("helvetica", "bold");
         doc.setFontSize(25);
         doc.setTextColor("#253381");
-        doc.text("Itens By Chassi", 140, 15);
+        doc.text("Quantity of Itens", 140, 15);
         const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
         const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
         doc.addImage(imgData, "JPEG", 10, -12, 50, 50);
@@ -110,7 +111,6 @@
         doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
         doc.save(options.filename);
       };
-
       return {
         chartCanvas,
         generatePdf
