@@ -98,9 +98,9 @@ export default {
         html2canvas: {
           dpi: 1200,
           letterRendering: true,
-          width: 794,
-          height: 1123,
-          x: 2.5,
+          width: 282,
+          height: 157,
+          x: 7.5,
           y: 40,
         },
         jsPDF: {
@@ -113,27 +113,18 @@ export default {
       };
 
       const doc = new jsPDF(options.jsPDF);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(25);
-      doc.setTextColor("#253381");
-      doc.text("Quantity of Itens", 140, 15);
-      const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
-      const imgData =
-        "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
-      doc.addImage(imgData, "JPEG", 10, -12, 50, 50);
-      doc.setFont("helvetica", "not bold");
-      doc.setFontSize(12);
-      doc.text(`${dateTime}`, 23, 27);
-      const canvasImg = canvasElement.toDataURL("image/png", 1.0);
-      doc.addImage(
-        canvasImg,
-        "PNG",
-        options.html2canvas.x,
-        options.html2canvas.y,
-        options.html2canvas.width,
-        options.html2canvas.height
-      );
-      doc.save(options.filename);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+        doc.text("Quantity of Itens", 140, 15);
+        const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+        const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
+        doc.addImage(imgData, "JPEG", 10, -12, 80, 50);
+        doc.setFont("helvetica", "not bold");
+        doc.setFontSize(12);
+        doc.text(`${dateTime}`, 35.5, 28);
+        const canvasImg = canvasElement.toDataURL("image/png", 1.0);
+        doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
+        doc.save(options.filename);
     };
     return {
       chartCanvas,

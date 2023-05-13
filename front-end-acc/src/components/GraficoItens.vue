@@ -16,7 +16,7 @@
   import { onMounted, ref } from "vue";
   import jsPDF from 'jspdf';
 
- 
+
 export default {
   setup() {
     const chartCanvas = ref(null);
@@ -113,24 +113,36 @@ export default {
       const generatePdf = () => {
         const canvasElement = chartCanvas.value;
         const options = {
-          margin: 2.5,
-          filename: "Quantity of Itens.pdf",
-          image: { type: "png", quality: 1, imageCenter: true },
-          html2canvas: { dpi: 1200, letterRendering: true, width: 280, height: 800, x: 2.5, y: 40 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
-        };
+        margin: 2.5,
+        filename: "Status by Chassi.pdf",
+        image: { type: "png", quality: 1, imageCenter: true },
+        html2canvas: {
+          dpi: 1200,
+          letterRendering: true,
+          width: 282,
+          height: 157,
+          x: 7.5,
+          y: 40,
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "landscape",
+          compressPdf: true,
+          precision: 100,
+        },
+      };
 
         const doc = new jsPDF(options.jsPDF);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(25);
-        doc.setTextColor("#253381");
+        doc.setFontSize(20);
         doc.text("Quantity of Itens", 140, 15);
         const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
         const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
-        doc.addImage(imgData, "JPEG", 10, -12, 50, 50);
+        doc.addImage(imgData, "JPEG", 10, -12, 80, 50);
         doc.setFont("helvetica", "not bold");
         doc.setFontSize(12);
-        doc.text(`${dateTime}`, 23, 27);
+        doc.text(`${dateTime}`, 35.5, 28);
         const canvasImg = canvasElement.toDataURL("image/png", 1.0);
         doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
         doc.save(options.filename);
