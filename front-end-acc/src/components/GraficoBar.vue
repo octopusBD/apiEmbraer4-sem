@@ -3,7 +3,7 @@
     <v-card-title style="text-align: center;">Items by Chassis</v-card-title>
     <v-card-text> -->
       <div>
-        <button @click="generatePdf">Generate PDF</button>
+        <button @click="generatePdf"> <v-icon>mdi-download</v-icon></button>
         <canvas ref="chartCanvas"></canvas>
       </div>
     <!-- </v-card-text>

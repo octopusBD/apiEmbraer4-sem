@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <button @click="generatePdf">Generate PDF</button>
+      <button @click="generatePdf"> <v-icon>mdi-download</v-icon></button>
       <canvas ref="chartCanvas"></canvas>
     </div>
   </div>
@@ -13,68 +13,95 @@
   import { onMounted, ref } from "vue";
   import jsPDF from 'jspdf';
 
-  export default {
-    setup() {
-      const chartCanvas = ref(null);
-      const item = ref([]);
-      const quantidade = ref([]);
+ 
+export default {
+  setup() {
+    const chartCanvas = ref(null);
 
-      const getData = async () => {
-        try {
-          const response = await axios.get("/estatistica/listar/itemchassi");
-          console.log(response)
-          item.value = response.data.map((item) => item.item);
-          quantidade.value = response.data.map((item) => item.quantidade);
-        } catch (error) {
-          console.log(error);
-        }
-        createChart();
+    const notIncorporatedPercentage = ref([]);
+    const incorporatedPercentage = ref([]);
+    const applicablePercentage = ref([]);
+    const item = ref([]);
+
+    const getData = async () => {
+      try {
+        const response = await axios.get("/estatistica/listar/ViewQtdStatus");
+        item.value = response.data.map((item) => item.item);
+        notIncorporatedPercentage.value = response.data.map((item) => item.notIncorporatedPercentage);
+        incorporatedPercentage.value = response.data.map((item) => item.incorporatedPercentage);
+        applicablePercentage.value = response.data.map((item) => item.applicablePercentage);
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+      createChart();
+    };
+    const createChart = () => {
+      if (!chartCanvas.value) return;
+
+      const data = {
+        labels: item.value,
+        datasets: [
+          {
+            label: "Not Incorporated",
+            borderColor: "rgba(131,111,255)",
+            backgroundColor: "rgba(131,111,255, 0.2)",
+            data: notIncorporatedPercentage.value,
+            stack: 1 // Adiciona a propriedade "stack" com valor 1
+          },
+
+          {
+            label: "Incorporated",
+            borderColor: "rgb(54, 162, 235)",
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            data: incorporatedPercentage.value,
+            stack: 1 // Adiciona a propriedade "stack" com valor 1
+          },
+
+          {
+            label: "Applicable",
+            borderColor: "rgb(64,224,208)",
+            backgroundColor: "rgba(64,224,208, 0.2)",
+            data: applicablePercentage.value,
+            stack: 1 // Adiciona a propriedade "stack" com valor 1
+          },
+        ],
       };
-      const createChart = () => {
-        if (!chartCanvas.value) return;
 
-        const data = {
-          labels: item.value, //EIXO X
-          datasets: [
-            {
-              label: "Incorporated",
-              borderColor: 'rgba(131,111,255)',
-              backgroundColor: 'rgba(131,111,255, 0.2)',
-              data: quantidade.value 
-            },
-          ]
-        };
-
-        const config = {
-          type: 'bar', // TIPO GRAFICO
-          data: data,
-          options: {
-            maintainAspectRatio: false,
-            scales: {
-              yAxes: [{
+      const config = {
+        type: "bar",
+        data: data,
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                stacked: true ,// Altera a propriedade "stacked" para "true"
                 ticks: {
-                  beginAtZero: true
-                }
-              }]
-            },
-            plugins: {
-              zoom: {
-                zoom: {
-                  drag: {
-                    selection: true
-                  },
-                  mode: 'xy'
+                  beginAtZero: true,
                 },
-                onZoomComplete: function ({ chart }) {
-                  console.log('Zoom complete', chart.scales);
-                }
-              }
-            }
-          }
-        };
-
-        chartCanvas.value = new Chart(chartCanvas.value, config);
+              },
+            ],
+          },
+          plugins: {
+            zoom: {
+              zoom: {
+                drag: {
+                  selection: true,
+                },
+                mode: "xy",
+              },
+              onZoomComplete: function ({ chart }) {
+                console.log("Zoom complete", chart.scales);
+              },
+            },
+          },
+        },
       };
+
+      chartCanvas.value = new Chart(chartCanvas.value, config);
+    };
 
       onMounted(() => {
         getData();
@@ -86,7 +113,7 @@
           margin: 2.5,
           filename: "Quantity of Itens.pdf",
           image: { type: "png", quality: 1, imageCenter: true },
-          html2canvas: { dpi: 600, letterRendering: true, width: -103, height: -60, x: 2.5, y: 40 },
+          html2canvas: { dpi: 500, letterRendering: true, width: 794, height: 1123, x: 2.5, y: 40 },
           jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
         };
 

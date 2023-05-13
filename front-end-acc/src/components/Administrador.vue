@@ -5,7 +5,7 @@
     <v-tab class="TerceiraOpcao" value="three">Statistic</v-tab>
     <v-tab class="QuartaOpcao" value="four">Control</v-tab>
   </v-tabs>
-  <v-window style="height: 85%" v-model="tab">
+  <v-window style="height: 97%" v-model="tab">
     <v-window-item value="one">
       <administrador-primeiro></administrador-primeiro>
     </v-window-item>
@@ -17,16 +17,14 @@
         <v-col cols="12" md="6">
           <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%">
             <grafico-linha-vue
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+            class="graphs"
             ></grafico-linha-vue>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
           <v-card style="margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
             <grafico-bar-vue
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+            class="graphs"
             ></grafico-bar-vue>
           </v-card>
         </v-col>
@@ -35,24 +33,24 @@
         <v-col cols="12" md="6">
           <v-card style="margin-left: 2%; margin-bottom: 2%; margin-right: 2%;">
             <grafico-pie
-              class="grafico"
-              style="height: 350px; padding: 10px; margin: 5px"
+            class="graphs"
             ></grafico-pie>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
           <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 2%">
             <grafico-vue
-              style="height: 350px; padding: 10px; margin: 5px"
+            class="graphs"
             ></grafico-vue>
           </v-card>
         </v-col>
       </v-row>
     </v-window-item>
     <v-window-item style="height: 85%" value="four" >
-      <v-card style="margin-left: 5%;  margin-bottom: 2%; margin-right: 5%; margin-top: 10%;" >
+      <v-card         class="grafico_control" >
         <grafico-itens
-        style="height: 50%; padding: 10px; margin: 5px"
+        style="height: 400px; padding:10px; margin-bottom:50px;margin-top: 30px;"
+
         ></grafico-itens>
       </v-card>
     </v-window-item>
@@ -94,7 +92,24 @@ export default {
 .TerceiraOpcao {
   color: #253381;
 }
-
+.TerceiraOpcao {
+  color: #253381;
+}
+.QuartaOpcao {
+  color: #253381;
+}
+.graphs{
+  height: 350px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.grafico_control {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+  font-family: Arial, sans-serif;
+  color: #253381;
+}
 /* .graficos-container {
   display: flex;
 

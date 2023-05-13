@@ -147,11 +147,11 @@ export default {
 
 .btn-login {
   color: aliceblue !important;
-  margin-left: 39%;
+  margin-left: 36%;
   height: 5% !important;
   max-width: 25%;
   margin-top: 15%;
-  border-radius: 10px !important;
+  border-radius: 15px !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,9 +181,8 @@ export default {
 }
 
 .logo_embraer {
-  /* border-style: solid; */
   padding: 10%;
-  margin: 100px auto 0;
+  margin: 35% auto 0;
   width: 50%;
   height: 10%;
   display: flex;
@@ -203,16 +202,6 @@ export default {
 
 @media only screen and (max-width: 600px) {
   .btn-login {
-    align-items: center;
-    height: 35px !important ;
-    width: 80% !important;
-    margin-top: 10%;
-  }
-  .logo-embraer {
-    margin-left: 110px;
-  }
-
-  .btn-login {
     color: aliceblue !important;
     height: 45px !important;
     width: 110px !important;
@@ -221,11 +210,26 @@ export default {
     background-color: white;
     display: block;
   }
+
+  .mx-auto {
+    margin-top: 3%;
+  }
+
+  .card-footer {
+    margin-top: 5%;
+  }
+
+  .logo-embraer {
+    margin-left: 30px;
+  }
+
   .card {
     width: 100%;
   }
 
-  .mx-auto {
+  
+
+  /* .mx-auto {
     margin-top: 10%;
   }
 
@@ -233,8 +237,66 @@ export default {
     margin-top: 20%;
   }
 
-  
+  .logo-embraer {
+    margin-left: 110px;
+  } */
+
+/* Estilos para telas médias */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .btn-login {
+    color: aliceblue !important;
+    height: 40px !important;
+    width: 100px !important;
+    margin: 15px auto 0 auto;
+    border-radius: 8px !important;
+    background-color: white;
+    display: block;
+  }
+
+  .mx-auto {
+    margin-top: 5%;
+  }
+
+  .card-footer {
+    margin-top: 10%;
+  }
+
+  .logo-embraer {
+    margin-left: 60px;
+  }
+
+  .card {
+    width: 50%;
+  }
+}
+
+  /* Estilos para telas grandes */
+@media only screen and (min-width: 1025px) {
+  .btn-login {
+    color: aliceblue !important;
+    height: 50px !important;
+    width: 120px !important;
+    margin: 30px auto 0 auto;
+    border-radius: 12px !important;
+    background-color: white;
+    display: block;
+  }
+
+  .mx-auto {
+    margin-top: 15%;
+  }
+
+  .card-footer {
+    margin-top: 25%;
+  }
+
+  .logo-embraer {
+    margin-left: 150px;
+  }
+  .card {
+    width: 40%;
+  }
+}
+
 }
 </style>
-
-
