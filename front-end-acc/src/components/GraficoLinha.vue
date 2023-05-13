@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button @click="generatePdf"> <v-icon>mdi-download</v-icon></button>
+    <v-btn size="25" height="50" width="25" @click="generatePdf">
+      <v-icon>mdi-download</v-icon></v-btn
+    >
+    <h2 class="Titulo1">Status by Chassi</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
 </template>
@@ -107,7 +110,7 @@
           margin: 2.5,
           filename: "Status by Chassi.pdf",
           image: { type: "png", quality: 1, imageCenter: true },
-          html2canvas: { dpi: 600, letterRendering: true, width: -53, height: -50, x: 2.5, y: 40 },
+          html2canvas: { dpi: 1000, letterRendering: true, width: -53, height: -50, x: 2.5, y: 40 },
           jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
         };
 
@@ -136,8 +139,10 @@
 </script>
 
 <style>
-  /* .grafico-linha{
-
-    height: 700px;
-  } */
+.Titulo1{
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button @click="generatePdf"> <v-icon>mdi-download</v-icon></button>
+    <v-btn size="25" height="50" width="25" @click="generatePdf">
+      <v-icon>mdi-download</v-icon></v-btn
+    >
+    <h2 class="Titulo1">Status by Users</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
 </template>
@@ -106,8 +109,8 @@
           margin: 2.5,
           filename: "Status by Users.pdf",
           image: { type: "png", quality: 1, imageCenter: true },
-          html2canvas: { dpi: 600, letterRendering: true, width: -53, height: -50, x: 2.5, y: 40 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: true, precision: 100 },
+          html2canvas: { dpi: 1200, letterRendering: true, width: -53, height: -50, x: 2.5, y: 40 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "landscape", compressPdf: 0.5, precision: 100 },
         };
 
         const doc = new jsPDF(options.jsPDF);
@@ -133,3 +136,12 @@
     },
   };
 </script>
+
+<style>
+.Titulo1{
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
