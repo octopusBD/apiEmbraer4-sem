@@ -3,86 +3,72 @@
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-      <!-- Primeiro filtro -->
-      <div class="filtro1">
-        <v-select
-          label="Chassis"
-          :items="chassiOptions"
-          background-color="white"
-          v-model="filtros.chassi"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <div class="filtro2">
-        <v-select
-          label="Itens"
-          :items="itemOptions"
-          background-color="white"
-          v-model="filtros.item"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Terceiro filtro -->
-      <div class="filtro3">
-        <v-select
-          label="Status Sample"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-        <div>
-          <v-col cols="auto">
-            <v-btn
-              class="limpar"
-              v-show="!isMobile"
-              density="comfortable"
-              @click="limparFiltro"
-              icon="mdi-eraser"
-              size="50"
-              height="50"
-              width="50"
-            ></v-btn>
-          </v-col>
+        <!-- filtro ITENS -->
+        <div class="filtro1">
+          <v-select
+            label="Chassis"
+            :items="chassiOptions"
+            background-color="white"
+            v-model="filtros.chassi"
+            @input="filtrarTabela"
+            variant="underlined"
+          ></v-select>
         </div>
-      </div>
+        
+        <!-- filtro STATUS -->
+        <div class="filtro2">
+          <v-select
+            label="Itens"
+            :items="itemOptions"
+            background-color="white"
+            v-model="filtros.item"
+            @input="filtrarTabela"
+            variant="underlined"
+          ></v-select>
+        </div>
+
+        <!-- filtro DELETAR -->
+        <div class="filtro3">
+          <v-select
+            label="Status Sample"
+            :items="statusSampleOptions"
+            background-color="white"
+            v-model="filtros.statusSample"
+            @input="filtrarTabela"
+            variant="underlined"
+          ></v-select>
+          <div>
+            <v-col cols="auto">
+              <v-btn
+                class="limpar"
+                v-show="!isMobile"
+                density="comfortable"
+                @click="limparFiltro"
+                icon="mdi-eraser"
+                size="50"
+                height="50"
+                width="50"
+              ></v-btn>
+            </v-col>
+          </div>
+        </div>
       <v-spacer></v-spacer>
     </v-toolbar>
     <!-- Tabela de dados -->
-    <v-card
-      class="mx-auto"
-      max-width="1200"
-      style="
-        height: 80%;
-        text-align: center;
-        margin-top: 70px;
-        margin: 40px;
-        width: 50;
-      "
-    >
+    <v-card class="mx-auto" max-width="1200" style=" height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50;">
       <!-- Botão de exportação -->
       <div>
-        <v-btn
-          @click="onClick()"
-          class="pdf"
-          variant="text"
-          style="margin-right: 94%"
-        >
+        <v-btn @click="onClick()" class="pdf" variant="text" style="margin-right: 94%">
           Export - <Icon icon="carbon:document-export" width="35" />
         </v-btn>
         <hr />
       </div>
       <!-- Tabela em si -->
-      <v-table
-        width="800"
-        height="450"
-        style="margin: 60 auto; border-spacing: 10px; margin: 30px"
-      >
+      <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin: 30px">
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
+            <th style="color: white; text-align: center">Chassi</th>
+            <!-- <th style="color: white; text-align: center">idSample</th> -->
             <th style="color: white; text-align: center">Itens</th>
             <th style="color: white; text-align: center">Status</th>
             <th style="color: white; text-align: center">Deletar</th>
@@ -91,12 +77,14 @@
         <tbody>
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
+            <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
+            <!-- <td style="border-bottom: 1px solid black">{{ item.idSample }}</td> -->
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
             <td style="border-bottom: 1px solid black">
               <v-select
                 label="Status Sample"
                 :items="['INCORPORATED', 'NOT INCORPORATED']"
-                v-model="statusEditado.statusSample"
+                v-model="item.statusSample"
                 required
               ></v-select>
               <!-- Chips coloridos com o status da amostra -->
@@ -171,11 +159,10 @@ export default {
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
-          console.log(dado.idChassi);
-
           return {
             item: dado.item,
             statusSample: dado.statusSample,
+            idSample: dado.idSample,
             chassi: dado.chassi,
             idChassi: dado.idChassi,
           };
@@ -289,6 +276,7 @@ export default {
         fileLink.click();
       });
     },
+    
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
