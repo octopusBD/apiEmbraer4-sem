@@ -327,7 +327,7 @@ ON bol.ID_BOLETIM = sam.ID_BOLETIM
 GROUP BY 
   sam.ID_BOLETIM, bol.ITEM
 )res
-ORDER BY res.ITEM
+ORDER BY res.ITEM;
 
 -- Tabela BOLETIM
 INSERT INTO BOLETIM (BOLETIM, ITEM) VALUES ( 'SB FAT-21-CG12', 'Vidros e travas elétricas');

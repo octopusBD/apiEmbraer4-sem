@@ -13,7 +13,7 @@
       <administrador-segunda-tela-vue style="height: 100%;"></administrador-segunda-tela-vue>
 
     </v-window-item>
-    <v-window-item style="height: 85%" value="three">
+    <v-window-item style="height: 100%;" value="three">
       <v-row>
         <v-col cols="12" md="6">
           <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%">
@@ -101,43 +101,56 @@ export default {
 
 
 
-/* .graficos-container {
+.QuartaOpcao {
+  color: #253381;
+}
+.titulo1 {
+  font-size: 25px;
   display: flex;
-
-  /* justify-content: space-between; */
-
-/* .grafico {
-
-  width: 100%;
-  border-top-color: #253381;
-  border-style: solid red;
-} */
-
-/* @media only screen and (max-width: 720px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:10px; 
-  }
-  
-
-  @media only screen and (max-width: 350px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:11px;
-  }
-
-  
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.graphs{
+  height: 350px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.titulo2 {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(55, 53, 53);
+}
+.titulo3 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.titulo4 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
 }
 
-@media only screen and (max-width: 300px) {
-  .PrimeiraOpcao,
-  .SegundaOpcao,
-  .TerceiraOpcao {
-  margin:10px;
-  }
+.titulo5 {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #253381;
+}
+.grafico_control {
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+  font-family: Arial, sans-serif;
+  color: #253381;
 }
 
-} */
 </style>

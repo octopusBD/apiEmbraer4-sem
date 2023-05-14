@@ -1,4 +1,4 @@
-<template>
+0<template>
   <div>
     <div class="container">
       <v-btn size="25" height="50" width="25" @click="generatePdf">
@@ -11,10 +11,9 @@
 </template>
 
 <script>
-  import Chart from "chart.js/auto";
-  import axios from "axios";
-  import { onMounted, ref } from "vue";
-  import jsPDF from 'jspdf';
+import Chart from 'chart.js/auto';
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
 
 export default {
@@ -154,6 +153,18 @@ export default {
       };
     }
   };
+
+  chartCanvas.value = new Chart(chartCanvas.value, config);
+};
+    onMounted(() => {
+      getData();
+    });
+
+    return {
+      chartCanvas
+    };
+  }
+};
 </script>
 
 <style>

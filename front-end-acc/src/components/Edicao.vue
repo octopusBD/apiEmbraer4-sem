@@ -14,8 +14,18 @@
           variant="underlined"
         ></v-select>
       </div>
-      <!-- Segundo filtro -->
       <div class="filtro2">
+        <v-select
+          label="Itens"
+          :items="itemOptions"
+          background-color="white"
+          v-model="filtros.item"
+          @input="filtrarTabela"
+          variant="underlined"
+        ></v-select>
+      </div>
+      <!-- Terceiro filtro -->
+      <div class="filtro3">
         <v-select
           label="Status Sample"
           :items="statusSampleOptions"
@@ -137,10 +147,9 @@ export default {
       },
       statusEditado: {
         statusSample: "",
-  
       },
       chassiOptions: [],
-      itemOptions: [],
+      f: [],
       statusSampleOptions: [],
       itens: [],
     };
@@ -162,12 +171,16 @@ export default {
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
+          console.log(dado.idChassi);
+
           return {
             item: dado.item,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
+            idChassi: dado.idChassi,
           };
         });
+
         this.obterOpcoesUnicas();
       } catch (error) {
         console.log(error);
@@ -217,6 +230,7 @@ export default {
             chassi: dado.chassi,
           };
         });
+        console.log(dado);
       } catch (error) {
         console.log(error);
         this.items = [];
@@ -234,12 +248,12 @@ export default {
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
       const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
-      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
+      const itemOptions = new Set(dadosDaTabela.map((dado) => dado.item));
       const statusSampleOptions = new Set(
         dadosDaTabela.map((dado) => dado.statusSample)
       );
       this.chassiOptions = Array.from(chassiOptions).sort();
-      // this.itemOptions = Array.from(itemOptions).sort();
+      this.itemOptions = Array.from(itemOptions).sort();
       this.statusSampleOptions = Array.from(statusSampleOptions).sort();
     },
     // SETANDO CORES DOS STATUS DA TABELA
@@ -279,18 +293,18 @@ export default {
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-      const { chassi, statusSample } = this.filtros;
+      const { chassi, statusSample, item } = this.filtros;
       const filterByChassi = chassi !== "";
-      // const filterByItem = item !== "";
+      const filterByItem = item !== "";
       const filterByStatusSample = statusSample !== "";
       return this.items.filter((item) => {
         let matches = true;
         if (filterByChassi) {
           matches = matches && item.chassi === chassi;
         }
-        // if (filterByItem) {
-        //   matches = matches && item.item === this.filtros.item;
-        // }
+        if (filterByItem) {
+          matches = matches && item.item === this.filtros.item;
+        }
         if (filterByStatusSample) {
           matches = matches && item.statusSample === statusSample;
         }
@@ -328,6 +342,14 @@ export default {
   margin-left: 20px;
 }
 
+.filtro3 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
 .pdf {
   margin-right: 500px;
 }
@@ -337,7 +359,8 @@ export default {
     font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
   }
   .filtro1,
-  .filtro2 {
+  .filtro2,
+  .filtro3 {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
@@ -348,7 +371,8 @@ export default {
   margin-top: 20px;
 } */
   .filtro1,
-  .filtro2 {
+  .filtro2,
+  .filtro3 {
     margin-top: 20px;
   }
   .v-card {

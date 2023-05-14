@@ -1,7 +1,7 @@
 <template>
-  <HeaderInput />
-  <Administrador style="height: 100%"></Administrador>
-  <Footersrinput />
+  <HeaderInput style="height: 5%"></HeaderInput>
+  <Administrador style="height: 90%"></Administrador>
+  <Footersrinput style="height: 5%"></Footersrinput>
   <ValidaToken :Tela="'Admin'" />
 </template>
 
