@@ -114,7 +114,7 @@ export default {
         const canvasElement = chartCanvas.value;
         const options = {
         margin: 2.5,
-        filename: "Status by Chassi.pdf",
+        filename: "Quantity of Itens.pdf",
         image: { type: "png", quality: 1, imageCenter: true },
         html2canvas: {
           dpi: 1200,
