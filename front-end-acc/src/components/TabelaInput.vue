@@ -196,6 +196,7 @@ export default {
       }
     },
       onClick() { 
+        const idUsuario = sessionStorage.getItem("idUsuario");
         const selecao = this.filtros.chassi; // obter a seleção
         console.log(selecao); // exibir a seleção no console
         if (selecao == ''){
@@ -203,7 +204,7 @@ export default {
           return
         }
         axios({
-        url: 'pdf/2/' + selecao,
+        url: 'pdf/' + idUsuario + '/' + selecao,
         method: 'GET',
         responseType: 'blob',
       }).then((response) => {
