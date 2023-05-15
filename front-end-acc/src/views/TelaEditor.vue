@@ -11,7 +11,6 @@
         import Edicao from '@/components/Edicao.vue';
         import Footersrinput from '@/components/Footersrinput.vue'
         
-        
     </script>
 <style>
 </style>
