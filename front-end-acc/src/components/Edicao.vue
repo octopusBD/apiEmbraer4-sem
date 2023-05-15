@@ -75,7 +75,8 @@
             <!-- <th style="color: white; text-align: center">idSample</th> -->
             <th style="color: white; text-align: center">Itens</th>
             <th style="color: white; text-align: center">Status</th>
-            <th style="color: white; text-align: center">Deletar</th>
+            <th style="color: white; text-align: center">Update</th>
+            <!-- <th style="color: white; text-align: center">Deletar</th> -->
           </tr>
         </thead>
         <tbody>
@@ -84,26 +85,64 @@
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
             <!-- <td style="border-bottom: 1px solid black">{{ item.idSample }}</td> -->
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
+
             <td style="border-bottom: 1px solid black">
-              <v-select
+              <!-- <v-select
                 label="Status Sample"
                 :items="['INCORPORATED', 'NOT INCORPORATED']"
                 v-model="item.statusSample"
-                required
-              ></v-select>
+                v-on:change="onItemSelected()"
+              ></v-select> -->
               <!-- Chips coloridos com o status da amostra -->
-              <!-- <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip> -->
+              <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
             </td>
+
+            <td style="border-bottom: 1px solid black">
+              <v-btn flat icon small @click="editarItem(item.idSample)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </td>
+
+            <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
+              <v-card>
+                <v-card-title>Edit Status</v-card-title>
+                <v-card-text>
+                  <v-form ref="form">
+                   <v-select
+                      label="Status Sample"
+                      :items="['INCORPORATED', 'NOT INCORPORATED']"
+                      v-model="statusEditado.statusSample"
+                    ></v-select> 
+
+                    <v-text-field
+                      v-model="statusEditado.idSample"
+                      type="hidden"
+                    ></v-text-field>
+
+                    <!-- <v-checkbox label="Ativo" v-model="usuarioEditado.ativo"></v-checkbox> -->
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                  <v-btn @click="salvarEdicao">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+
             <!-- <td style="border-bottom: 1px solid black">
           <v-btn class="editar" flat @click="editItem(index)">
             <v-icon class="mdi mdi-pencil"></v-icon>
           </v-btn>
         </td> -->
-            <td style="border-bottom: 1px solid black">
+
+
+            <!-- <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(index)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
-            </td>
+            </td> 
+          -->
           </tr>
         </tbody>
       </v-table>
@@ -142,6 +181,7 @@ export default {
       },
       chassiOptions: [],
       f: [],
+      editModalOpen: false,
       statusSampleOptions: [],
       itens: [],
     };
@@ -180,22 +220,20 @@ export default {
         console.log(error);
       }
     },
-    editarItem(idUsuario) {
-      // Busca o usuário pelo ID e seta na variável usuarioEditado
+    editarItem(idSample) {
+      console.log("Oi")
       this.statusEditado = this.paginatedItems.find(
-        (u) => u.idUsuario === idUsuario
+        (u) => u.idSample === idSample
       );
+      this.editModalOpen = true;
     },
     async salvarEdicao() {
       try {
-        //alert(this.usuarioEditado);
-
+    
         if (
-          this.statusEditado.statusSample == "'NOT INCORPORATED" ||
-          this.statusEditado.statusSample == "INCORPORATED"
+          this.statusEditado.statusSample == "NOT INCORPORATED" || this.statusEditado.statusSample == "INCORPORATED"
         ) {
-          const response = await axios.put(
-            "/idUsuario/update/" + this.statusEditado.idUsuario,
+          const response = await axios.post("/editar/save/" + this.statusEditado.idSample,
             { ...this.statusEditado }
           );
           alert("Updated successfully.");
@@ -210,6 +248,10 @@ export default {
         this.editModalOpen = false;
       }
     },
+    onItemSelected() {
+      console.log('Item selecionado:');
+    },
+
     async filtrarTabela() {
       const { chassi, item, statusSample } = this.filtros;
       try {

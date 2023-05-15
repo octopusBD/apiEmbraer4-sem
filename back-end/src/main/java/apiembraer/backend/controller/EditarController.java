@@ -21,8 +21,8 @@ import apiembraer.backend.entity.SampleEntity;
 import apiembraer.backend.entity.UsuarioEntity;
 import apiembraer.backend.service.EditarService;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping(value = "/editar")
 public class EditarController {
 	
@@ -43,7 +43,7 @@ public class EditarController {
         return new ResponseEntity<>(savedSample, HttpStatus.CREATED);
     }
     
-	@PutMapping("/save/{idSample}")
+    @PostMapping("/save/{idSample}")
 	public ResponseEntity<SampleEntity> saveSample2(@PathVariable Integer idSample, @RequestBody SampleDTO sampledto) {
 		SampleEntity savedSample = editarService.saveSample2(idSample, sampledto);
 	    if (savedSample != null) {

@@ -5,8 +5,10 @@ import lombok.Data;
 
 @Data
 public class SampleDTO {
-
-	private Integer idSample;
+	private String item;
 	private String statusSample;
+	private Integer idSample;
+	private String chassi;
+	private Integer idChassi;
 	
-}
+	}
