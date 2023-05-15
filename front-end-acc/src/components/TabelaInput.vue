@@ -11,6 +11,7 @@
           background-color="white"
           v-model="filtros.chassi"
           @input="filtrarTabela"
+          @update:model-value="filtrarStatus"
           variant="underlined"
         ></v-select>
       </div>
@@ -23,6 +24,7 @@
           v-model="filtros.statusSample"
           @input="filtrarTabela"
           variant="underlined"
+          :disabled="!filtros.chassi"
         ></v-select>
         <div>
           <v-col cols="auto">
@@ -123,6 +125,7 @@ export default {
           }
         });
         this.obterOpcoesUnicas();
+        this.obterOpcoesStatus();
       } catch (error) {
         console.log(error);
       }
@@ -148,10 +151,16 @@ export default {
       }
       this.page = 1;
     },
+    async filtrarStatus() {
+      const { chassi } = this.filtros;
+      this.obterOpcoesStatus(chassi);
+      this.filtros.statusSample = "";
+    },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
   limparFiltro() {
+    this.filtros.chassi = "";
     this.filtros.statusSample = "";
     this.filtrarTabela();
   },
@@ -160,9 +169,17 @@ export default {
       const { dadosDaTabela } = this;
       const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
       // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-      const statusSampleOptions = new Set(dadosDaTabela.map(dado => dado.statusSample));
       this.chassiOptions = Array.from(chassiOptions).sort();
       // this.itemOptions = Array.from(itemOptions).sort();
+    },
+    obterOpcoesStatus(chassi) {
+      const { dadosDaTabela } = this;
+      
+      const statusSampleOptions = new Set(
+        dadosDaTabela
+        .filter((dado) => dado.chassi === chassi)
+        .map((dado) => dado.statusSample)
+      );
       this.statusSampleOptions = Array.from(statusSampleOptions).sort();
     },
     // SETANDO CORES DOS STATUS DA TABELA
@@ -179,6 +196,7 @@ export default {
       }
     },
       onClick() { 
+        const idUsuario = sessionStorage.getItem("idUsuario");
         const selecao = this.filtros.chassi; // obter a seleção
         console.log(selecao); // exibir a seleção no console
         if (selecao == ''){
@@ -186,7 +204,7 @@ export default {
           return
         }
         axios({
-        url: 'pdf/2/' + selecao,
+        url: 'pdf/' + idUsuario + '/' + selecao,
         method: 'GET',
         responseType: 'blob',
       }).then((response) => {

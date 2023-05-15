@@ -6,7 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import apiembraer.backend.DTO.SampleDTO;
+import apiembraer.backend.DTO.UsuarioDTO;
+import apiembraer.backend.entity.PermissaoEntity;
 import apiembraer.backend.entity.SampleEntity;
+import apiembraer.backend.entity.UsuarioEntity;
 import apiembraer.backend.repository.EditarRepository;
 
 @Service
@@ -29,6 +33,17 @@ public class EditarService{
     public SampleEntity saveSample(SampleEntity sample) {
         return editarRepository.save(sample);
     }
+    
+	public SampleEntity saveSample2(Integer idSample, SampleDTO sampledto) {
+	    Optional<SampleEntity> optionalSample = editarRepository.findById(idSample);
+	    if (optionalSample.isPresent()) {
+	    	SampleEntity sample = optionalSample.get();
+	    	sample.setStatusSample(sampledto.getStatusSample());
+	        return editarRepository.save(sample);
+	    } else {
+	        return null;
+	    }
+	}
 
     // DELETAR //
     public void deleteSample(Integer id) {

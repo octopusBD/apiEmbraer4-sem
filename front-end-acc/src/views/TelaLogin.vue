@@ -3,41 +3,41 @@
     <div class="input-formatacao">
       <v-card class="card">
         <!-- LOGO -->
-        <v-img class="logo-embraer" :width="200" src="@/assets/embraer-3.png"></v-img>
-        
+        <v-img
+          class="logo_embraer"
+          :width="200"
+          src="@/assets/embraer-3.png"
+        ></v-img>
+
         <!-- CAMPOS -->
         <div class="borderr">
-        <v-sheet width="300" class="mx-auto">
-          <v-form fast-fail @submit.prevent>
-            <v-text-field
-              density="compact"
-              bg-color="white"
-              hide-selected
-              v-model="Login"
-              label="Login"
-            ></v-text-field
-            >
-            <v-text-field
-  class="teste"
-  density="compact"
-  bg-color="white"
-  hide-selected
-  v-model="Password"
-  label="Password"
-  :type="showPassword ? 'text' : 'password'"
-  @click:append="showPassword = !showPassword"
->
-  <template #append>
-    <v-icon @click="showPassword = !showPassword">
-      {{ showPassword ? 'mdi-eye' : 'mdi-eye-off' }}
-    </v-icon>
-  </template>
-</v-text-field>
-
-
-    
-          </v-form>
-        </v-sheet>
+          <v-sheet width="300" class="mx-auto">
+            <v-form fast-fail @submit.prevent>
+              <v-text-field
+                density="compact"
+                bg-color="white"
+                hide-selected
+                v-model="Login"
+                label="Login"
+              ></v-text-field>
+              <v-text-field
+                class="teste"
+                density="compact"
+                bg-color="white"
+                hide-selected
+                v-model="Password"
+                label="Password"
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword"
+              >
+                <template #append>
+                  <v-icon @click="showPassword = !showPassword">
+                    {{ showPassword ? "mdi-eye" : "mdi-eye-off" }}
+                  </v-icon>
+                </template>
+              </v-text-field>
+            </v-form>
+          </v-sheet>
         </div>
 
         <!-- <a  class='referencia' href="/">Forgot your password?</a>   -->
@@ -60,6 +60,7 @@
             </svg>
           </v-icon>
         </v-btn>
+        <div class="card-footer">OctopusBD &copy;</div>
       </v-card>
     </div>
   </div>
@@ -123,75 +124,181 @@ export default {
 </script>
 
 <style>
+
 .card {
-  margin-left: 37%;
-  width: 27.5%;
+  margin: 0 auto;
+  width: 25%;
   height: 100%;
 }
-.mx-auto{
-  margin-top: 100px;
+
+
+.card-footer {
+  text-align: center;
+  margin-top: 50%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
+
+.mx-auto {
+  margin-top: 30%;
+}
+
 .btn-login {
   color: aliceblue !important;
-  margin-left: 40%;
-  height: 45px !important ;
-  width: 110px !important;
-  margin-top: 25px;
-  border-radius: 10px !important;
+  margin-left: 36%;
+  height: 5% !important;
+  max-width: 25%;
+  margin-top: 15%;
+  border-radius: 15px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
+
 .transition {
   background-color: 70ms cubic-bezier(0.2, 0, 0.38, 0.9),
     outline 70ms cubic-bezier(0.2, 0, 0.38, 0.9);
 }
+
 .referencia {
-  margin-left: 145px;
   text-decoration: none;
   color: #253381;
   font-size: 12px;
 }
+
 .imgs {
-  margin-left: 100%;
+  max-width: 100%;
 }
+
 .v-text-field--enclosed:not(.v-text-field--readonly):not(
     .v-text-field--disabled
   )
   .v-input__control--is-focused {
   background-color: transparent !important;
 }
-.teste {
-  width: 100%;
+
+.logo_embraer {
+  padding: 10%;
+  margin: 35% auto 0;
+  width: 50%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.logo-embraer{
-  margin-left: 142px;
-  margin-top: 60px;
-}
+
 .fundo {
   background-color: #253381;
   width: 100%;
   height: 100%;
 }
+
 .input-formatacao {
   height: 100%;
 }
+
 @media only screen and (max-width: 600px) {
-  .card {
-    margin: 0 auto;
-    width: 100%;
-  }
-  .logo-embraer {
-    margin-left: 110px;
-  }
-  .teste {
-    width: 290px;
-  }
   .btn-login {
     color: aliceblue !important;
-    align-items: 30px;
-    height: 45px !important ;
+    height: 45px !important;
     width: 110px !important;
-    margin-top: 25px;
+    margin: 25px auto 0 auto;
     border-radius: 10px !important;
+    background-color: white;
+    display: block;
+  }
+
+  .mx-auto {
+    margin-top: 3%;
+  }
+
+  .card-footer {
+    margin-top: 5%;
+  }
+
+  .logo-embraer {
+    margin-left: 30px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  
+
+  /* .mx-auto {
+    margin-top: 10%;
+  }
+
+  .card-footer {
+    margin-top: 20%;
+  }
+
+  .logo-embraer {
+    margin-left: 110px;
+  } */
+
+/* Estilos para telas médias */
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .btn-login {
+    color: aliceblue !important;
+    height: 40px !important;
+    width: 100px !important;
+    margin: 15px auto 0 auto;
+    border-radius: 8px !important;
+    background-color: white;
+    display: block;
+  }
+
+  .mx-auto {
+    margin-top: 5%;
+  }
+
+  .card-footer {
+    margin-top: 10%;
+  }
+
+  .logo-embraer {
+    margin-left: 60px;
+  }
+
+  .card {
+    width: 50%;
   }
 }
+
+  /* Estilos para telas grandes */
+@media only screen and (min-width: 1025px) {
+  .btn-login {
+    color: aliceblue !important;
+    height: 50px !important;
+    width: 120px !important;
+    margin: 30px auto 0 auto;
+    border-radius: 12px !important;
+    background-color: white;
+    display: block;
+  }
+
+  .mx-auto {
+    margin-top: 15%;
+  }
+
+  .card-footer {
+    margin-top: 25%;
+  }
+
+  .logo-embraer {
+    margin-left: 150px;
+  }
+  .card {
+    width: 40%;
+  }
+}
+
+}
 </style>
+
 

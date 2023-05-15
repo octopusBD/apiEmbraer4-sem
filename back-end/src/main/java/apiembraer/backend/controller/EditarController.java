@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import apiembraer.backend.DTO.SampleDTO;
+import apiembraer.backend.DTO.UsuarioDTO;
 import apiembraer.backend.entity.SampleEntity;
+import apiembraer.backend.entity.UsuarioEntity;
 import apiembraer.backend.service.EditarService;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping(value = "/editar")
 public class EditarController {
 	
@@ -38,6 +42,17 @@ public class EditarController {
         SampleEntity savedSample = editarService.saveSample(sample);
         return new ResponseEntity<>(savedSample, HttpStatus.CREATED);
     }
+    
+    @PostMapping("/save/{idSample}")
+	public ResponseEntity<SampleEntity> saveSample2(@PathVariable Integer idSample, @RequestBody SampleDTO sampledto) {
+		SampleEntity savedSample = editarService.saveSample2(idSample, sampledto);
+	    if (savedSample != null) {
+	        return ResponseEntity.ok(savedSample);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+
 
     // ATUALIZAR //
     @GetMapping("/update/{idBoletim}/{idChassi}/{statusSample}")

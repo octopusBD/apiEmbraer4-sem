@@ -151,9 +151,7 @@ notification-card {
 .notification-button {
   color: #fff;
   border-radius: 100%;
-  height: 30px;
-  width: 30px;
-  font-size: 30px;
+  font-size: 24.5px;
 }
 @media screen and (max-width: 600px) {
   .notification-card {

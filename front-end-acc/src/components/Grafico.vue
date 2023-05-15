@@ -1,108 +1,155 @@
 <template>
-  <v-card class="grafico-bar card-size">
-    <v-card-title style="text-align: center;">Users by Permission</v-card-title>
-    <v-card-text>
-      <canvas ref="chartCanvas"></canvas>
-    </v-card-text>
-  </v-card>
+  <div>
+    <v-btn size="25" height="50" width="25" @click="generatePdf">
+      <v-icon>mdi-download</v-icon></v-btn
+    >
+    <h2 class="Titulo1">Users</h2>
+    <canvas ref="chartCanvas"></canvas>
+  </div>
 </template>
 
 <script>
-import Chart from 'chart.js/auto';
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import Chart from "chart.js/auto";
+import axios from "axios";
+import { onMounted, ref } from "vue";
+import jsPDF from "jspdf";
 
 export default {
   setup() {
     const chartCanvas = ref(null);
- 
-
     const administrador = ref([]);
     const editor = ref([]);
     const consultor = ref([]);
 
     const getData = async () => {
-  try {
-    const response = await axios.get("/estatistica/listar/permissao/tipo"); // STRING PARA ACESSO A API
-    administrador.value = response.data.map((item) => item.administrador);  // PUXAR ITENS COMO ESSE EXEMPLO  
-    editor.value = response.data.map((item) => item.editor);  // PUXAR ITENS COMO ESSE EXEMPLO  
-    consultor.value = response.data.map((item) => item.consultor);  // PUXAR ITENS COMO ESSE EXEMPLO  
-
-    console.log(response);
-    
-  } catch (error) {
-    console.log(error);
-  }
-  createChart();
-};
-const createChart = () => {
-  if (!chartCanvas.value) return;
-
-  const data = {
-    labels: ['Users'], //EIXO X
-    datasets: [
-      
-    {
-        label: "Administrator",
-        borderColor: 'rgba(131,111,255)',
-        backgroundColor: 'rgba(131,111,255, 0.2)',
-        data: administrador.value // EIXO Y
-      },
-
-
-       {
-        label: "Editor",
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        data: editor.value // EIXO Y
-      },
-
-       {
-        label: "Consultant",
-        borderColor: 'rgb(64,224,208)',
-        backgroundColor: 'rgba(64,224,208, 0.2)',
-        data: consultor.value // EIXO Y
+      try {
+        const response = await axios.get("/estatistica/listar/permissao/tipo");
+        administrador.value = response.data.map((item) => item.administrador);
+        editor.value = response.data.map((item) => item.editor);
+        consultor.value = response.data.map((item) => item.consultor);
+        createChart();
+      } catch (error) {
+        console.log(error);
       }
-    ]
-  };
+    };
 
-  const config = {
-    type: 'bar', // TIPO GRAFICO
-    data: data,
-    options: {
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      },
-      plugins: {
-        zoom: {
-          zoom: {
-            drag: {
-              selection: true
-            },
-            mode: 'xy'
+    const createChart = () => {
+      if (!chartCanvas.value) return;
+
+      const data = {
+        labels: ["Users"],
+        datasets: [
+          {
+            label: "Administrator",
+            borderColor: "rgba(131,111,255)",
+            backgroundColor: "rgba(131,111,255, 0.2)",
+            data: administrador.value,
           },
-          onZoomComplete: function ({ chart }) {
-            console.log('Zoom complete', chart.scales);
-          }
-        }
-      }
-    }
-  };
+          {
+            label: "Editor",
+            borderColor: "rgb(54, 162, 235)",
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            data: editor.value,
+          },
+          {
+            label: "Consultant",
+            borderColor: "rgb(64,224,208)",
+            backgroundColor: "rgba(64,224,208, 0.2)",
+            data: consultor.value,
+          },
+        ],
+      };
 
-  chartCanvas.value = new Chart(chartCanvas.value, config);
-};
+      const config = {
+        type: "bar",
+        data: data,
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+          plugins: {
+            zoom: {
+              zoom: {
+                drag: {
+                  selection: true,
+                },
+                mode: "xy",
+              },
+              onZoomComplete: function ({ chart }) {
+                console.log("Zoom complete", chart.scales);
+              },
+            },
+          },
+        },
+      };
+
+      chartCanvas.value = new Chart(chartCanvas.value, config);
+    };
+
+    const generatePdf = () => {
+      const canvasElement = chartCanvas.value;
+      const options = {
+        margin: 2.5,
+        filename: "Users.pdf",
+        image: { type: "png", quality: 1, imageCenter: true },
+        html2canvas: {
+          dpi: 1200,
+          letterRendering: true,
+          width: 282,
+          height: 157,
+          x: 7.5,
+          y: 40,
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "landscape",
+          compressPdf: true,
+          precision: 100,
+        },
+      };
+
+      const doc = new jsPDF(options.jsPDF);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+        doc.text("Users", 140, 15);
+        const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+        const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
+        doc.addImage(imgData, "JPEG", 10, -12, 80, 50);
+        doc.setFont("helvetica", "not bold");
+        doc.setFontSize(12);
+        doc.text(`${dateTime}`, 35.5, 28);
+        const canvasImg = canvasElement.toDataURL("image/png", 1.0);
+        doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
+        doc.save(options.filename);
+    };
+
     onMounted(() => {
       getData();
     });
 
     return {
-      chartCanvas
+      chartCanvas,
+      generatePdf,
     };
-  }
+  },
 };
 </script>
+
+<style>
+.Titulo1{
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+
+
