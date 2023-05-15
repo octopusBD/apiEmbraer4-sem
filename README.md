@@ -105,8 +105,10 @@ The Octopus team will develop a web software for Embraer that will enable users 
 <ul> 
       <li>Business logic creation in the database;</li>
       <li>
-            Develop the editing interface with the following functionality: Insert, modify and remove new items from the database presented to clients.
+            Develop the editing interface with the following functionality: Modify status of items from the database presented to clients.
       </li>
+      <li>Develop dynamic filters for the pages: Administrator, Consultant and Editor.</li>
+      <li>Generate administrative graphical reports;</li>
       
 </ul>
 
@@ -131,7 +133,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Mockup
 
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-2/Imagens%20documentacao/doc/GIF_SPRINT2.gif" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/GIF_SPRINT3.gif" width="100%" height="100%">
 <p align="center">
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -139,7 +141,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Conceptual Model
 
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-2/Imagens%20documentacao/doc/der_photoshop1.png" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/der_photoshop1.png" width="100%" height="100%">
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -147,7 +149,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Logical Model
 
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-2/Imagens%20documentacao/doc/modelologico_photoshop1.png" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/modelologico_photoshop1.png" width="100%" height="100%">
 </p>
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -155,7 +157,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Burndown
  
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-2/Imagens%20documentacao/doc/burndown-sprint2.jpg" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/burndown-sprint3.jpg" width="100%" height="100%">
 <p align="center">
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
