@@ -246,7 +246,7 @@ export default {
       this.filtros.chassi = "";
       this.filtros.item = "";
       this.filtros.statusSample = "";
-      this.filtrarTabela();
+    
     },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
