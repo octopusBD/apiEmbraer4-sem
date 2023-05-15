@@ -11,7 +11,9 @@
             background-color="white"
             v-model="filtros.chassi"
             @input="filtrarTabela"
+            @update:model-value="filtrarStatus"
             variant="underlined"
+            
           ></v-select>
         </div>
         
@@ -24,6 +26,7 @@
             v-model="filtros.item"
             @input="filtrarTabela"
             variant="underlined"
+            :disabled="!filtros.chassi"
           ></v-select>
         </div>
 
@@ -36,6 +39,7 @@
             v-model="filtros.statusSample"
             @input="filtrarTabela"
             variant="underlined"
+            :disabled="!filtros.item"
           ></v-select>
           <div>
             <v-col cols="auto">
@@ -169,6 +173,8 @@ export default {
         });
 
         this.obterOpcoesUnicas();
+        this.obterOpcoesStatus();
+        this.obterOpcoesItens();
       } catch (error) {
         console.log(error);
       }
@@ -224,23 +230,51 @@ export default {
       }
       this.page = 1;
     },
+      async filtrarStatus() {
+      const { chassi } = this.filtros;
+      this.obterOpcoesStatus(chassi);
+      this.obterOpcoesItens(chassi);
+      this.obterOpcoesUnicas();
+      this.filtros.item = "";
+      this.filtros.statusSample = "";
+   
+},
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
     limparFiltro() {
+      this.filtros.chassi = "";
+      this.filtros.item = "";
       this.filtros.statusSample = "";
       this.filtrarTabela();
     },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
-      const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
-      const itemOptions = new Set(dadosDaTabela.map((dado) => dado.item));
-      const statusSampleOptions = new Set(
-        dadosDaTabela.map((dado) => dado.statusSample)
-      );
+      const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
+      const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
       this.chassiOptions = Array.from(chassiOptions).sort();
       this.itemOptions = Array.from(itemOptions).sort();
+    },
+    obterOpcoesItens(chassi) {
+       const { dadosDaTabela } = this;
+  
+    const itemOptions = new Set(
+      dadosDaTabela
+      .filter((dado) => dado.chassi === chassi)
+      .map((dado) => dado.item)
+    );
+      this.itemOptions = Array.from(itemOptions).sort();
+    },
+
+    obterOpcoesStatus(chassi) {
+     const { dadosDaTabela } = this;
+
+      const statusSampleOptions = new Set(
+       dadosDaTabela
+      .filter((dado) => dado.chassi === chassi)
+      .map((dado) => dado.statusSample)
+    );
       this.statusSampleOptions = Array.from(statusSampleOptions).sort();
     },
     // SETANDO CORES DOS STATUS DA TABELA
