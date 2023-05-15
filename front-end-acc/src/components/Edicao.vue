@@ -11,7 +11,7 @@
             background-color="white"
             v-model="filtros.chassi"
             @input="filtrarTabela"
-            @update:model-value="filtrarStatus"
+            @update:model-value="filtrar"
             variant="underlined"
             
           ></v-select>
@@ -30,7 +30,7 @@
           ></v-select>
         </div>
 
-        <!-- filtro DELETAR -->
+        <!-- filtro STATUS -->
         <div class="filtro3">
           <v-select
             label="Status Sample"
@@ -39,7 +39,7 @@
             v-model="filtros.statusSample"
             @input="filtrarTabela"
             variant="underlined"
-            :disabled="!filtros.item"
+            :disabled="!filtros.chassi"
           ></v-select>
           <div>
             <v-col cols="auto">
@@ -61,12 +61,12 @@
     <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style=" height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50;">
       <!-- Botão de exportação -->
-      <div>
+      <!--<div>
         <v-btn @click="onClick()" class="pdf" variant="text" style="margin-right: 94%">
           Export - <Icon icon="carbon:document-export" width="35" />
         </v-btn>
         <hr />
-      </div>
+      </div>-->
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin: 30px">
         <thead>
@@ -173,8 +173,9 @@ export default {
         });
 
         this.obterOpcoesUnicas();
-        this.obterOpcoesStatus();
         this.obterOpcoesItens();
+        this.obterOpcoesStatus();
+
       } catch (error) {
         console.log(error);
       }
@@ -230,15 +231,14 @@ export default {
       }
       this.page = 1;
     },
-      async filtrarStatus() {
+      async filtrar() {
       const { chassi } = this.filtros;
-      this.obterOpcoesStatus(chassi);
       this.obterOpcoesItens(chassi);
-      this.obterOpcoesUnicas();
+      this.obterOpcoesStatus(chassi);
       this.filtros.item = "";
       this.filtros.statusSample = "";
    
-},
+    },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
@@ -252,21 +252,18 @@ export default {
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
       const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
-      const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
       this.chassiOptions = Array.from(chassiOptions).sort();
-      this.itemOptions = Array.from(itemOptions).sort();
     },
     obterOpcoesItens(chassi) {
        const { dadosDaTabela } = this;
   
-    const itemOptions = new Set(
-      dadosDaTabela
-      .filter((dado) => dado.chassi === chassi)
-      .map((dado) => dado.item)
+        const itemOptions = new Set(
+              dadosDaTabela
+              .filter((dado) => dado.chassi === chassi)
+              .map((dado) => dado.item)
     );
       this.itemOptions = Array.from(itemOptions).sort();
     },
-
     obterOpcoesStatus(chassi) {
      const { dadosDaTabela } = this;
 
