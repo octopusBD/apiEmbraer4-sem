@@ -164,7 +164,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 ## Data Dictionary
 
-[Click here to accesses the Data Dictionary](https://github.com/octopusBD/apiEmbraer4-sem/blob/Sprint-1/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1.pdf)
+[Click here to accesses the Data Dictionary](https://github.com/octopusBD/apiEmbraer4-sem/blob/main/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1%20(1).pdf)
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
