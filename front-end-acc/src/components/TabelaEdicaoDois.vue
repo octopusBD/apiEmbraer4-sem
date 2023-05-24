@@ -4,59 +4,22 @@
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
       <!-- Primeiro filtro -->
-      <div class="filtro1">
-        <v-select
-          label="Chassis"
-          :items="chassiOptions"
-          background-color="white"
-          v-model="filtros.chassi"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
+
+      <div class="campo1">
+        <v-text-field v-model="texto" label="Digite a Regra"></v-text-field>
+      </div>
+      <div>
+        <Icon
+          class="equals"
+          icon="typcn:equals"
+          size="25"
+          height="25"
+          width="25"
+        />
       </div>
       <!-- Segundo filtro -->
-      <div class="filtro2">
-        <v-select
-          label="Item"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Terceiro filtro -->
-      <div class="filtro3">
-        <v-select
-          label="Incorporated"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Quarto filtro -->
-      <div class="filtro4">
-        <v-select
-          label="Not Incorporated"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Quinto filtro -->
-      <div class="filtro5">
-        <v-select
-          label="Applicable"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
+      <div class="campo2">
+        <v-text-field v-model="texto" label="Digite o Item"></v-text-field>
       </div>
 
       <div>
@@ -70,6 +33,17 @@
             size="50"
             height="50"
             width="50"
+          ></v-btn>
+        </v-col>
+      </div>
+
+      <div>
+        <v-col cols="auto">
+          <v-btn
+            class="enviar"
+            v-show="!isMobile"
+            @click="enviarFormulario"
+            icon="mdi-send"
           ></v-btn>
         </v-col>
       </div>
@@ -109,11 +83,10 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">Itens</th>
-            <th style="color: white; text-align: center">Incorporated</th>
-            <th style="color: white; text-align: center">Not Incorporated</th>
-            <th style="color: white; text-align: center">Applicable</th>
-            <th style="color: white; text-align: center">Update</th>
+            <th style="color: white; text-align: center">Regra</th>
+            <th style="color: white; text-align: center">Item</th>
+            <th style="color: white; text-align: center">Data</th>
+            <!-- <th style="color: white; text-align: center">Update</th> -->
             <th style="color: white; text-align: center">Delete</th>
           </tr>
         </thead>
@@ -122,29 +95,14 @@
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 36px"
-              ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 60px"
-              ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 50px"
-              ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black">
+            <td style="border-bottom: 1px solid black; text-align: center"></td>
+            <td style="border-bottom: 1px solid black; text-align: center"></td>
+
+            <!-- <td style="border-bottom: 1px solid black">
               <v-btn class="editar" flat @click="editItem(index)">
                 <v-icon class="mdi mdi-pencil"></v-icon>
               </v-btn>
-            </td>
+            </td> -->
             <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(index)">
                 <v-icon>mdi-delete</v-icon>
@@ -237,6 +195,10 @@ export default {
       }
       this.page = 1;
     },
+    enviarFormulario() {
+      // Lógica de envio do formulário
+      console.log("Formulário enviado!");
+    },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
@@ -327,47 +289,24 @@ export default {
   max-width: 100%;
   padding: 20px;
 }
-.filtro1 {
-  width: 280px;
+.campo1 {
+  width: 250px;
   display: flex;
   margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 60px;
+  margin-right: 5px;
+  margin-left: 150px;
 }
 
-.filtro2 {
-  width: 280px;
+.campo2 {
+  width: 250px;
   display: flex;
   margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 thead {
   text-align: center;
-}
-.filtro3 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro4 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro5 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
 }
 
 .pdf {
@@ -378,7 +317,16 @@ thead {
   background-color: transparent;
   border: none;
 }
+.limpar{
+  margin-top: 0.1%;
+  margin-left: 0.1%;
+}
+.enviar{
+  margin-top: 0.1%;
+  margin-left: 0.1%;
+  
 
+}
 .deletar {
 }
 
@@ -386,11 +334,8 @@ thead {
   .table {
     font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
   }
-  .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
+  .campo1,
+  .campo2 {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;

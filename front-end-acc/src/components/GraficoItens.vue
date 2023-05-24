@@ -160,10 +160,11 @@ export default {
   .container {
     height: 400px;
   }.Titulo1{
-  font-size: 20px;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 </style>
