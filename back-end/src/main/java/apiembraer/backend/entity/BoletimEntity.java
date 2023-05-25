@@ -26,5 +26,8 @@ public class BoletimEntity {
 
 	@Column(name = "ITEM")
 	private String item;
+	
+	@Column(name = "Parte")
+	private String parte;
 
 }
