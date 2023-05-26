@@ -103,11 +103,11 @@
         getData();
       });
 
-      const generatePdf = () => {
+    const generatePdf = () => {
       const canvasElement = chartCanvas.value;
       const options = {
         margin: 2.5,
-        filename: "Status by Users.pdf",
+        filename: "Status By Users.pdf",
         image: { type: "png", quality: 1, imageCenter: true },
         html2canvas: {
           dpi: 1200,
@@ -127,18 +127,56 @@
       };
 
       const doc = new jsPDF(options.jsPDF);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(20);
-        doc.text("Status by Users", 140, 15);
-        const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
-        const imgData = "https://raw.githubusercontent.com/octopusBD/docs/main/api4sem/logo1png.png";
-        doc.addImage(imgData, "JPEG", 10, -12, 80, 50);
-        doc.setFont("helvetica", "not bold");
-        doc.setFontSize(12);
-        doc.text(`${dateTime}`, 35.5, 28);
-        const canvasImg = canvasElement.toDataURL("image/png", 1.0);
-        doc.addImage(canvasImg, "PNG", options.html2canvas.x, options.html2canvas.y, options.html2canvas.width, options.html2canvas.height);
-        doc.save(options.filename);
+      const title = "Status By Users";
+      const titleTextColor = "#FFFFFF";
+      const titleColor = "#054f77"; // Cor azul da primeira faixa
+      const secondBandColor = "#FFFFFF"; // Cor da segunda faixa
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(20);
+
+      const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
+      const imgData = "https://cdn.discordapp.com/attachments/1075971608684023814/1111350679022346260/logo-dois.png";
+
+      const titleWidth = doc.getStringUnitWidth(title) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+      const titleX = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
+      const titleHeight = 11; // Altura da primeira faixa
+      const titleFontSize = 20; // Tamanho da fonte do título
+      const titleY = 15 + (titleHeight - titleFontSize) / 2 + titleFontSize * 0.35;
+
+      // Desenhar a primeira faixa azul
+      doc.setFillColor(titleColor);
+      doc.rect(0, 0, doc.internal.pageSize.getWidth(), 30, "F");
+
+      // Adicionar imagem do logo
+      doc.addImage(imgData, "JPEG", 10, 4.5, 50, 20);
+
+      // Desenhar a segunda faixa
+      const secondBandY = 22.25; // Posição vertical da segunda faixa
+      const secondBandHeight = 0.5; // Altura da segunda faixa
+      doc.setFillColor(secondBandColor);
+      doc.rect(0, secondBandY, doc.internal.pageSize.getWidth(), secondBandHeight, "F");
+
+      // Escrever o título na primeira faixa
+      doc.setTextColor(titleTextColor);
+      doc.setFontSize(titleFontSize);
+      doc.text(title, titleX, titleY);
+
+      doc.setFont("helvetica", "not bold");
+      doc.setFontSize(12);
+      doc.text(`${dateTime}`, 22, 28);
+
+      const canvasImg = canvasElement.toDataURL("image/png", 1.0);
+      doc.addImage(
+        canvasImg,
+        "PNG",
+        options.html2canvas.x,
+        options.html2canvas.y,
+        options.html2canvas.width,
+        options.html2canvas.height
+      );
+
+      doc.save(options.filename);
     };
 
       return {
