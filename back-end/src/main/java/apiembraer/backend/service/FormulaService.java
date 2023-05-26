@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import apiembraer.backend.entity.FormulaEntity;
+import apiembraer.backend.entity.SampleEntity;
 import apiembraer.backend.repository.FormulaRepository;
 
 @Service
@@ -18,5 +19,8 @@ public class FormulaService {
         return formulaRepository.findAll();
     }
 
+	public FormulaEntity saveFormula(FormulaEntity formula) {
+        return formulaRepository.save(formula);
+    }
 	
 }
