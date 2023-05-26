@@ -23,4 +23,8 @@ public class FormulaService {
         return formulaRepository.save(formula);
     }
 	
+	public void deleteById(Integer idFormula) {
+		formulaRepository.deleteById(idFormula);
+	}
+	
 }
