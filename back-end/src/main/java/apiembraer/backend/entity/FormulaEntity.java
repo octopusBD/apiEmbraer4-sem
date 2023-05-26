@@ -1,5 +1,7 @@
 package apiembraer.backend.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,10 @@ public class FormulaEntity {
 
 	@Column(name = "FORMULA")
 	private String formula;
-
+	
+	@Column(name = "DT_CADASTRO")
+	private Timestamp dtCadastro;
+	
 	@ManyToOne
 	@JoinColumn(name = "ID_ITEM", referencedColumnName = "ID_ITEM")
 	private ItemEntity item;
