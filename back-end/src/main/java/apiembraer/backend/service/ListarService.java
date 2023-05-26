@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import apiembraer.backend.entity.SampleEntity;
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.entity.ViewListarBoletimEntity;
+import apiembraer.backend.entity.ViewListarFormulaEntity;
 import apiembraer.backend.entity.ViewListarItemEntity;
 import apiembraer.backend.entity.ViewSampleEntity;
 import apiembraer.backend.repository.EstatisticaStatusRepository;
 import apiembraer.backend.repository.ListarRepository;
 import apiembraer.backend.repository.ViewListarBoletim;
+import apiembraer.backend.repository.ViewListarFormula;
 import apiembraer.backend.repository.ViewListarItem;
 
 @Service
@@ -30,7 +32,10 @@ public class ListarService {
 	@Autowired
 	ViewListarItem vielistaritem;
 
+	@Autowired
+	ViewListarFormula viewlistarformula;
 
+	
 	// Método que retorna todos os registros de amostras de um determinado usuário
 	public List<ViewSampleEntity> getViewSampleEntities(Integer idUsuario) {
 		return listarRepository.findByidUsuario(idUsuario);
@@ -61,6 +66,10 @@ public class ListarService {
 	
 	    public List<ViewListarItemEntity> getAllItem() {
 	        return vielistaritem.findAll();
+	    }
+	    
+	    public List<ViewListarFormulaEntity> getAllFormulas() {
+	        return viewlistarformula.findAll();
 	    }
 
 

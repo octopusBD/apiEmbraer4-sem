@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import apiembraer.backend.entity.FormulaEntity;
 import apiembraer.backend.entity.ViewListarBoletimEntity;
+import apiembraer.backend.entity.ViewListarFormulaEntity;
 import apiembraer.backend.entity.ViewListarItemEntity;
 import apiembraer.backend.service.FormulaService;
 import apiembraer.backend.service.ListarService;
@@ -34,6 +35,12 @@ public class FormulaController {
 	@GetMapping("/listar")
 	public ResponseEntity<List<FormulaEntity>> getAllFormula() {
 		List<FormulaEntity> samples = formulaservice.getAllFormula();
+		return new ResponseEntity<>(samples, HttpStatus.OK);
+	}
+	
+	@GetMapping("/listarFormula")
+	public ResponseEntity<List<ViewListarFormulaEntity>> getAllFormulas() {
+		List<ViewListarFormulaEntity> samples = listarservice.getAllFormulas();
 		return new ResponseEntity<>(samples, HttpStatus.OK);
 	}
 	
