@@ -28,7 +28,7 @@ public class FormulaEntity {
 	@Column(name = "FORMULA")
 	private String formula;
 	
-	@Column(name = "DT_CADASTRO")
+	@Column(name = "DT_CADASTRO")             
 	private Timestamp dtCadastro;
 	
 	@ManyToOne
