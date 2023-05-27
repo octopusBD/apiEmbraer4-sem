@@ -13,9 +13,11 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
+@ToString
 @Table(name = "SAMPLE")
 public class SampleEntity {
 
@@ -42,4 +44,5 @@ public class SampleEntity {
 	@Column(name = "DT_ULT_EDICAO")
 	private Timestamp dtUltEdicao;
 
+	
 }
