@@ -6,4 +6,6 @@ import apiembraer.backend.entity.FormulaEntity;
 
 public interface FormulaRepository extends JpaRepository <FormulaEntity, Integer> {
 
+	FormulaEntity findByFormula(String formulaEncontrada);
+
 }

@@ -21,14 +21,15 @@ public class LogicaEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_logica")
     @SequenceGenerator(name = "seq_logica", sequenceName = "SEQ_LOGICA", allocationSize = 1)
 	@Column(name = "ID_LOGICA")
-	private Integer idFormula;
+	private Integer idLogica;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_CHASSI", referencedColumnName = "ID_CHASSI")
-	private ChassiEntity idChassi;
+	@Column(name = "ID_CHASSI")
+	private Integer idChassi;
 	
-	@ManyToOne
-	@JoinColumn(name = "ID_ITEM", referencedColumnName = "ID_ITEM")
-	private ItemEntity item;
+	
+	@Column(name = "ID_ITEM")
+	private Integer item;
+
+
 
 }
