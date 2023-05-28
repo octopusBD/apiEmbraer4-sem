@@ -4,9 +4,8 @@
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
       <!-- Primeiro filtro -->
-
       <div class="campo1">
-        <v-text-field v-model="texto" label="Digite a Regra"></v-text-field>
+        <v-text-field v-model="formula" label="Digite a Regra"></v-text-field>
       </div>
       <div>
         <Icon
@@ -18,10 +17,12 @@
         />
       </div>
       <!-- Segundo filtro -->
-      <div class="campo2">
-        <v-text-field v-model="texto" label="Digite o Item"></v-text-field>
-      </div>
-
+      <v-select
+        v-model="selectedItemId"
+        :items="itemOptions.map((item) => item.itemNome)"
+        label="Selecione o Item"
+        outlined
+      ></v-select>
       <div>
         <v-col cols="auto">
           <v-btn
@@ -70,7 +71,7 @@
           variant="text"
           style="margin-right: 94%"
         >
-          Export - <Icon icon="carbon:document-export" width="35" />
+          Export - <Icon icon="carbon:document-export" width="35" />
         </v-btn>
         <hr />
       </div>
@@ -86,7 +87,6 @@
             <th style="color: white; text-align: center">Regra</th>
             <th style="color: white; text-align: center">Item</th>
             <th style="color: white; text-align: center">Data</th>
-            <!-- <th style="color: white; text-align: center">Update</th> -->
             <th style="color: white; text-align: center">Delete</th>
           </tr>
         </thead>
@@ -94,17 +94,13 @@
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black; text-align: center"></td>
-            <td style="border-bottom: 1px solid black; text-align: center"></td>
-
-            <!-- <td style="border-bottom: 1px solid black">
-              <v-btn class="editar" flat @click="editItem(index)">
-                <v-icon class="mdi mdi-pencil"></v-icon>
-              </v-btn>
-            </td> -->
+            <td style="border-bottom: 1px solid black">{{ item.formula }}</td>
+            <td style="border-bottom: 1px solid black">{{ item.itemNome }}</td>
             <td style="border-bottom: 1px solid black">
-              <v-btn class="deletar" flat @click="deleteItem(index)">
+              {{ item.dtCadastro }}
+            </td>
+            <td style="border-bottom: 1px solid black">
+              <v-btn class="deletar" flat @click="deleteItem(item)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </td>
@@ -122,7 +118,8 @@
     </v-card>
   </div>
 </template>
-    <script>
+
+<script>
 import axios from "axios";
 import { Icon } from "@iconify/vue";
 
@@ -136,15 +133,9 @@ export default {
       page: 1,
       isMobile: false,
       // FILTROS
-      filtros: {
-        chassi: "",
-        item: "",
-        statusSample: "",
-      },
-      chassiOptions: [],
+      formula: "",
+      selectedItemId: null,
       itemOptions: [],
-      statusSampleOptions: [],
-      itens: [],
     };
   },
   components: {
@@ -156,86 +147,86 @@ export default {
   },
   async created() {
     await this.inicializarDadosTabela();
+    await this.fetchItemNames();
   },
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get("consultor/2");
+        const response = await axios.get("formula/listarFormula");
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
           return {
-            item: dado.item,
-            statusSample: dado.statusSample,
-            chassi: dado.chassi,
+            formula: dado.formula,
+            itemNome: dado.itemNome,
+            dtCadastro: dado.dtCadastro,
+            idFormula: dado.idFormula,
           };
         });
-        this.obterOpcoesUnicas();
       } catch (error) {
         console.log(error);
       }
     },
-    async filtrarTabela() {
-      const { chassi, item, statusSample } = this.filtros;
+    async fetchItemNames() {
       try {
-        const response = await axios.get("consultor/2", {
-          params: { chassi, item, statusSample },
-        });
-        const dadosFiltrados = response.data;
-        this.items = dadosFiltrados.map((dado) => {
+        const response = await axios.get("formula/listarItem");
+        this.itemOptions = response.data.map((item) => {
           return {
-            item: dado.item,
-            statusSample: dado.statusSample,
-            chassi: dado.chassi,
+            id: item.id,
+            itemNome: item.itemNome,
           };
         });
       } catch (error) {
-        console.log(error);
-        this.items = [];
+        console.error(error);
+        // Handle errors
       }
-      this.page = 1;
     },
-    enviarFormulario() {
-      // Lógica de envio do formulário
-      console.log("Formulário enviado!");
+    async enviarFormulario() {
+      try {
+        const selectedItem = this.itemOptions.find(
+          (item) => item.itemNome === this.selectedItemId
+        );
+        console.log(this.selectedItemId);
+        if (!selectedItem) {
+          console.error("Item selecionado não encontrado");
+          return;
+        }
+        const response = await axios.post("formula/save", {
+          formula: this.formula,
+          item: selectedItem.id,
+        });
+        console.log(response.data);
+        await this.inicializarDadosTabela();
+        this.formula = "";
+        this.selectedItemId = null;
+      } catch (error) {
+        console.error(error);
+        // Lidar com erros
+      }
+    },
+    async deleteItem(item) {
+      try {
+        const confirmed = confirm("Are you sure you want to delete this item?");
+        if (!confirmed) {
+          return;
+        }
+
+        const response = await axios.delete(`formula/delete/${item.idFormula}`);
+        console.log(response.data);
+        await this.inicializarDadosTabela();
+      } catch (error) {
+        console.error(error);
+        // Handle errors
+      }
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
-    limparFiltro() {
-      this.filtros.statusSample = "";
-      this.filtrarTabela();
-    },
-    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
-    obterOpcoesUnicas() {
-      const { dadosDaTabela } = this;
-      const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
-      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-      const statusSampleOptions = new Set(
-        dadosDaTabela.map((dado) => dado.statusSample)
-      );
-      this.chassiOptions = Array.from(chassiOptions).sort();
-      // this.itemOptions = Array.from(itemOptions).sort();
-      this.statusSampleOptions = Array.from(statusSampleOptions).sort();
-    },
-    // SETANDO CORES DOS STATUS DA TABELA
-    getStatusColor(status) {
-      switch (status) {
-        case "INCORPORATED":
-          return "success";
-        case "NOT INCORPORATED":
-          return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
-      }
-    },
     onClick() {
-      const selecao = this.filtros.chassi; // obter a seleção
-      console.log(selecao); // exibir a seleção no console
-      if (selecao == "") {
-        alert("Please select a chassi");
+      const selecao = this.selectedItemId;
+      console.log(selecao);
+      if (!selecao) {
+        alert("Please select an item");
         return;
       }
       axios({
@@ -245,44 +236,38 @@ export default {
       }).then((response) => {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]));
         var fileLink = document.createElement("a");
+
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "relatório.pdf");
+        fileLink.setAttribute("download", "export.pdf");
         document.body.appendChild(fileLink);
+
         fileLink.click();
       });
     },
+    limparFiltro() {
+      this.formula = "";
+      this.selectedItemId = null;
+    },
   },
-  // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-      const { chassi, statusSample } = this.filtros;
-      const filterByChassi = chassi !== "";
-      // const filterByItem = item !== "";
-      const filterByStatusSample = statusSample !== "";
-      return this.items.filter((item) => {
-        let matches = true;
-        if (filterByChassi) {
-          matches = matches && item.chassi === chassi;
-        }
-        // if (filterByItem) {
-        //   matches = matches && item.item === this.filtros.item;
-        // }
-        if (filterByStatusSample) {
-          matches = matches && item.statusSample === statusSample;
-        }
-        return matches;
-      });
+      let filteredItems = this.items;
+      if (this.formula) {
+        filteredItems = filteredItems.filter((item) =>
+          item.formula.toLowerCase().includes(this.formula.toLowerCase())
+        );
+      }
+      return filteredItems;
     },
-    // PAGINACAO
     paginatedItems() {
-      const startIndex = (this.page - 1) * this.perPage;
-      const endIndex = startIndex + this.perPage;
-      return this.filteredItems.slice(startIndex, endIndex);
+      const start = (this.page - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredItems.slice(start, end);
     },
   },
 };
 </script>
-    
+
     <style scoped>
 .card-select {
   margin-top: 0px;
@@ -296,7 +281,6 @@ export default {
   margin-right: 5px;
   margin-left: 150px;
 }
-
 .campo2 {
   width: 250px;
   display: flex;
@@ -308,31 +292,25 @@ export default {
 thead {
   text-align: center;
 }
-
 .pdf {
   margin-right: 500px;
 }
-
 .editar {
   background-color: transparent;
   border: none;
 }
-.limpar{
+.limpar {
   margin-top: 0.1%;
   margin-left: 0.1%;
 }
-.enviar{
+.enviar {
   margin-top: 0.1%;
   margin-left: 0.1%;
-  
-
-}
-.deletar {
 }
 
 @media only screen and (max-width: 600px) {
   .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+    font-size: 14px;
   }
   .campo1,
   .campo2 {
@@ -340,11 +318,6 @@ thead {
     margin-right: 10px;
     margin-top: 20px;
   }
-  /* .limpar {
-        margin-left: auto;
-        margin-right: 0;
-        margin-top: 20px;
-        } */
   .filtro1,
   .filtro2,
   .filtro3,

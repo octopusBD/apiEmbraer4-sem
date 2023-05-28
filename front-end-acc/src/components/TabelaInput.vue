@@ -35,7 +35,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <!-- Tabela de dados -->
-    <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
+    <v-card class="mx-auto" max-width="1200" style="height: 100%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
       <div>
       <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-right: 94%;">
