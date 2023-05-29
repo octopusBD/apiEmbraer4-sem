@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import apiembraer.backend.DTO.SampleDTO;
-import apiembraer.backend.DTO.UsuarioDTO;
 import apiembraer.backend.entity.SampleEntity;
-import apiembraer.backend.entity.UsuarioEntity;
+import apiembraer.backend.generator.GerarFormula;
+import apiembraer.backend.repository.FormulaRepository;
+import apiembraer.backend.repository.LogicaRepository;
+import apiembraer.backend.repository.ViewListarSampleRepository;
 import apiembraer.backend.service.EditarService;
 
 @CrossOrigin
@@ -27,7 +28,16 @@ import apiembraer.backend.service.EditarService;
 public class EditarController {
 	
     @Autowired
-    private EditarService editarService;
+    public EditarService editarService;
+    
+    @Autowired
+	private ViewListarSampleRepository sampleRepository;
+
+	@Autowired
+	private FormulaRepository formulaRepository;
+	
+	@Autowired
+	private LogicaRepository logicaRepository;
     
     // LISTAR //
     @GetMapping("/listar")
@@ -40,6 +50,10 @@ public class EditarController {
     @PostMapping(value = "/save")
     public ResponseEntity<SampleEntity> saveSample(@RequestBody SampleEntity sample) {
         SampleEntity savedSample = editarService.saveSample(sample);
+        
+        GerarFormula gerarFormula = new GerarFormula(sampleRepository, formulaRepository, logicaRepository);
+	    gerarFormula.processarSamples();
+        
         return new ResponseEntity<>(savedSample, HttpStatus.CREATED);
     }
     
@@ -47,6 +61,10 @@ public class EditarController {
 	public ResponseEntity<SampleEntity> saveSample2(@PathVariable Integer idSample, @RequestBody SampleDTO sampledto) {
 		SampleEntity savedSample = editarService.saveSample2(idSample, sampledto);
 	    if (savedSample != null) {
+	    	
+	    	GerarFormula gerarFormula = new GerarFormula(sampleRepository, formulaRepository, logicaRepository);
+		    gerarFormula.processarSamples();
+	    	
 	        return ResponseEntity.ok(savedSample);
 	    } else {
 	        return ResponseEntity.notFound().build();
@@ -61,6 +79,10 @@ public class EditarController {
         SampleEntity samples = editarService.updateSample(idBoletim, idChassi, statusSample);
 
         if (samples != null) {
+        	
+        	GerarFormula gerarFormula = new GerarFormula(sampleRepository, formulaRepository, logicaRepository);
+    	    gerarFormula.processarSamples();
+        	
             return ResponseEntity.ok(samples);
         } else {
             return ResponseEntity.notFound().build();
@@ -76,10 +98,15 @@ public class EditarController {
             SampleEntity sample = existingSample.get();
             Integer id = sample.getIdSample();
         	editarService.deleteSample(id);
+        	
+        	GerarFormula gerarFormula = new GerarFormula(sampleRepository, formulaRepository, logicaRepository);
+    	    gerarFormula.processarSamples();
+        	
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        
     };
 
 }
