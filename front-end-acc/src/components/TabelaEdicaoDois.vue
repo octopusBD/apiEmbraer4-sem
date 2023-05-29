@@ -17,12 +17,14 @@
         />
       </div>
       <!-- Segundo filtro -->
-      <v-select
+      <div class="campo2">
+      <v-select 
         v-model="selectedItemId"
         :items="itemOptions.map((item) => item.itemNome)"
         label="Selecione o Item"
         outlined
       ></v-select>
+    </div>
       <div>
         <v-col cols="auto">
           <v-btn

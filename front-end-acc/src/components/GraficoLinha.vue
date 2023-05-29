@@ -47,22 +47,22 @@
           datasets: [
             {
               label: "Incorporated",
-              borderColor: "rgba(131,111,255)",
-              backgroundColor: "rgba(131,111,255, 0.2)",
+              borderColor: "#6A83DE",
+              backgroundColor: "#6A83DE",
               data: incorporated.value, // EIXO Y
             },
 
             {
               label: "Not Incorporated",
-              borderColor: "rgb(54, 162, 235)",
-              backgroundColor: "rgba(54, 162, 235, 0.2)",
+              borderColor: "#5265AB",
+              backgroundColor: "#5265AB",
               data: notIncorporated.value, // EIXO Y
             },
 
             {
               label: "Not Applicable",
-              borderColor: "rgb(64,224,208)",
-              backgroundColor: "rgba(64,224,208, 0.2)",
+              borderColor: "#B1BCE3",
+              backgroundColor: "#B1BCE3",
               data: notApplicable.value, // EIXO Y
             },
           ],

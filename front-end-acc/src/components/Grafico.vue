@@ -41,20 +41,20 @@ export default {
         datasets: [
           {
             label: "Administrator",
-            borderColor: "rgba(131,111,255)",
-            backgroundColor: "rgba(131,111,255, 0.2)",
+            borderColor: "#6A83DE",
+            backgroundColor: "#6A83DE",
             data: administrador.value,
-          },
+          },   
           {
             label: "Editor",
-            borderColor: "rgb(54, 162, 235)",
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "#5265AB",
+            backgroundColor: "#5265AB",
             data: editor.value,
           },
           {
             label: "Consultant",
-            borderColor: "rgb(64,224,208)",
-            backgroundColor: "rgba(64,224,208, 0.2)",
+            borderColor: "#B1BCE3",
+            backgroundColor: "#B1BCE3",
             data: consultor.value,
           },
         ],

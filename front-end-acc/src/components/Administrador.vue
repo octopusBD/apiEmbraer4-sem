@@ -16,34 +16,34 @@
     <v-window-item style="height: 100%;" value="three">
       <v-row>
         <v-col cols="12" md="6">
-          <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%">
+          <v-card style="margin-left: 2%; margin-bottom: 2% ;margin-right:2%; margin-top:2%" >
             <grafico-linha-vue
-              style="height: 350px; padding: 50px; margin: 5px"
+              style="height: 400px; padding: 70px; margin: 5px"
             ></grafico-linha-vue>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card style="margin-right: 2%; margin-bottom: 2%; margin-left: 2%;">
+          <v-card style="margin-right: 2%; margin-bottom: 2%; margin-left: 2%; margin-top:2%">
             <grafico-bar-vue
               class="grafico"
-              style="height: 350px; padding: 50px; margin: 5px"
+              style="height: 400px; padding: 70px; margin: 5px"
             ></grafico-bar-vue>
           </v-card>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="6">
-          <v-card style="margin-left: 2%; margin-bottom: 2%; margin-right: 2%;">
+          <v-card style="margin-left: 2%; margin-bottom: 2%; margin-right: 2%; margin-top:2%">
             <grafico-pie
               class="grafico"
-              style="height: 350px; padding: 50px; margin: 5px"
+              style="height: 400px; padding: 70px; margin: 5px"
             ></grafico-pie>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 2%">
+          <v-card style="margin-right: 2%; margin-left: 2%; margin-bottom: 2%; margin-top:2%">
             <grafico-vue
-              style="height: 350px; padding: 50px; margin: 5px"
+              style="height: 400px; padding: 80px; margin: 5px"
             ></grafico-vue>
           </v-card>
         </v-col>
@@ -52,7 +52,7 @@
     <v-window-item style="height: 85%" value="four" >
       <v-card style="margin-left: 5%;  margin-bottom: 2%; margin-right: 5%; margin-top: 5%;" >
         <grafico-itens
-        style="height: 50%; padding: 50px; margin: 5px"
+        style="height: 50%; padding: 80px; margin: 5px"
         ></grafico-itens>
       </v-card>
     </v-window-item>

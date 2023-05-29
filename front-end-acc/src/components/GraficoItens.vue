@@ -48,24 +48,24 @@ export default {
         datasets: [
           {
             label: "Not Incorporated",
-            borderColor: "rgba(131,111,255)",
-            backgroundColor: "rgba(131,111,255, 0.2)",
+            borderColor: "#6A83DE",
+            backgroundColor: "#6A83DE",
             data: notIncorporatedPercentage.value,
             stack: 1 // Adiciona a propriedade "stack" com valor 1
           },
 
           {
             label: "Incorporated",
-            borderColor: "rgb(54, 162, 235)",
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "#5265AB",
+            backgroundColor: "#5265AB",
             data: incorporatedPercentage.value,
             stack: 1 // Adiciona a propriedade "stack" com valor 1
           },
 
           {
             label: "Applicable",
-            borderColor: "rgb(64,224,208)",
-            backgroundColor: "rgba(64,224,208, 0.2)",
+            borderColor: "#B1BCE3",
+            backgroundColor: "#B1BCE3)",
             data: applicablePercentage.value,
             stack: 1 // Adiciona a propriedade "stack" com valor 1
           },

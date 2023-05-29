@@ -189,10 +189,6 @@ export default {
           return "success";
         case "NOT INCORPORATED":
           return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
       }
     },
       onClick() { 

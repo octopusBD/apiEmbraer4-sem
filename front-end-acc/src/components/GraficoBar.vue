@@ -46,8 +46,8 @@ export default {
         datasets: [
           {
             label: "chassi",
-            borderColor: "rgb(54, 162, 235)",
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "#6A83DE",
+            backgroundColor: "#6A83DE",
             data: qtdBoletins.value, // EIXO Y
           },
         ],
