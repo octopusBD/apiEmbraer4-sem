@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import apiembraer.backend.entity.LogicaEntity;
 
-@Repository
 public interface LogicaRepository extends JpaRepository <LogicaEntity, Integer> {
 
 }
