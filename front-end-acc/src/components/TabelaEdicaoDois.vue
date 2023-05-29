@@ -197,6 +197,7 @@ export default {
         });
         console.log(response.data);
         await this.inicializarDadosTabela();
+        await this.fetchItemNames();
         this.formula = "";
         this.selectedItemId = null;
       } catch (error) {
