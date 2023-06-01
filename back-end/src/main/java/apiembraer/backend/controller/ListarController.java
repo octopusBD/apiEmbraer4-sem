@@ -33,7 +33,7 @@ public class ListarController {
 	public List<ViewSampleEntity> getViewSampleEntities(@PathVariable Integer idUsuario) {
 
 		List<ViewSampleEntity> result = ListarService.getViewSampleEntities(idUsuario);
-		System.err.println(result);
+	
 		return result;
 
 	}
@@ -47,7 +47,7 @@ public class ListarController {
 	) {
 
 		List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, chassi, statusSample);
-		System.err.println(result);
+		
 		return result;
 
 	}
@@ -58,7 +58,7 @@ public class ListarController {
 		public List<ViewSampleEntity> getViewSample(@PathVariable Integer idUsuario,@PathVariable String statusSample) {
 
 			List<ViewSampleEntity> result = ListarService.getViewSample(idUsuario, statusSample);
-			System.err.println(result);
+			
 			return result;
 
 		}

@@ -182,13 +182,14 @@ export default {
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get("formula/listar");
+        const response = await axios.get("formula/listarFormula");
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
           return {
             formula: dado.formula,
             itemNome: dado.itemNome,
+            idItem: dado.idItem,
             dtCadastro: dado.dtCadastro,
             idFormula: dado.idFormula,
           };
@@ -258,21 +259,28 @@ export default {
     },
     async salvarEdicao() {
   try {
+
     const response = await axios.put(
       "/formula/update/" + this.usuarioEditado.idFormula,
-      { ...this.usuarioEditado }
+      { 
+        idFormula: this.usuarioEditado.idFormula,
+        formula: this.usuarioEditado.formula,
+        dtCadastro: this.usuarioEditado.dtCadastro,
+        item: this.usuarioEditado.idItem,
+      }
     );
 
     // Atualizar o objeto usuarioEditado nos dados locais
     const updatedItemIndex = this.items.findIndex(
       (item) => item.idFormula === this.usuarioEditado.idFormula
     );
-    if (updatedItemIndex !== -1) {
-      this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
-    }
+    // if (updatedItemIndex !== -1) {
+    //   this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
+    // }
 
     alert("Updated successfully.");
     await this.inicializarDadosTabela();
+    await this.fetchItemNames();
   } catch (error) {
     console.error(error);
   } finally {
@@ -291,6 +299,7 @@ export default {
         const response = await axios.delete(`formula/delete/${item.idFormula}`);
         console.log(response.data);
         await this.inicializarDadosTabela();
+        await this.fetchItemNames();
       } catch (error) {
         console.error(error);
         // Handle errors

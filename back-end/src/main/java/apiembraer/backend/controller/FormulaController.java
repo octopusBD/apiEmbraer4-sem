@@ -71,9 +71,9 @@ public class FormulaController {
 
 	@PutMapping("/update/{idFormula}")
 	public ResponseEntity<FormulaEntity> atualizarFormula(@PathVariable Integer idFormula, @RequestBody FormulaEntity requestBody) {
-        String formula = requestBody.getFormula();
+		
+		String formula = requestBody.getFormula();
         Integer item = requestBody.getItem();
-
         FormulaEntity formulaAtualizada = formulaservice.atualizarFormula(idFormula, formula, item);
 
         if (formulaAtualizada != null) {

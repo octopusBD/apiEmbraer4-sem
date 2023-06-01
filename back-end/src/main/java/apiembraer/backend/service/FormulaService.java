@@ -31,13 +31,13 @@ public class FormulaService {
 	
 	public FormulaEntity atualizarFormula(Integer idFormula, String formula, Integer item) {
         Optional<FormulaEntity> formulaExistenteOptional = formulaRepository.findById(idFormula);
-
+        System.err.println("OI");
+        System.err.println(formulaExistenteOptional);
         if (formulaExistenteOptional.isPresent()) {
             FormulaEntity formulaExistente = formulaExistenteOptional.get();
             formulaExistente.setFormula(formula);
             formulaExistente.setItem(item);
             formulaExistente.setDtCadastro(new Timestamp(System.currentTimeMillis()));
-
             return formulaRepository.save(formulaExistente);
         }
 

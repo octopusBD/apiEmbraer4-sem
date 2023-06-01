@@ -32,7 +32,6 @@ public class FormulaEntity {
 	@Column(name = "DT_CADASTRO")             
 	private Timestamp dtCadastro;
 	
-	
 	@Column(name = "ID_ITEM")
 	private Integer item;
 	

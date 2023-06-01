@@ -28,7 +28,7 @@ public class NotificarController {
     public List<UpdateSampleEntity> getUpdateSampleEntities(@PathVariable Integer idUsuario) {
 
         List<UpdateSampleEntity> result = NotificarService.getUpdateSampleEntities(idUsuario);
-        System.err.println(result);
+     
 
         return result;
 
