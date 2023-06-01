@@ -101,27 +101,19 @@
             <td style="border-bottom: 1px solid black">{{ item.itemNome }}</td>
             <td style="border-bottom: 1px solid black">{{ item.dtCadastro }}</td>
             <td style="border-bottom: 1px solid black">
-              <v-btn flat icon small @click="editarItem(item.idUsuario)">
+              <v-btn flat icon small @click="editarItem(item.idFormula)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-            </td>
-
-            <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
+              <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
               <v-card>
                 <v-card-title>Edit Rules</v-card-title>
                 <v-card-text>
                   <v-form ref="form">
                     <v-text-field
                       label="Rules"
-                      v-model="usuarioEditado.loginUsuario"
+                      v-model="usuarioEditado.formula"
                       required
                     ></v-text-field>
-                    <!-- <v-select
-                      label="Permission"
-                      :items="['Administrator','Editor', 'Consultant']"
-                      v-model="usuarioEditado.permissao"
-                      required
-                    ></v-select> -->
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -130,6 +122,9 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
+            </td>
+
+         
 
             <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(item)">
@@ -165,7 +160,7 @@ export default {
       page: 1,
       isMobile: false,
       editModalOpen: false,
-
+      usuarioEditado:[],
       // FILTROS
       formula: "",
       selectedItemId: null,
@@ -175,10 +170,11 @@ export default {
   components: {
     Icon,
   },
-  mounted() {
-    window.addEventListener("resize", this.checkMobile);
-    this.checkMobile();
-  },
+  async mounted() {
+  window.addEventListener("resize", this.checkMobile);
+  this.checkMobile();
+  await this.fetchItemNames(); // Adicione essa linha para buscar os nomes dos itens novamente ao montar ou atualizar o componente
+},
   async created() {
     await this.inicializarDadosTabela();
     await this.fetchItemNames();
@@ -186,7 +182,7 @@ export default {
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get("formula/listarFormula");
+        const response = await axios.get("formula/listar");
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
@@ -254,38 +250,36 @@ export default {
   }
 },
 
-    editarItem(idUsuario) {
-      // Busca o usuário pelo ID e seta na variável usuarioEditado
+    editarItem(idFormula) {
       this.usuarioEditado = this.paginatedItems.find(
-        (u) => u.idUsuario === idUsuario
+        (u) => u.idFormula === idFormula
       );
       this.editModalOpen = true;
     },
     async salvarEdicao() {
-      try {
-        //alert(this.usuarioEditado);
+  try {
+    const response = await axios.put(
+      "/formula/update/" + this.usuarioEditado.idFormula,
+      { ...this.usuarioEditado }
+    );
 
-        if (
-          this.usuarioEditado.permissao == "Administrator" ||
-          this.usuarioEditado.permissao == "Editor" ||
-          this.usuarioEditado.permissao == "Consultant"
-        ) {
-          const response = await axios.put(
-            "/editor/update/" + this.usuarioEditado.idUsuario,
-            { ...this.usuarioEditado }
-          );
-          alert("Updated successfully.");
-        } else {
-          alert("Alert! Please provide a valid permission.");
-        }
+    // Atualizar o objeto usuarioEditado nos dados locais
+    const updatedItemIndex = this.items.findIndex(
+      (item) => item.idFormula === this.usuarioEditado.idFormula
+    );
+    if (updatedItemIndex !== -1) {
+      this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
+    }
 
-        //console.log(this.usuarioEditado);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        this.editModalOpen = false;
-      }
-    },
+    alert("Updated successfully.");
+    await this.inicializarDadosTabela();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    this.editModalOpen = false;
+  }
+},
+
 
     async deleteItem(item) {
       try {
