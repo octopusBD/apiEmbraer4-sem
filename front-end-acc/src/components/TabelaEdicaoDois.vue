@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <!-- Primeiro filtro -->
       <div class="campo1">
-        <v-text-field v-model="formula" label="Digite a Regra"></v-text-field>
+        <v-text-field v-model="formula" label="Type it rule"></v-text-field>
       </div>
       <div>
         <Icon
@@ -21,7 +21,7 @@
       <v-select 
         v-model="selectedItemId"
         :items="itemOptions.map((item) => item.itemNome)"
-        label="Selecione o Item"
+        label="Select the item"
         outlined
       ></v-select>
     </div>
@@ -86,9 +86,10 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">Regra</th>
+            <th style="color: white; text-align: center">Rules</th> 
             <th style="color: white; text-align: center">Item</th>
-            <th style="color: white; text-align: center">Data</th>
+            <th style="color: white; text-align: center">Date</th>
+            <th style="color: white; text-align: center">Update</th>
             <th style="color: white; text-align: center">Delete</th>
           </tr>
         </thead>
@@ -98,9 +99,38 @@
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black">{{ item.formula }}</td>
             <td style="border-bottom: 1px solid black">{{ item.itemNome }}</td>
+            <td style="border-bottom: 1px solid black">{{ item.dtCadastro }}</td>
             <td style="border-bottom: 1px solid black">
-              {{ item.dtCadastro }}
+              <v-btn flat icon small @click="editarItem(item.idUsuario)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
             </td>
+
+            <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
+              <v-card>
+                <v-card-title>Edit Rules</v-card-title>
+                <v-card-text>
+                  <v-form ref="form">
+                    <v-text-field
+                      label="Rules"
+                      v-model="usuarioEditado.loginUsuario"
+                      required
+                    ></v-text-field>
+                    <!-- <v-select
+                      label="Permission"
+                      :items="['Administrator','Editor', 'Consultant']"
+                      v-model="usuarioEditado.permissao"
+                      required
+                    ></v-select> -->
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                  <v-btn @click="salvarEdicao">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
             <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(item)">
                 <v-icon>mdi-delete</v-icon>
@@ -134,6 +164,8 @@ export default {
       items: [],
       page: 1,
       isMobile: false,
+      editModalOpen: false,
+
       // FILTROS
       formula: "",
       selectedItemId: null,
@@ -184,29 +216,77 @@ export default {
       }
     },
     async enviarFormulario() {
+  try {
+    if (!this.selectedItemId || this.selectedItemId === "") {
+      alert("Please select an item.");
+      return;
+    }
+
+    const selectedItem = this.itemOptions.find(
+      (item) => item.itemNome === this.selectedItemId
+    );
+    console.log(this.selectedItemId);
+
+    if (this.formula === "") {
+      alert("Please add a rule.");
+      return;
+    };
+
+    // Verificar se a fórmula já existe
+    const existingFormula = this.items.find((item) => item.formula === this.formula);
+    if (existingFormula) {
+      alert("Rule already exists. Please enter a different rule.");
+      return;
+    }
+
+    const response = await axios.post("formula/save", {
+      formula: this.formula,
+      item: selectedItem.id,
+    });
+    console.log(response.data);
+    await this.inicializarDadosTabela();
+    await this.fetchItemNames();
+    this.formula = "";
+    this.selectedItemId = null;
+  } catch (error) {
+    console.error(error);
+    // Lidar com erros
+  }
+},
+
+    editarItem(idUsuario) {
+      // Busca o usuário pelo ID e seta na variável usuarioEditado
+      this.usuarioEditado = this.paginatedItems.find(
+        (u) => u.idUsuario === idUsuario
+      );
+      this.editModalOpen = true;
+    },
+    async salvarEdicao() {
       try {
-        const selectedItem = this.itemOptions.find(
-          (item) => item.itemNome === this.selectedItemId
-        );
-        console.log(this.selectedItemId);
-        if (!selectedItem) {
-          console.error("Item selecionado não encontrado");
-          return;
+        //alert(this.usuarioEditado);
+
+        if (
+          this.usuarioEditado.permissao == "Administrator" ||
+          this.usuarioEditado.permissao == "Editor" ||
+          this.usuarioEditado.permissao == "Consultant"
+        ) {
+          const response = await axios.put(
+            "/editor/update/" + this.usuarioEditado.idUsuario,
+            { ...this.usuarioEditado }
+          );
+          alert("Updated successfully.");
+        } else {
+          alert("Alert! Please provide a valid permission.");
         }
-        const response = await axios.post("formula/save", {
-          formula: this.formula,
-          item: selectedItem.id,
-        });
-        console.log(response.data);
-        await this.inicializarDadosTabela();
-        await this.fetchItemNames();
-        this.formula = "";
-        this.selectedItemId = null;
+
+        //console.log(this.usuarioEditado);
       } catch (error) {
         console.error(error);
-        // Lidar com erros
+      } finally {
+        this.editModalOpen = false;
       }
     },
+
     async deleteItem(item) {
       try {
         const confirmed = confirm("Are you sure you want to delete this item?");
