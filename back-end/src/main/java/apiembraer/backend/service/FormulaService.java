@@ -8,14 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import apiembraer.backend.entity.FormulaEntity;
-import apiembraer.backend.entity.SampleEntity;
+import apiembraer.backend.entity.ViewEstatisticaDisponibilidadeEntity;
+import apiembraer.backend.entity.ViewListarLogicaEntity;
 import apiembraer.backend.repository.FormulaRepository;
+import apiembraer.backend.repository.ViewListarLogicaRepository;
 
 @Service
 public class FormulaService {
 
 	@Autowired
     private FormulaRepository formulaRepository;
+	
+	@Autowired
+    private ViewListarLogicaRepository listarLogicaRepository;
 	
 	public List<FormulaEntity> getAllFormula() {
         return formulaRepository.findAll();
@@ -43,5 +48,13 @@ public class FormulaService {
 
         return null; 
     }
+	
+	public List<ViewListarLogicaEntity> getAllListarLogica() {
+        return listarLogicaRepository.findAll();
+    }
 
+	public List<ViewListarLogicaEntity> findByIdUsuario(Integer idUsuario) {
+		return listarLogicaRepository.findByIdUsuario(idUsuario);
+	}
+	
 }

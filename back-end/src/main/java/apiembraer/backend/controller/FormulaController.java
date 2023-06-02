@@ -1,7 +1,6 @@
 package apiembraer.backend.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import apiembraer.backend.entity.FormulaEntity;
 import apiembraer.backend.entity.ViewListarBoletimEntity;
 import apiembraer.backend.entity.ViewListarFormulaEntity;
 import apiembraer.backend.entity.ViewListarItemEntity;
+import apiembraer.backend.entity.ViewListarLogicaEntity;
 import apiembraer.backend.service.FormulaService;
 import apiembraer.backend.service.ListarService;
 
@@ -82,4 +82,17 @@ public class FormulaController {
             return ResponseEntity.notFound().build();
         }
     }
+	
+	@GetMapping("/listarLogica")
+	public ResponseEntity<List<ViewListarLogicaEntity>> getAllListarLogica() {
+		List<ViewListarLogicaEntity> samples = formulaservice.getAllListarLogica();
+		return new ResponseEntity<>(samples, HttpStatus.OK);
+	}
+	
+	@GetMapping("/listarLogica/{idUsuario}")
+	public ResponseEntity<List<ViewListarLogicaEntity>> getAllListarLogica(@PathVariable Integer idUsuario) {
+		List<ViewListarLogicaEntity> samples = formulaservice.findByIdUsuario(idUsuario);
+		return new ResponseEntity<>(samples, HttpStatus.OK);
+	}
+	
 	}
