@@ -114,12 +114,12 @@ export default {
     async inicializarDadosTabela() {
       try {
         const idUsuario =  sessionStorage.getItem('idUsuario');
-        const response = await axios.get('consultor/ ' + idUsuario);
+        const response = await axios.get('formula/listarLogica/ ' + idUsuario);
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map(dado => {
           return {
-            item: dado.item,
+            item: dado.itemNome,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
           }
@@ -134,13 +134,17 @@ export default {
       const { chassi, item, statusSample } = this.filtros;
       try {
         const idUsuario =  sessionStorage.getItem('idUsuario');
-        const response = await axios.get('consultor/' + idUsuario, {
-          params: { chassi, item, statusSample }
+        const response = await axios.get('formula/listarLogica/' + idUsuario, {
+          params: {
+          chassi: chassi,
+          itemNome: item,
+          statusSample: statusSample,
+          }
         });
         const dadosFiltrados = response.data;
         this.items = dadosFiltrados.map(dado => {
           return {
-            item: dado.item,
+            item: dado.itemNome,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
           }
