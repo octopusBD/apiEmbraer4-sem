@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div class="scroll-container">
     <div class="container">
       <v-btn size="25" height="50" width="25" @click="generatePdf">
-      <v-icon>mdi-download</v-icon></v-btn
-    >
-    <h2 class="Titulo1">Quantity of Itens</h2>
-      <canvas ref="chartCanvas"></canvas>
+        <v-icon>mdi-download</v-icon>
+      </v-btn>
+      <h2 class="Titulo1">Quantity of Items</h2>
+      <canvas class="oi" ref="chartCanvas"></canvas>
     </div>
   </div>
 </template>
+
 
 <script>
   import Chart from "chart.js/auto";
@@ -197,12 +198,35 @@ export default {
 <style>
   .container {
     height: 400px;
-  }.Titulo1{
-  font-size: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-}
+  }
 
+  .Titulo1 {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .scroll-container {
+    overflow-x: auto; /* Add horizontal scrolling */
+  }
+
+  .container {
+    height: 400px;
+    white-space: nowrap; /* Prevent line breaks */
+  }
+
+  /* Estilo para telas menores */
+  /* Estilo para telas menores */
+  @media only screen and (max-width: 600px) {
+    .chart-container {
+      overflow-x: scroll;
+    }
+    .chart-canvas {
+      width: 800px; /* Ajuste conforme necessário */
+    }
+    .Titulo1 {
+      font-size: 20px;
+    }
+  }
 </style>

@@ -17,14 +17,16 @@ export default {
 }
 </script>
 
+height: 15px;
 <style scoped>
+
 @media only screen and (max-width: 600px) {
   .nav {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   #footer {
-    height: 10px;
+    height: 15px;
     background-color: #333333 ;
     color: white;
     display: flex;
@@ -49,8 +51,8 @@ export default {
   }
 
   #footer {
-    height: 50px;
-    background-color: #333333;
+    height: 20px;   
+     background-color: #333333;
     color: white;
     display: flex;
     align-items: center;

@@ -5,7 +5,11 @@
       <v-spacer></v-spacer>
       <!-- Primeiro filtro -->
       <div class="campo1">
-        <v-text-field v-model="formula" label="Type it rule"></v-text-field>
+        <v-text-field
+          class="oi"
+          v-model="formula"
+          label="Type it rule"
+        ></v-text-field>
       </div>
       <div>
         <Icon
@@ -18,13 +22,13 @@
       </div>
       <!-- Segundo filtro -->
       <div class="campo2">
-      <v-select 
-        v-model="selectedItemId"
-        :items="itemOptions.map((item) => item.itemNome)"
-        label="Select the item"
-        outlined
-      ></v-select>
-    </div>
+        <v-select
+          v-model="selectedItemId"
+          :items="itemOptions.map((item) => item.itemNome)"
+          label="Select the item"
+          outlined
+        ></v-select>
+      </div>
       <div>
         <v-col cols="auto">
           <v-btn
@@ -65,19 +69,6 @@
         width: 50;
       "
     >
-      <!-- Botão de exportação -->
-      <div>
-        <v-btn
-          @click="onClick()"
-          class="pdf"
-          variant="text"
-          style="margin-right: 94%"
-        >
-          Export - <Icon icon="carbon:document-export" width="35" />
-        </v-btn>
-        <hr />
-      </div>
-
       <!-- Tabela em si -->
       <v-table
         width="800"
@@ -86,7 +77,7 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">Rules</th> 
+            <th style="color: white; text-align: center">Rules</th>
             <th style="color: white; text-align: center">Item</th>
             <th style="color: white; text-align: center">Date</th>
             <th style="color: white; text-align: center">Update</th>
@@ -99,32 +90,36 @@
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black">{{ item.formula }}</td>
             <td style="border-bottom: 1px solid black">{{ item.itemNome }}</td>
-            <td style="border-bottom: 1px solid black">{{ item.dtCadastro }}</td>
+            <td style="border-bottom: 1px solid black">
+              {{ item.dtCadastro }}
+            </td>
             <td style="border-bottom: 1px solid black">
               <v-btn flat icon small @click="editarItem(item.idFormula)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
-              <v-card>
-                <v-card-title>Edit Rules</v-card-title>
-                <v-card-text>
-                  <v-form ref="form">
-                    <v-text-field
-                      label="Rules"
-                      v-model="usuarioEditado.formula"
-                      required
-                    ></v-text-field>
-                  </v-form>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn @click="editModalOpen = false">Cancel</v-btn>
-                  <v-btn @click="salvarEdicao">Save</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+              <v-dialog
+                class="dialog"
+                v-model="editModalOpen"
+                max-width="500px"
+              >
+                <v-card>
+                  <v-card-title>Edit Rules</v-card-title>
+                  <v-card-text>
+                    <v-form ref="form">
+                      <v-text-field
+                        label="Rules"
+                        v-model="usuarioEditado.formula"
+                        required
+                      ></v-text-field>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                    <v-btn @click="salvarEdicao">Save</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </td>
-
-         
 
             <td style="border-bottom: 1px solid black">
               <v-btn class="deletar" flat @click="deleteItem(item)">
@@ -160,7 +155,7 @@ export default {
       page: 1,
       isMobile: false,
       editModalOpen: false,
-      usuarioEditado:[],
+      usuarioEditado: [],
       // FILTROS
       formula: "",
       selectedItemId: null,
@@ -171,10 +166,10 @@ export default {
     Icon,
   },
   async mounted() {
-  window.addEventListener("resize", this.checkMobile);
-  this.checkMobile();
-  await this.fetchItemNames(); // Adicione essa linha para buscar os nomes dos itens novamente ao montar ou atualizar o componente
-},
+    window.addEventListener("resize", this.checkMobile);
+    this.checkMobile();
+    await this.fetchItemNames(); // Adicione essa linha para buscar os nomes dos itens novamente ao montar ou atualizar o componente
+  },
   async created() {
     await this.inicializarDadosTabela();
     await this.fetchItemNames();
@@ -213,43 +208,45 @@ export default {
       }
     },
     async enviarFormulario() {
-  try {
-    if (!this.selectedItemId || this.selectedItemId === "") {
-      alert("Please select an item.");
-      return;
-    }
+      try {
+        if (!this.selectedItemId || this.selectedItemId === "") {
+          alert("Please select an item.");
+          return;
+        }
 
-    const selectedItem = this.itemOptions.find(
-      (item) => item.itemNome === this.selectedItemId
-    );
-    console.log(this.selectedItemId);
+        const selectedItem = this.itemOptions.find(
+          (item) => item.itemNome === this.selectedItemId
+        );
+        console.log(this.selectedItemId);
 
-    if (this.formula === "") {
-      alert("Please add a rule.");
-      return;
-    };
+        if (this.formula === "") {
+          alert("Please add a rule.");
+          return;
+        }
 
-    // Verificar se a fórmula já existe
-    const existingFormula = this.items.find((item) => item.formula === this.formula);
-    if (existingFormula) {
-      alert("Rule already exists. Please enter a different rule.");
-      return;
-    }
+        // Verificar se a fórmula já existe
+        const existingFormula = this.items.find(
+          (item) => item.formula === this.formula
+        );
+        if (existingFormula) {
+          alert("Rule already exists. Please enter a different rule.");
+          return;
+        }
 
-    const response = await axios.post("formula/save", {
-      formula: this.formula,
-      item: selectedItem.id,
-    });
-    console.log(response.data);
-    await this.inicializarDadosTabela();
-    await this.fetchItemNames();
-    this.formula = "";
-    this.selectedItemId = null;
-  } catch (error) {
-    console.error(error);
-    // Lidar com erros
-  }
-},
+        const response = await axios.post("formula/save", {
+          formula: this.formula,
+          item: selectedItem.id,
+        });
+        console.log(response.data);
+        await this.inicializarDadosTabela();
+        await this.fetchItemNames();
+        this.formula = "";
+        this.selectedItemId = null;
+      } catch (error) {
+        console.error(error);
+        // Lidar com erros
+      }
+    },
 
     editarItem(idFormula) {
       this.usuarioEditado = this.paginatedItems.find(
@@ -258,36 +255,34 @@ export default {
       this.editModalOpen = true;
     },
     async salvarEdicao() {
-  try {
+      try {
+        const response = await axios.put(
+          "/formula/update/" + this.usuarioEditado.idFormula,
+          {
+            idFormula: this.usuarioEditado.idFormula,
+            formula: this.usuarioEditado.formula,
+            dtCadastro: this.usuarioEditado.dtCadastro,
+            item: this.usuarioEditado.idItem,
+          }
+        );
 
-    const response = await axios.put(
-      "/formula/update/" + this.usuarioEditado.idFormula,
-      { 
-        idFormula: this.usuarioEditado.idFormula,
-        formula: this.usuarioEditado.formula,
-        dtCadastro: this.usuarioEditado.dtCadastro,
-        item: this.usuarioEditado.idItem,
+        // Atualizar o objeto usuarioEditado nos dados locais
+        const updatedItemIndex = this.items.findIndex(
+          (item) => item.idFormula === this.usuarioEditado.idFormula
+        );
+        // if (updatedItemIndex !== -1) {
+        //   this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
+        // }
+
+        alert("Updated successfully.");
+        await this.inicializarDadosTabela();
+        await this.fetchItemNames();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.editModalOpen = false;
       }
-    );
-
-    // Atualizar o objeto usuarioEditado nos dados locais
-    const updatedItemIndex = this.items.findIndex(
-      (item) => item.idFormula === this.usuarioEditado.idFormula
-    );
-    // if (updatedItemIndex !== -1) {
-    //   this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
-    // }
-
-    alert("Updated successfully.");
-    await this.inicializarDadosTabela();
-    await this.fetchItemNames();
-  } catch (error) {
-    console.error(error);
-  } finally {
-    this.editModalOpen = false;
-  }
-},
-
+    },
 
     async deleteItem(item) {
       try {
@@ -307,28 +302,6 @@ export default {
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
-    },
-    onClick() {
-      const selecao = this.selectedItemId;
-      console.log(selecao);
-      if (!selecao) {
-        alert("Please select an item");
-        return;
-      }
-      axios({
-        url: "pdf/2/" + selecao,
-        method: "GET",
-        responseType: "blob",
-      }).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement("a");
-
-        fileLink.href = fileURL;
-        fileLink.setAttribute("download", "export.pdf");
-        document.body.appendChild(fileLink);
-
-        fileLink.click();
-      });
     },
     limparFiltro() {
       this.formula = "";
@@ -374,6 +347,11 @@ export default {
   margin-right: 10px;
   margin-left: 10px;
 }
+.v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 thead {
   text-align: center;
@@ -398,28 +376,29 @@ thead {
   .table {
     font-size: 14px;
   }
-  .campo1,
-  .campo2 {
-    width: 200px;
-    margin-right: 10px;
-    margin-top: 20px;
-  }
-  .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
-    margin-top: 20px;
-  }
+ .equals{
+  width: 20px;
+ }
   .v-card {
     width: 90%;
+  }
+  .campo1 {
+    margin-left: auto;
+    
+    padding-left: 15%;
+  }
+  .campo2 {
+    margin-left: auto;
+    margin-right: auto;
   }
   .container {
     font-size: 14px;
   }
-  .v-table td,
-  .v-table th {
-    padding: 5px;
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+  
 }
 </style>

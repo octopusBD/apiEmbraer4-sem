@@ -328,7 +328,11 @@ export default {
 thead {
   text-align: center;
 }
-
+.v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 .pdf {
   margin-right: 500px;
 }
@@ -357,6 +361,11 @@ thead {
   }
   .container {
     font-size: 14px;
+  }
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .v-table td,
   .v-table th {

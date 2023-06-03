@@ -60,13 +60,6 @@
     </v-toolbar>
     <!-- Tabela de dados -->
     <v-card class="mx-auto" max-width="1200" style=" height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50;">
-      <!-- Botão de exportação -->
-      <!--<div>
-        <v-btn @click="onClick()" class="pdf" variant="text" style="margin-right: 94%">
-          Export - <Icon icon="carbon:document-export" width="35" />
-        </v-btn>
-        <hr />
-      </div>-->
       <!-- Tabela em si -->
       <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin: 30px">
         <thead>
@@ -118,8 +111,6 @@
                       v-model="statusEditado.idSample"
                       type="hidden"
                     ></v-text-field>
-
-                    <!-- <v-checkbox label="Ativo" v-model="usuarioEditado.ativo"></v-checkbox> -->
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -128,21 +119,6 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-
-
-            <!-- <td style="border-bottom: 1px solid black">
-          <v-btn class="editar" flat @click="editItem(index)">
-            <v-icon class="mdi mdi-pencil"></v-icon>
-          </v-btn>
-        </td> -->
-
-
-            <!-- <td style="border-bottom: 1px solid black">
-              <v-btn class="deletar" flat @click="deleteItem(index)">
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </td> 
-          -->
           </tr>
         </tbody>
       </v-table>
@@ -329,26 +305,6 @@ export default {
         //   return "";
       }
     },
-    onClick() {
-      const selecao = this.filtros.chassi; // obter a seleção
-      console.log(selecao); // exibir a seleção no console
-      if (selecao == "") {
-        alert("Please select a chassi");
-        return;
-      }
-      axios({
-        url: "pdf/2/" + selecao,
-        method: "GET",
-        responseType: "blob",
-      }).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement("a");
-        fileLink.href = fileURL;
-        fileLink.setAttribute("download", "relatório.pdf");
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      });
-    },
     
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
@@ -410,6 +366,11 @@ export default {
   margin-right: 20px;
   margin-left: 20px;
 }
+.v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 .pdf {
   margin-right: 500px;
@@ -425,6 +386,11 @@ export default {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
+  }
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   /* .limpar {
   margin-left: auto;

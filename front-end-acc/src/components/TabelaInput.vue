@@ -261,6 +261,12 @@ export default {
   margin-right: 20px;
   margin-left: 20px
   }
+
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .filtro2{
   width: 280px;
   display: flex;
@@ -281,6 +287,11 @@ export default {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
+  }
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   /* .limpar {
     margin-left: auto;
