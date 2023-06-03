@@ -51,7 +51,7 @@
         </v-col>
       </v-row>
     </v-window-item>
-    <v-window-item style="height: 85%" value="four" >
+    <v-window-item style="height: 100%" value="four" >
       <v-card style="margin-left: 5%;  margin-bottom: 2%; margin-right: 5%; margin-top: 5%;" >
         <grafico-itens
         style="height: 50%; padding: 50px; margin: 5px"
