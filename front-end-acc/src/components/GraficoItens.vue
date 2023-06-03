@@ -2,9 +2,9 @@
   <div class="scroll-container">
     <div class="container">
       <div class="button-group">
-        <v-btn class="reset-zoom-button" @click="resetZoom">
+        <!-- <v-btn class="reset-zoom-button" @click="resetZoom">
           Reset Zoom
-        </v-btn>
+        </v-btn> -->
         <v-btn size="25" height="50" width="25" @click="generatePdf">
           <v-icon>mdi-download</v-icon>
         </v-btn>

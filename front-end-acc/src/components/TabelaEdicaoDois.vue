@@ -8,7 +8,7 @@
         <v-text-field
           class="oi"
           v-model="formula"
-          label="Type it rule"
+          label="Type rule"
         ></v-text-field>
       </div>
       <div>
@@ -25,7 +25,7 @@
         <v-select
           v-model="selectedItemId"
           :items="itemOptions.map((item) => item.itemNome)"
-          label="Select the item"
+          label="Select item"
           outlined
         ></v-select>
       </div>
@@ -384,7 +384,7 @@ thead {
   }
   .campo1 {
     margin-left: auto;
-    
+
     padding-left: 15%;
   }
   .campo2 {
@@ -394,6 +394,7 @@ thead {
   .container {
     font-size: 14px;
   }
+
   .v-table td {
     white-space: nowrap;
     overflow: hidden;
