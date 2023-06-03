@@ -1,14 +1,20 @@
 <template>
   <div>
-    <v-btn size="25" height="50" width="25" @click="generatePdf">
-      <v-icon>mdi-download</v-icon></v-btn
-    >
+    <div class="button-group">
+        <!-- <v-btn class="reset-zoom-button" @click="resetZoom">
+          Reset Zoom
+        </v-btn> -->
+        <v-btn size="25" height="50" width="25" @click="generatePdf">
+          <v-icon>mdi-download</v-icon>
+        </v-btn>
+      </div>
     <h2 class="Titulo1">Status by Chassi</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
 </template>
 
 <script>
+  import ChartZoom from 'chartjs-plugin-zoom';
   import Chart from "chart.js/auto";
   import axios from "axios";
   import { onMounted, ref } from "vue";
@@ -67,15 +73,15 @@
             },
           ],
         };
-
         const config = {
-          type: "bar", // TIPO GRAFICO
+          type: "bar",
           data: data,
           options: {
             maintainAspectRatio: false,
             scales: {
               yAxes: [
                 {
+                  stacked: true,
                   ticks: {
                     beginAtZero: true,
                   },
@@ -85,25 +91,36 @@
             plugins: {
               zoom: {
                 zoom: {
-                  drag: {
-                    selection: true,
+                  wheel: {
+                    enabled: true,
                   },
-                  mode: "xy",
+                  pinch: {
+                    enabled: true,
+                  },
+                  mode: 'xy',
                 },
-                onZoomComplete: function ({ chart }) {
-                  console.log("Zoom complete", chart.scales);
+                pan: {
+                  enabled: true,
+                  mode: 'xy',
                 },
               },
             },
           },
+          plugins: [ChartZoom],
         };
-
+  
         chartCanvas.value = new Chart(chartCanvas.value, config);
       };
       onMounted(() => {
         getData();
       });
-      
+          
+    const resetZoom = () => {
+      if (chartCanvas.value) {
+        const chart = chartCanvas.value;
+        chart.resetZoom();
+      }
+    };
       const generatePdf = () => {
       const canvasElement = chartCanvas.value;
       const options = {
@@ -182,7 +199,8 @@
 
       return {
         chartCanvas,
-        generatePdf
+        generatePdf,
+        resetZoom
       };
     },
   };

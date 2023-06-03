@@ -1,14 +1,21 @@
 <template>
   <div>
-    <v-btn size="25" height="50" width="25" @click="generatePdf">
-      <v-icon>mdi-download</v-icon></v-btn
-    >
+    <div class="button-group">
+      <!-- <v-btn class="reset-zoom-button" @click="resetZoom">
+          Reset Zoom
+        </v-btn> -->
+      <v-btn size="25" height="50" width="25" @click="generatePdf">
+        <v-icon>mdi-download</v-icon>
+      </v-btn>
+    </div>
     <h2 class="Titulo1">Users</h2>
     <canvas ref="chartCanvas"></canvas>
   </div>
 </template>
 
 <script>
+import ChartZoom from "chartjs-plugin-zoom";
+
 import Chart from "chart.js/auto";
 import axios from "axios";
 import { onMounted, ref } from "vue";
@@ -44,7 +51,7 @@ export default {
             borderColor: "#6A83DE",
             backgroundColor: "#6A83DE",
             data: administrador.value,
-          },   
+          },
           {
             label: "Editor",
             borderColor: "#5265AB",
@@ -68,6 +75,7 @@ export default {
           scales: {
             yAxes: [
               {
+                stacked: true,
                 ticks: {
                   beginAtZero: true,
                 },
@@ -77,17 +85,22 @@ export default {
           plugins: {
             zoom: {
               zoom: {
-                drag: {
-                  selection: true,
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
                 },
                 mode: "xy",
               },
-              onZoomComplete: function ({ chart }) {
-                console.log("Zoom complete", chart.scales);
+              pan: {
+                enabled: true,
+                mode: "xy",
               },
             },
           },
         },
+        plugins: [ChartZoom],
       };
 
       chartCanvas.value = new Chart(chartCanvas.value, config);
@@ -126,13 +139,17 @@ export default {
       doc.setFontSize(20);
 
       const dateTime = `${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
-      const imgData = "https://cdn.discordapp.com/attachments/1075971608684023814/1111350679022346260/logo-dois.png";
+      const imgData =
+        "https://cdn.discordapp.com/attachments/1075971608684023814/1111350679022346260/logo-dois.png";
 
-      const titleWidth = doc.getStringUnitWidth(title) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+      const titleWidth =
+        (doc.getStringUnitWidth(title) * doc.internal.getFontSize()) /
+        doc.internal.scaleFactor;
       const titleX = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
       const titleHeight = 11; // Altura da primeira faixa
       const titleFontSize = 20; // Tamanho da fonte do título
-      const titleY = 15 + (titleHeight - titleFontSize) / 2 + titleFontSize * 0.35;
+      const titleY =
+        15 + (titleHeight - titleFontSize) / 2 + titleFontSize * 0.35;
 
       // Desenhar a primeira faixa azul
       doc.setFillColor(titleColor);
@@ -145,7 +162,13 @@ export default {
       const secondBandY = 22.25; // Posição vertical da segunda faixa
       const secondBandHeight = 0.5; // Altura da segunda faixa
       doc.setFillColor(secondBandColor);
-      doc.rect(0, secondBandY, doc.internal.pageSize.getWidth(), secondBandHeight, "F");
+      doc.rect(
+        0,
+        secondBandY,
+        doc.internal.pageSize.getWidth(),
+        secondBandHeight,
+        "F"
+      );
 
       // Escrever o título na primeira faixa
       doc.setTextColor(titleTextColor);
@@ -172,17 +195,23 @@ export default {
     onMounted(() => {
       getData();
     });
-
+    const resetZoom = () => {
+      if (chartCanvas.value) {
+        const chart = chartCanvas.value;
+        chart.resetZoom();
+      }
+    };
     return {
       chartCanvas,
       generatePdf,
+      resetZoom
     };
   },
 };
 </script>
 
 <style>
-.Titulo1{
+.Titulo1 {
   font-size: 20px;
   display: flex;
   justify-content: center;
