@@ -35,7 +35,7 @@ public class ViewListarLogicaEntity {
 	private String nomeUsuario;
 	
 	@Column(name = "STATUS_SAMPLE")
-	private char statusSample;
+	private String statusSample;
 	
 	
 }
