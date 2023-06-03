@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewListarLogicaEntity;
 import apiembraer.backend.entity.ViewSampleEntity;
 import apiembraer.backend.report.PdfConsulta;
 import apiembraer.backend.report.PdfConsultaEstatistica;
@@ -42,7 +43,7 @@ public class PDFcontroller {
 	) throws IOException {
 
 		// Chama o método que retorna a lista de amostras da consulta
-		List<ViewSampleEntity> result = ListarService.getViewSampleConsulta(idUsuario, chassi);
+		List<ViewListarLogicaEntity> result = ListarService.getViewSampleConsultaa(idUsuario, chassi);
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsulta.exportarPdfConsulta(result);
@@ -70,7 +71,7 @@ public class PDFcontroller {
 		) throws IOException {
 
 		// Chama o método que retorna a lista de amostras da consulta
-		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(nomeUsuario);
+		List<ViewListarLogicaEntity> result = ListarService.getViewSampleConsultaaaa(nomeUsuario);
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsultaEstatistica.exportarPdfConsulta(result);

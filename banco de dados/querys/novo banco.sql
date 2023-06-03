@@ -52,6 +52,7 @@ DROP VIEW VIEW_LISTAR_ITEM;
 DROP VIEW VIEW_LISTAR_BOLETIM;
 DROP VIEW VIEW_LISTAR_FORMULA;
 DROP VIEW VIEW_LISTAR_SAMPLE;
+DROP VIEW VIEW_LISTAR_LOGICA;
 
 CREATE TABLE PERMISSAO
 (
@@ -436,6 +437,82 @@ ON bb.ID_BOLETIM = ss.ID_BOLETIM
 WHERE ss.STATUS_SAMPLE = 'INCORPORATED'
 ORDER BY ss.ID_CHASSI, ss.ID_BOLETIM ASC;
 
+CREATE VIEW VIEW_LISTAR_LOGICA AS
+SELECT ROWNUM AS ID, res.* FROM (
+
+SELECT DISTINCT tot.* FROM (
+
+    SELECT 
+    c.ID_CHASSI,
+    c.ID_ITEM, 
+    c.CHASSI, 
+    c.ID_USUARIO, 
+    c.NOME_USUARIO, 
+    i.ITEM_NOME,
+    CASE 
+        WHEN ch.ITEM_NOME IS NOT NULL 
+        THEN 'INCORPORATED' 
+        ELSE 'NOT INCORPORATED' 
+    END AS status_sample
+
+    FROM (
+        SELECT DISTINCT ID_CHASSI, ID_ITEM, ITEM_NOME, CHASSI, ID_USUARIO, NOME_USUARIO, STATUS_SAMPLE FROM (
+
+            SELECT ROWNUM as ID, tot.*, 'INCORPORATED' as status_sample
+            FROM (
+                SELECT res.*, cha.CHASSI, cad.ID_USUARIO, usu.NOME_USUARIO FROM (
+                    SELECT DISTINCT ll.ID_CHASSI, ll.ID_ITEM, ii.ITEM_NOME FROM LOGICA ll
+                    INNER JOIN ITEM ii 
+                    ON ii.ID_ITEM = ll.ID_ITEM 
+                    ORDER BY ll.ID_CHASSI, ll.ID_ITEM ASC 
+                )res
+                INNER JOIN CHASSI cha 
+                ON cha.ID_CHASSI = res.ID_CHASSI
+                INNER JOIN CADASTRO cad 
+                ON cad.ID_CHASSI = res.ID_CHASSI
+                INNER JOIN USUARIO usu 
+                ON usu.ID_USUARIO = cad.ID_USUARIO
+                ORDER BY cad.ID_USUARIO, res.ID_CHASSI, res.ID_ITEM ASC
+            )tot
+            ORDER BY tot.ID_USUARIO, tot.ID_CHASSI , tot.ITEM_NOME ASC  
+
+        ) 
+    ) c
+    CROSS JOIN (
+        SELECT ITEM_NOME FROM ITEM
+    ) i
+    LEFT JOIN (
+        SELECT DISTINCT ITEM_NOME, ID_CHASSI FROM (
+
+            SELECT ROWNUM as ID, tot.*, 'INCORPORATED' as status_sample
+            FROM (
+                SELECT res.*, cha.CHASSI, cad.ID_USUARIO, usu.NOME_USUARIO FROM (
+                    SELECT DISTINCT ll.ID_CHASSI, ll.ID_ITEM, ii.ITEM_NOME FROM LOGICA ll
+                    INNER JOIN ITEM ii 
+                    ON ii.ID_ITEM = ll.ID_ITEM 
+                    ORDER BY ll.ID_CHASSI, ll.ID_ITEM ASC 
+                )res
+                INNER JOIN CHASSI cha 
+                ON cha.ID_CHASSI = res.ID_CHASSI
+                INNER JOIN CADASTRO cad 
+                ON cad.ID_CHASSI = res.ID_CHASSI
+                INNER JOIN USUARIO usu 
+                ON usu.ID_USUARIO = cad.ID_USUARIO
+                ORDER BY cad.ID_USUARIO, res.ID_CHASSI, res.ID_ITEM ASC
+            )tot
+            ORDER BY tot.ID_USUARIO, tot.ID_CHASSI , tot.ITEM_NOME ASC  
+
+        )
+    ) ch 
+    ON ch.ID_CHASSI = c.ID_CHASSI 
+    AND ch.ITEM_NOME = i.ITEM_NOME
+
+)tot
+    ORDER BY tot.ID_USUARIO, tot.ID_CHASSI, tot.status_sample, tot.ITEM_NOME ASC    
+)res;
+
+
+
 
 -- Tabela PERMISSAO
 INSERT INTO PERMISSAO (PERMISSAO) VALUES ('Administrator');
@@ -443,6 +520,9 @@ INSERT INTO PERMISSAO (PERMISSAO) VALUES ('Editor');
 INSERT INTO PERMISSAO (PERMISSAO) VALUES ('Consultant');
 
 -- Tabela USUARIO
+INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('admin', 'admin', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'admin@gmail.com', 1);
+INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('editor', 'editor', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'editor@gmail.com', 2);
+INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('consulta', 'consulta', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'consulta@gmail.com', 3);
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('Aldrik Alvaro', 'aldrik', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'aldrik@gmail.com', 1);
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('Ana Leal', 'ana', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'ana@gmail.com', 2);
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('Michael Felipe', 'michael', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'michael@gmail.com', 3);
@@ -450,9 +530,6 @@ INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMI
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('Augusto', 'augusto', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'augusto@gmail.com', 2);
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('Victor', 'victor', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'victor@gmail.com', 2);
 INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('luiz', 'luiz', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'luiz@gmail.com', 3);
-INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('admin', 'admin', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'admin@gmail.com', 1);
-INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('editor', 'editor', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'editor@gmail.com', 2);
-INSERT INTO USUARIO (NOME_USUARIO, LOGIN_USUARIO, SENHA_USUARIO, EMAIL, ID_PERMISSAO) VALUES ('consulta', 'consulta', '$2a$10$i3.Z8Yv1Fwl0I5SNjdCGkOTRGQjGvHjh/gMZhdc3e7LIovAklqM6C', 'consulta@gmail.com', 3);
 
 -- Tabela CHASSI
 INSERT INTO CHASSI (CHASSI) VALUES ('10000076');

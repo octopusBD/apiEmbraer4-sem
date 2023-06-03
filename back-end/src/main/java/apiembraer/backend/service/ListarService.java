@@ -10,12 +10,14 @@ import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
 import apiembraer.backend.entity.ViewListarBoletimEntity;
 import apiembraer.backend.entity.ViewListarFormulaEntity;
 import apiembraer.backend.entity.ViewListarItemEntity;
+import apiembraer.backend.entity.ViewListarLogicaEntity;
 import apiembraer.backend.entity.ViewSampleEntity;
 import apiembraer.backend.repository.EstatisticaStatusRepository;
 import apiembraer.backend.repository.ListarRepository;
 import apiembraer.backend.repository.ViewListarBoletim;
 import apiembraer.backend.repository.ViewListarFormula;
 import apiembraer.backend.repository.ViewListarItem;
+import apiembraer.backend.repository.ViewListarLogicaRepository;
 
 @Service
 public class ListarService {
@@ -34,6 +36,9 @@ public class ListarService {
 
 	@Autowired
 	ViewListarFormula viewlistarformula;
+	
+	@Autowired
+	ViewListarLogicaRepository viewlistarlogicarepository;
 
 	
 	// Método que retorna todos os registros de amostras de um determinado usuário
@@ -46,8 +51,16 @@ public class ListarService {
 		return listarRepository.findByIdUsuarioAndChassi(idUsuario, chassi);
 	}
 	
-	public List<ViewEstatisticaStatusEntity> getViewSampleConsultaa(String nomeUsuario) {
+	public List<ViewListarLogicaEntity> getViewSampleConsultaa(Integer idUsuario, String chassi) {
+		return viewlistarlogicarepository.findByIdUsuarioAndChassi(idUsuario, chassi);
+	}
+	
+	public List<ViewEstatisticaStatusEntity> getViewSampleConsultaaa(String nomeUsuario) {
 		return estatisticastatusrepository.findByNomeUsuario(nomeUsuario);
+	}
+	
+	public List<ViewListarLogicaEntity> getViewSampleConsultaaaa(String nomeUsuario) {
+		return viewlistarlogicarepository.findByNomeUsuario(nomeUsuario);
 	}
 	
 	// Método que retorna os registros de amostras de um determinado usuário, chassi e status
