@@ -147,15 +147,15 @@ export default {
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get("/estatistica/listar/status");
+        const response = await axios.get("/formula/listarLogica");
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
           return {
             nomeUsuario: dado.nomeUsuario,
-            status: dado.status,
+            status: dado.statusSample,
             chassi: dado.chassi,
-            item: dado.item,
+            item: dado.itemNome,
           };
         });
         this.obterOpcoesUnicas();
@@ -169,16 +169,21 @@ export default {
     async filtrarTabela() {
       const { nomeUsuario, status, chassi, item } = this.filtros;
       try {
-        const response = await axios.get("/estatistica/listar/status", {
-          params: { nomeUsuario, status, chassi, item },
+        const response = await axios.get("/formula/listarLogica", {
+          params: { 
+            itemNome: item,
+            chassi: chassi,
+            statusSample: status,
+            nomeUsuario: nomeUsuario,
+          },
         });
         const dadosFiltrados = response.data;
         this.items = dadosFiltrados.map((dado) => {
           return {
             nomeUsuario: dado.nomeUsuario,
-            status: dado.status,
+            status: dado.statusSample,
             chassi: dado.chassi,
-            item: dado.item,
+            item: dado.itemNome,
           };
         });
       } catch (error) {
@@ -223,7 +228,7 @@ export default {
       const statusOptions = new Set(
         dadosDaTabela
         .filter((dado) => dado.loginUsuario === loginUsuario)
-        .map((dado) => dado.status)
+        .map((dado) => dado.statusSample)
       );
       this.statusOptions = Array.from(statusOptions).sort();
     },

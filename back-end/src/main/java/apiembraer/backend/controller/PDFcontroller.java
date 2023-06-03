@@ -71,7 +71,7 @@ public class PDFcontroller {
 		) throws IOException {
 
 		// Chama o método que retorna a lista de amostras da consulta
-		List<ViewEstatisticaStatusEntity> result = ListarService.getViewSampleConsultaa(nomeUsuario);
+		List<ViewListarLogicaEntity> result = ListarService.getViewSampleConsultaaaa(nomeUsuario);
 		
 		// Gera o relatório em PDF com base na lista de amostras retornada
         ByteArrayInputStream bis = PdfConsultaEstatistica.exportarPdfConsulta(result);
