@@ -249,6 +249,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  background-color: #ffffff;
+  width: 100vw;
+}
   .card-select{
   margin-top: 0px;
   max-width: 100%;

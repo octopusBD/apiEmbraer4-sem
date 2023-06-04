@@ -1,5 +1,4 @@
-<template>
-
+<template class="container">
     <HeaderInput />
     <TabelaInput />
     <Footersrinput />

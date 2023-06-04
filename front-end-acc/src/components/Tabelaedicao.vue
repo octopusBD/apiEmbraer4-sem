@@ -3,91 +3,95 @@
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-        <!-- filtro ITENS -->
-        <div class="filtro1">
-          <v-select
-            label="Chassis"
-            :items="chassiOptions"
-            background-color="white"
-            v-model="filtros.chassi"
-            @input="filtrarTabela"
-            @update:model-value="filtrar"
-            variant="underlined"
-            
-          ></v-select>
-        </div>
-        
-        <!-- filtro STATUS -->
-        <div class="filtro2">
-          <v-select
-            label="Itens"
-            :items="itemOptions"
-            background-color="white"
-            v-model="filtros.item"
-            @input="filtrarTabela"
-            variant="underlined"
-            :disabled="!filtros.chassi"
-          ></v-select>
-        </div>
+      <!-- filtro ITENS -->
+      <div class="filtro1">
+        <v-select
+          label="Chassis"
+          :items="chassiOptions"
+          background-color="white"
+          v-model="filtros.chassi"
+          @input="filtrarTabela"
+          @update:model-value="filtrar"
+          variant="underlined"
+        ></v-select>
+      </div>
 
-        <!-- filtro STATUS -->
-        <div class="filtro3">
-          <v-select
-            label="Status Sample"
-            :items="statusSampleOptions"
-            background-color="white"
-            v-model="filtros.statusSample"
-            @input="filtrarTabela"
-            variant="underlined"
-            :disabled="!filtros.chassi"
-          ></v-select>
-          <div>
-            <v-col cols="auto">
-              <v-btn
-                class="limpar"
-                v-show="!isMobile"
-                density="comfortable"
-                @click="limparFiltro"
-                icon="mdi-eraser"
-                size="50"
-                height="50"
-                width="50"
-              ></v-btn>
-            </v-col>
-          </div>
+      <!-- filtro STATUS -->
+      <div class="filtro2">
+        <v-select
+          label="Itens"
+          :items="itemOptions"
+          background-color="white"
+          v-model="filtros.item"
+          @input="filtrarTabela"
+          variant="underlined"
+          :disabled="!filtros.chassi"
+        ></v-select>
+      </div>
+
+      <!-- filtro STATUS -->
+      <div class="filtro3">
+        <v-select
+          label="Status Sample"
+          :items="statusSampleOptions"
+          background-color="white"
+          v-model="filtros.statusSample"
+          @input="filtrarTabela"
+          variant="underlined"
+          :disabled="!filtros.chassi"
+        ></v-select>
+        <div>
+          <v-col cols="auto">
+            <v-btn
+              class="limpar"
+              v-show="!isMobile"
+              density="comfortable"
+              @click="limparFiltro"
+              icon="mdi-eraser"
+              size="50"
+              height="50"
+              width="50"
+            ></v-btn>
+          </v-col>
         </div>
+      </div>
       <v-spacer></v-spacer>
     </v-toolbar>
     <!-- Tabela de dados -->
-    <v-card class="mx-auto" max-width="1200" style=" height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50;">
+    <v-card
+      class="mx-auto"
+      max-width="1200"
+      style="
+        height: 80%;
+        text-align: center;
+        margin-top: 70px;
+        margin: 40px;
+        width: 50;
+      "
+    >
       <!-- Tabela em si -->
-      <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin: 30px">
+      <v-table
+        width="800"
+        height="450"
+        style="margin: 60 auto; border-spacing: 10px; margin: 30px"
+      >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
             <th style="color: white; text-align: center">Chassi</th>
-            <!-- <th style="color: white; text-align: center">idSample</th> -->
             <th style="color: white; text-align: center">Itens</th>
             <th style="color: white; text-align: center">Status</th>
             <th style="color: white; text-align: center">Update</th>
-            <!-- <th style="color: white; text-align: center">Deletar</th> -->
           </tr>
         </thead>
         <tbody>
-          <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
             <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
-            <!-- <td style="border-bottom: 1px solid black">{{ item.idSample }}</td> -->
             <td style="border-bottom: 1px solid black">{{ item.item }}</td>
 
             <td style="border-bottom: 1px solid black">
-              <!-- <v-select
-                label="Status Sample"
-                :items="['INCORPORATED', 'NOT INCORPORATED']"
-                v-model="item.statusSample"
-                v-on:change="onItemSelected()"
-              ></v-select> -->
-              <!-- Chips coloridos com o status da amostra -->
-              <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
+              <v-chip :color="getStatusColor(item.statusSample)">{{
+                item.statusSample
+              }}</v-chip>
             </td>
 
             <td style="border-bottom: 1px solid black">
@@ -101,11 +105,11 @@
                 <v-card-title>Edit Status</v-card-title>
                 <v-card-text>
                   <v-form ref="form">
-                   <v-select
+                    <v-select
                       label="Status Sample"
                       :items="['INCORPORATED', 'NOT INCORPORATED']"
                       v-model="statusEditado.statusSample"
-                    ></v-select> 
+                    ></v-select>
 
                     <v-text-field
                       v-model="statusEditado.idSample"
@@ -162,7 +166,7 @@ export default {
       itens: [],
     };
   },
-  components: {
+  component: {
     Icon,
   },
   mounted() {
@@ -191,33 +195,35 @@ export default {
         this.obterOpcoesUnicas();
         this.obterOpcoesItens();
         this.obterOpcoesStatus();
-
       } catch (error) {
         console.log(error);
       }
     },
     editarItem(idSample) {
-      console.log("Oi")
-      this.statusEditado = this.paginatedItems.find(
-        (u) => u.idSample === idSample
-      );
-      this.editModalOpen = true;
+      if (this.filtros.chassi) {
+        this.statusEditado = this.paginatedItems.find(
+          (u) => u.idSample === idSample
+        );
+        this.editModalOpen = true;
+      } else {
+        alert("Please select a chassis before editing.");
+      }
     },
+
     async salvarEdicao() {
       try {
-    
         if (
-          this.statusEditado.statusSample == "NOT INCORPORATED" || this.statusEditado.statusSample == "INCORPORATED"
+          this.statusEditado.statusSample == "NOT INCORPORATED" ||
+          this.statusEditado.statusSample == "INCORPORATED"
         ) {
-          const response = await axios.post("/editar/save/" + this.statusEditado.idSample,
+          const response = await axios.post(
+            "/editar/save/" + this.statusEditado.idSample,
             { ...this.statusEditado }
           );
           alert("Updated successfully.");
         } else {
           alert("Alert! Please provide a valid permission.");
         }
-
-        //console.log(this.usuarioEditado);
       } catch (error) {
         console.error(error);
       } finally {
@@ -225,7 +231,7 @@ export default {
       }
     },
     onItemSelected() {
-      console.log('Item selecionado:');
+      console.log("Item selecionado:");
     },
 
     async filtrarTabela() {
@@ -242,20 +248,18 @@ export default {
             chassi: dado.chassi,
           };
         });
-        console.log(dado);
       } catch (error) {
         console.log(error);
         this.items = [];
       }
       this.page = 1;
     },
-      async filtrar() {
+    async filtrar() {
       const { chassi } = this.filtros;
       this.obterOpcoesItens(chassi);
       this.obterOpcoesStatus(chassi);
       this.filtros.item = "";
       this.filtros.statusSample = "";
-   
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
@@ -264,32 +268,31 @@ export default {
       this.filtros.chassi = "";
       this.filtros.item = "";
       this.filtros.statusSample = "";
-    
     },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
-      const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
+      const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
       this.chassiOptions = Array.from(chassiOptions).sort();
     },
     obterOpcoesItens(chassi) {
-       const { dadosDaTabela } = this;
-  
-        const itemOptions = new Set(
-              dadosDaTabela
-              .filter((dado) => dado.chassi === chassi)
-              .map((dado) => dado.item)
-    );
+      const { dadosDaTabela } = this;
+
+      const itemOptions = new Set(
+        dadosDaTabela
+          .filter((dado) => dado.chassi === chassi)
+          .map((dado) => dado.item)
+      );
       this.itemOptions = Array.from(itemOptions).sort();
     },
     obterOpcoesStatus(chassi) {
-     const { dadosDaTabela } = this;
+      const { dadosDaTabela } = this;
 
       const statusSampleOptions = new Set(
-       dadosDaTabela
-      .filter((dado) => dado.chassi === chassi)
-      .map((dado) => dado.statusSample)
-    );
+        dadosDaTabela
+          .filter((dado) => dado.chassi === chassi)
+          .map((dado) => dado.statusSample)
+      );
       this.statusSampleOptions = Array.from(statusSampleOptions).sort();
     },
     // SETANDO CORES DOS STATUS DA TABELA
@@ -299,13 +302,8 @@ export default {
           return "success";
         case "NOT INCORPORATED":
           return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
       }
     },
-    
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
@@ -367,10 +365,10 @@ export default {
   margin-left: 20px;
 }
 .v-table td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .pdf {
   margin-right: 500px;
@@ -378,7 +376,7 @@ export default {
 
 @media only screen and (max-width: 600px) {
   .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+    font-size: 14px;
   }
   .filtro1,
   .filtro2,
@@ -392,11 +390,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  /* .limpar {
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: 20px;
-} */
+
   .filtro1,
   .filtro2,
   .filtro3 {
