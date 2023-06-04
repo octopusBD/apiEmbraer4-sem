@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="button-group">
-        <v-btn class="reset-zoom-button" @click="resetZoom">
-          Reset Zoom
+        <v-btn class="reset-zoom-button" size="25" height="50" width="25" @click="resetZoom">
+          <v-icon>mdi-refresh</v-icon>
         </v-btn>
         <v-btn size="25" height="50" width="25" @click="generatePdf">
           <v-icon>mdi-download</v-icon>
