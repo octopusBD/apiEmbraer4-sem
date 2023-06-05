@@ -116,7 +116,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 
 <li>Sprint 4:</li>
 <ul>
-      <li>Finalization of the administrator interface;</li>
+      <li>Finalization of the administrator/editor interface;</li>
       <li>Test and validate the system;</li>
       <li>Prepare documentation for end users.</li>
 </ul>
@@ -157,7 +157,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Burndown
  
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/burndown-sprint3.jpg" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-4/Imagens%20documentacao/doc/burndownSprint4.jpg" width="100%" height="100%">
 <p align="center">
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
@@ -165,6 +165,12 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Data Dictionary
 
 [Click here to accesses the Data Dictionary](https://github.com/octopusBD/apiEmbraer4-sem/blob/main/Imagens%20documentacao/doc/Dicionario%20de%20Dados%20API%20Embraer%20-%20P%C3%A1gina1%20(1).pdf)
+
+<p align="right">(<a href="#top">scroll to top</a>)</p>
+
+## Use Case Testing
+
+[Click here to accesses the use case testing](https://docs.google.com/document/d/1YIMZ2MwoaoE7f-65qi0ble38j3O6JhM2zpiL4dLuwCg/edit?hl=pt-BR)
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
 
