@@ -342,7 +342,11 @@ export default {
 thead {
   text-align: center;
 }
-
+.v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 .pdf {
   margin-right: 500px;
 }
@@ -361,7 +365,11 @@ thead {
     margin-right: 8px;
     margin-top: 20px;
   }
-
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .filtro1,
   .filtro2 {
     margin-top: 20px;

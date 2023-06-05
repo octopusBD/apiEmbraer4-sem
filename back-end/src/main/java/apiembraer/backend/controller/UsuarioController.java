@@ -30,8 +30,6 @@ public class UsuarioController {
 
 		@PutMapping("/update/{idUsuario}")
 		public ResponseEntity<UsuarioEntity> atualizarUsuario(@PathVariable Integer idUsuario, @RequestBody UsuarioDTO usuarioNovo) {
-			System.err.println(idUsuario);
-			System.err.println(usuarioNovo);
 		    UsuarioEntity usuarioAtualizado = usuarioService.atualizarUsuario(idUsuario, usuarioNovo);
 		    if (usuarioAtualizado != null) {
 		        return ResponseEntity.ok(usuarioAtualizado);

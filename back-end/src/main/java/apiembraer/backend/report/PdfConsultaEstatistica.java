@@ -21,11 +21,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import apiembraer.backend.entity.ViewEstatisticaStatusEntity;
+import apiembraer.backend.entity.ViewListarLogicaEntity;
 
 
 public class PdfConsultaEstatistica {
 
-	public static ByteArrayInputStream exportarPdfConsulta (List<ViewEstatisticaStatusEntity> viewsampleestatistica) throws IOException {
+	public static ByteArrayInputStream exportarPdfConsulta (List<ViewListarLogicaEntity> viewsampleestatistica) throws IOException {
 		
 		//Criando o documento PDF
 	Document document = new Document(PageSize.A4.rotate(), 25, 25, 25, 25);
@@ -65,7 +66,7 @@ public class PdfConsultaEstatistica {
 		hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(hcell);
 		
-		for (ViewEstatisticaStatusEntity ViewSampleEntity : viewsampleestatistica) {
+		for (ViewListarLogicaEntity ViewSampleEntity : viewsampleestatistica) {
 
 			//Povoando as células da tabela
 			Font font = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.BLACK);
@@ -80,14 +81,14 @@ public class PdfConsultaEstatistica {
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
 			
-			cell = new PdfPCell(new Phrase(ViewSampleEntity.getItem(), font));
+			cell = new PdfPCell(new Phrase(ViewSampleEntity.getItemNome(), font));
 			cell.setPaddingTop(4f);
 			cell.setFixedHeight(25f);
 			cell.setVerticalAlignment(Element.ALIGN_CENTER);
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase(ViewSampleEntity.getStatus(), font));
+			cell = new PdfPCell(new Phrase(ViewSampleEntity.getStatusSample(), font));
 			cell.setPaddingTop(4f);
 			cell.setFixedHeight(25f);
 			cell.setVerticalAlignment(Element.ALIGN_CENTER);

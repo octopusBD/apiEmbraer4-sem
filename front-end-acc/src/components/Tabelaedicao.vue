@@ -3,7 +3,7 @@
     <!-- Barra de ferramentas com filtros -->
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
-      <!-- Primeiro filtro -->
+      <!-- filtro ITENS -->
       <div class="filtro1">
         <v-select
           label="Chassis"
@@ -11,11 +11,26 @@
           background-color="white"
           v-model="filtros.chassi"
           @input="filtrarTabela"
+          @update:model-value="filtrar"
           variant="underlined"
         ></v-select>
       </div>
-      <!-- Segundo filtro -->
+
+      <!-- filtro STATUS -->
       <div class="filtro2">
+        <v-select
+          label="Itens"
+          :items="itemOptions"
+          background-color="white"
+          v-model="filtros.item"
+          @input="filtrarTabela"
+          variant="underlined"
+          :disabled="!filtros.chassi"
+        ></v-select>
+      </div>
+
+      <!-- filtro STATUS -->
+      <div class="filtro3">
         <v-select
           label="Status Sample"
           :items="statusSampleOptions"
@@ -23,54 +38,91 @@
           v-model="filtros.statusSample"
           @input="filtrarTabela"
           variant="underlined"
+          :disabled="!filtros.chassi"
         ></v-select>
         <div>
           <v-col cols="auto">
-            <v-btn class="limpar" v-show="!isMobile" density="comfortable"  @click="limparFiltro" icon="mdi-eraser" size="50" height="50" width="50"></v-btn>
+            <v-btn
+              class="limpar"
+              v-show="!isMobile"
+              density="comfortable"
+              @click="limparFiltro"
+              icon="mdi-eraser"
+              size="50"
+              height="50"
+              width="50"
+            ></v-btn>
           </v-col>
         </div>
       </div>
       <v-spacer></v-spacer>
     </v-toolbar>
     <!-- Tabela de dados -->
-    <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
-      <!-- Botão de exportação -->
-      <div>
-      <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-right: 94%;">
-        Export - <Icon icon="carbon:document-export" width="35"/> 
-      </v-btn>
-      <hr>
-    </div>
+    <v-card
+      class="mx-auto"
+      max-width="1200"
+      style="
+        height: 80%;
+        text-align: center;
+        margin-top: 70px;
+        margin: 40px;
+        width: 50;
+      "
+    >
       <!-- Tabela em si -->
-      <v-table width="800" height="450" style="margin: 60 auto; border-spacing: 10px; margin:30px;">
+      <v-table
+        width="800"
+        height="450"
+        style="margin: 60 auto; border-spacing: 10px; margin: 30px"
+      >
         <thead>
-          <tr class="cabecalho" style="background-color: #333333;">
-          <th style="color: white; text-align: center;">Itens</th>
-          <th style="color: white; text-align: center;">Status</th>
-          <th style="color: white; text-align: center;">Update</th>
-          <th style="color: white; text-align: center;">Delete</th>
-              
-
-        </tr>
+          <tr class="cabecalho" style="background-color: #333333">
+            <th style="color: white; text-align: center">Chassi</th>
+            <th style="color: white; text-align: center">Itens</th>
+            <th style="color: white; text-align: center">Status</th>
+            <th style="color: white; text-align: center">Update</th>
+          </tr>
         </thead>
         <tbody>
-          <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black;">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black;">
-              <!-- Chips coloridos com o status da amostra -->
-              <v-chip :color="getStatusColor(item.statusSample)">{{ item.statusSample }}</v-chip>
-            </td>
+            <td style="border-bottom: 1px solid black">{{ item.chassi }}</td>
+            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
+
             <td style="border-bottom: 1px solid black">
-            <v-btn class="editar" flat @click="editItem(index)">
-              <v-icon class="mdi mdi-pencil"></v-icon>
-            </v-btn>
-          </td>
-          <td style="border-bottom: 1px solid black">
-            <v-btn class="deletar" flat @click="deleteItem(index)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-          </td>
+              <v-chip :color="getStatusColor(item.statusSample)">{{
+                item.statusSample
+              }}</v-chip>
+            </td>
+
+            <td style="border-bottom: 1px solid black">
+              <v-btn flat icon small @click="editarItem(item.idSample)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </td>
+
+            <v-dialog class="dialog" v-model="editModalOpen" max-width="500px">
+              <v-card>
+                <v-card-title>Edit Status</v-card-title>
+                <v-card-text>
+                  <v-form ref="form">
+                    <v-select
+                      label="Status Sample"
+                      :items="['INCORPORATED', 'NOT INCORPORATED']"
+                      v-model="statusEditado.statusSample"
+                    ></v-select>
+
+                    <v-text-field
+                      v-model="statusEditado.idSample"
+                      type="hidden"
+                    ></v-text-field>
+                  </v-form>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                  <v-btn @click="salvarEdicao">Save</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </tr>
         </tbody>
       </v-table>
@@ -80,14 +132,14 @@
         :length="Math.ceil(filteredItems.length / perPage)"
         prev-icon="mdi-menu-left"
         next-icon="mdi-menu-right"
-        style="margin: 20px;"
+        style="margin: 20px"
       ></v-pagination>
     </v-card>
   </div>
 </template>
 <script>
-import axios from 'axios';
-import { Icon } from '@iconify/vue';
+import axios from "axios";
+import { Icon } from "@iconify/vue";
 
 export default {
   data() {
@@ -104,16 +156,20 @@ export default {
         item: "",
         statusSample: "",
       },
+      statusEditado: {
+        statusSample: "",
+      },
       chassiOptions: [],
-      itemOptions: [],
+      f: [],
+      editModalOpen: false,
       statusSampleOptions: [],
       itens: [],
     };
   },
-  components:{
-    Icon
+  component: {
+    Icon,
   },
-   mounted() {
+  mounted() {
     window.addEventListener("resize", this.checkMobile);
     this.checkMobile();
   },
@@ -123,34 +179,74 @@ export default {
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get('consultor/2');
+        const response = await axios.get("consultor/2");
         const dados = response.data;
         this.dadosDaTabela = dados;
-        this.items = this.dadosDaTabela.map(dado => {
+        this.items = this.dadosDaTabela.map((dado) => {
           return {
             item: dado.item,
             statusSample: dado.statusSample,
+            idSample: dado.idSample,
             chassi: dado.chassi,
-          }
+            idChassi: dado.idChassi,
+          };
         });
+
         this.obterOpcoesUnicas();
+        this.obterOpcoesItens();
+        this.obterOpcoesStatus();
       } catch (error) {
         console.log(error);
       }
     },
+    editarItem(idSample) {
+      if (this.filtros.chassi) {
+        this.statusEditado = this.paginatedItems.find(
+          (u) => u.idSample === idSample
+        );
+        this.editModalOpen = true;
+      } else {
+        alert("Please select a chassis before editing.");
+      }
+    },
+
+    async salvarEdicao() {
+      try {
+        if (
+          this.statusEditado.statusSample == "NOT INCORPORATED" ||
+          this.statusEditado.statusSample == "INCORPORATED"
+        ) {
+          const response = await axios.post(
+            "/editar/save/" + this.statusEditado.idSample,
+            { ...this.statusEditado }
+          );
+          alert("Updated successfully.");
+        } else {
+          alert("Alert! Please provide a valid permission.");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.editModalOpen = false;
+      }
+    },
+    onItemSelected() {
+      console.log("Item selecionado:");
+    },
+
     async filtrarTabela() {
       const { chassi, item, statusSample } = this.filtros;
       try {
-        const response = await axios.get('consultor/2', {
-          params: { chassi, item, statusSample }
+        const response = await axios.get("consultor/2", {
+          params: { chassi, item, statusSample },
         });
         const dadosFiltrados = response.data;
-        this.items = dadosFiltrados.map(dado => {
+        this.items = dadosFiltrados.map((dado) => {
           return {
             item: dado.item,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
-          }
+          };
         });
       } catch (error) {
         console.log(error);
@@ -158,21 +254,45 @@ export default {
       }
       this.page = 1;
     },
+    async filtrar() {
+      const { chassi } = this.filtros;
+      this.obterOpcoesItens(chassi);
+      this.obterOpcoesStatus(chassi);
+      this.filtros.item = "";
+      this.filtros.statusSample = "";
+    },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
-  limparFiltro() {
-    this.filtros.statusSample = "";
-    this.filtrarTabela();
-  },
+    limparFiltro() {
+      this.filtros.chassi = "";
+      this.filtros.item = "";
+      this.filtros.statusSample = "";
+    },
     // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
     obterOpcoesUnicas() {
       const { dadosDaTabela } = this;
-      const chassiOptions = new Set(dadosDaTabela.map(dado => dado.chassi));
-      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-      const statusSampleOptions = new Set(dadosDaTabela.map(dado => dado.statusSample));
+      const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
       this.chassiOptions = Array.from(chassiOptions).sort();
-      // this.itemOptions = Array.from(itemOptions).sort();
+    },
+    obterOpcoesItens(chassi) {
+      const { dadosDaTabela } = this;
+
+      const itemOptions = new Set(
+        dadosDaTabela
+          .filter((dado) => dado.chassi === chassi)
+          .map((dado) => dado.item)
+      );
+      this.itemOptions = Array.from(itemOptions).sort();
+    },
+    obterOpcoesStatus(chassi) {
+      const { dadosDaTabela } = this;
+
+      const statusSampleOptions = new Set(
+        dadosDaTabela
+          .filter((dado) => dado.chassi === chassi)
+          .map((dado) => dado.statusSample)
+      );
       this.statusSampleOptions = Array.from(statusSampleOptions).sort();
     },
     // SETANDO CORES DOS STATUS DA TABELA
@@ -182,48 +302,24 @@ export default {
           return "success";
         case "NOT INCORPORATED":
           return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
       }
     },
-      onClick() { 
-        const selecao = this.filtros.chassi; // obter a seleção
-        console.log(selecao); // exibir a seleção no console
-        if (selecao == ''){
-          alert("Please select a chassi");
-          return
-        }
-        axios({
-        url: 'pdf/2/' + selecao,
-        method: 'GET',
-        responseType: 'blob',
-      }).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement('a');
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', 'relatório.pdf');
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      });
-    }
   },
   // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-      const { chassi, statusSample } = this.filtros;
+      const { chassi, statusSample, item } = this.filtros;
       const filterByChassi = chassi !== "";
-      // const filterByItem = item !== "";
+      const filterByItem = item !== "";
       const filterByStatusSample = statusSample !== "";
-      return this.items.filter(item => {
+      return this.items.filter((item) => {
         let matches = true;
         if (filterByChassi) {
           matches = matches && item.chassi === chassi;
-        } 
-          // if (filterByItem) {
-          //   matches = matches && item.item === this.filtros.item;
-          // }
+        }
+        if (filterByItem) {
+          matches = matches && item.item === this.filtros.item;
+        }
         if (filterByStatusSample) {
           matches = matches && item.statusSample === statusSample;
         }
@@ -235,61 +331,80 @@ export default {
       const startIndex = (this.page - 1) * this.perPage;
       const endIndex = startIndex + this.perPage;
       return this.filteredItems.slice(startIndex, endIndex);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-  .card-select{
+.card-select {
   margin-top: 0px;
   max-width: 100%;
   padding: 20px;
-  }
-  .filtro1{
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px
-  }
-  .filtro2{
+}
+.filtro1 {
   width: 280px;
   display: flex;
   margin-top: 15px;
   margin-right: 20px;
   margin-left: 20px;
-  }
+}
+.filtro2 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
 
-  .pdf{
-    margin-right: 500px;
-  }
+.filtro3 {
+  width: 280px;
+  display: flex;
+  margin-top: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.v-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  @media only screen and (max-width: 600px) {
-    .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
-  } 
-  .filtro1, .filtro2 {
+.pdf {
+  margin-right: 500px;
+}
+
+@media only screen and (max-width: 600px) {
+  .table {
+    font-size: 14px;
+  }
+  .filtro1,
+  .filtro2,
+  .filtro3 {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
   }
-  /* .limpar {
-    margin-left: auto;
-    margin-right: 0;
-    margin-top: 20px;
-  } */
-  .filtro1, .filtro2 {
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .filtro1,
+  .filtro2,
+  .filtro3 {
     margin-top: 20px;
   }
-    .v-card {
+  .v-card {
     width: 90%;
   }
-    .container {
-      font-size: 14px;
-    }
-    .v-table td, .v-table th {
-      padding: 5px;
-    }
+  .container {
+    font-size: 14px;
   }
+  .v-table td,
+  .v-table th {
+    padding: 5px;
+  }
+}
 </style>

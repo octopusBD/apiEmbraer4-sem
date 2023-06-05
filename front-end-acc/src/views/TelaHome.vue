@@ -21,10 +21,11 @@
 <style>
   .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
+    padding-bottom: 56.25%;
+    background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
   }
 
   .video-container video {
@@ -36,24 +37,14 @@
     object-fit: cover;
   }
 
-  @media only screen and (max-width: 600px) {
-    .video-container {
-      padding-bottom: 70%;
-      margin-top:195px;
-    }
-  }
-
-  .img{
-    margin-top:0.3%;
-    width: 12%;
-  }
 
   @media only screen and (max-width: 600px) {
     .img {
-      width: 20%;
-    }
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;    }
   }
   
-  /* adicione outras regras de mídia para outros elementos aqui */
 
 </style>

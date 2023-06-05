@@ -35,7 +35,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <!-- Tabela de dados -->
-    <v-card class="mx-auto" max-width="1200" style="height: 80%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
+    <v-card class="mx-auto" max-width="1200" style="height: 100%; text-align: center; margin-top: 70px; margin: 40px; width: 50 ">
       <!-- Botão de exportação -->
       <div>
       <v-btn  @click="onClick()" class="pdf" variant="text" style="margin-right: 94%;">
@@ -114,12 +114,12 @@ export default {
     async inicializarDadosTabela() {
       try {
         const idUsuario =  sessionStorage.getItem('idUsuario');
-        const response = await axios.get('consultor/ ' + idUsuario);
+        const response = await axios.get('formula/listarLogica/ ' + idUsuario);
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map(dado => {
           return {
-            item: dado.item,
+            item: dado.itemNome,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
           }
@@ -134,13 +134,17 @@ export default {
       const { chassi, item, statusSample } = this.filtros;
       try {
         const idUsuario =  sessionStorage.getItem('idUsuario');
-        const response = await axios.get('consultor/' + idUsuario, {
-          params: { chassi, item, statusSample }
+        const response = await axios.get('formula/listarLogica/' + idUsuario, {
+          params: {
+          chassi: chassi,
+          itemNome: item,
+          statusSample: statusSample,
+          }
         });
         const dadosFiltrados = response.data;
         this.items = dadosFiltrados.map(dado => {
           return {
-            item: dado.item,
+            item: dado.itemNome,
             statusSample: dado.statusSample,
             chassi: dado.chassi,
           }
@@ -189,10 +193,6 @@ export default {
           return "success";
         case "NOT INCORPORATED":
           return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
       }
     },
       onClick() { 
@@ -249,6 +249,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  background-color: #ffffff;
+  width: 100vw;
+}
   .card-select{
   margin-top: 0px;
   max-width: 100%;
@@ -260,6 +264,12 @@ export default {
   margin-top: 15px;
   margin-right: 20px;
   margin-left: 20px
+  }
+
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .filtro2{
   width: 280px;
@@ -281,6 +291,11 @@ export default {
     width: 200px;
     margin-right: 10px;
     margin-top: 20px;
+  }
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   /* .limpar {
     margin-left: auto;

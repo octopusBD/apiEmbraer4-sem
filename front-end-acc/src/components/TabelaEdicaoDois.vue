@@ -4,61 +4,31 @@
     <v-toolbar class="card-select" prominent>
       <v-spacer></v-spacer>
       <!-- Primeiro filtro -->
-      <div class="filtro1">
-        <v-select
-          label="Chassis"
-          :items="chassiOptions"
-          background-color="white"
-          v-model="filtros.chassi"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
+      <div class="campo1">
+        <v-text-field
+          class="oi"
+          v-model="formula"
+          label="Type rule"
+        ></v-text-field>
+      </div>
+      <div>
+        <Icon
+          class="equals"
+          icon="typcn:equals"
+          size="25"
+          height="25"
+          width="25"
+        />
       </div>
       <!-- Segundo filtro -->
-      <div class="filtro2">
+      <div class="campo2">
         <v-select
-          label="Item"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
+          v-model="selectedItemId"
+          :items="itemOptions.map((item) => item.itemNome)"
+          label="Select item"
+          outlined
         ></v-select>
       </div>
-      <!-- Terceiro filtro -->
-      <div class="filtro3">
-        <v-select
-          label="Incorporated"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Quarto filtro -->
-      <div class="filtro4">
-        <v-select
-          label="Not Incorporated"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-      <!-- Quinto filtro -->
-      <div class="filtro5">
-        <v-select
-          label="Applicable"
-          :items="statusSampleOptions"
-          background-color="white"
-          v-model="filtros.statusSample"
-          @input="filtrarTabela"
-          variant="underlined"
-        ></v-select>
-      </div>
-
       <div>
         <v-col cols="auto">
           <v-btn
@@ -70,6 +40,17 @@
             size="50"
             height="50"
             width="50"
+          ></v-btn>
+        </v-col>
+      </div>
+
+      <div>
+        <v-col cols="auto">
+          <v-btn
+            class="enviar"
+            v-show="!isMobile"
+            @click="enviarFormulario"
+            icon="mdi-send"
           ></v-btn>
         </v-col>
       </div>
@@ -88,19 +69,6 @@
         width: 50;
       "
     >
-      <!-- Botão de exportação -->
-      <div>
-        <v-btn
-          @click="onClick()"
-          class="pdf"
-          variant="text"
-          style="margin-right: 94%"
-        >
-          Export - <Icon icon="carbon:document-export" width="35" />
-        </v-btn>
-        <hr />
-      </div>
-
       <!-- Tabela em si -->
       <v-table
         width="800"
@@ -109,10 +77,9 @@
       >
         <thead>
           <tr class="cabecalho" style="background-color: #333333">
-            <th style="color: white; text-align: center">Itens</th>
-            <th style="color: white; text-align: center">Incorporated</th>
-            <th style="color: white; text-align: center">Not Incorporated</th>
-            <th style="color: white; text-align: center">Applicable</th>
+            <th style="color: white; text-align: center">Rules</th>
+            <th style="color: white; text-align: center">Item</th>
+            <th style="color: white; text-align: center">Date</th>
             <th style="color: white; text-align: center">Update</th>
             <th style="color: white; text-align: center">Delete</th>
           </tr>
@@ -121,32 +88,41 @@
         <tbody style="align-items: center">
           <!-- Linhas da tabela, renderizadas com um loop -->
           <tr v-for="(item, index) in paginatedItems" :key="index">
-            <td style="border-bottom: 1px solid black">{{ item.item }}</td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 36px"
-              ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 60px"
-              ></v-checkbox>
-            </td>
-            <td style="border-bottom: 1px solid black; text-align: center">
-              <v-checkbox
-                v-model="item.isIncorporado"
-                style="margin-left: 50px"
-              ></v-checkbox>
+            <td style="border-bottom: 1px solid black">{{ item.formula }}</td>
+            <td style="border-bottom: 1px solid black">{{ item.itemNome }}</td>
+            <td style="border-bottom: 1px solid black">
+              {{ item.dtCadastro }}
             </td>
             <td style="border-bottom: 1px solid black">
-              <v-btn class="editar" flat @click="editItem(index)">
-                <v-icon class="mdi mdi-pencil"></v-icon>
+              <v-btn flat icon small @click="editarItem(item.idFormula)">
+                <v-icon>mdi-pencil</v-icon>
               </v-btn>
+              <v-dialog
+                class="dialog"
+                v-model="editModalOpen"
+                max-width="500px"
+              >
+                <v-card>
+                  <v-card-title>Edit Rules</v-card-title>
+                  <v-card-text>
+                    <v-form ref="form">
+                      <v-text-field
+                        label="Rules"
+                        v-model="usuarioEditado.formula"
+                        required
+                      ></v-text-field>
+                    </v-form>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn @click="editModalOpen = false">Cancel</v-btn>
+                    <v-btn @click="salvarEdicao">Save</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </td>
+
             <td style="border-bottom: 1px solid black">
-              <v-btn class="deletar" flat @click="deleteItem(index)">
+              <v-btn class="deletar" flat @click="deleteItem(item)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </td>
@@ -164,7 +140,8 @@
     </v-card>
   </div>
 </template>
-    <script>
+
+<script>
 import axios from "axios";
 import { Icon } from "@iconify/vue";
 
@@ -177,245 +154,252 @@ export default {
       items: [],
       page: 1,
       isMobile: false,
+      editModalOpen: false,
+      usuarioEditado: [],
       // FILTROS
-      filtros: {
-        chassi: "",
-        item: "",
-        statusSample: "",
-      },
-      chassiOptions: [],
+      formula: "",
+      selectedItemId: null,
       itemOptions: [],
-      statusSampleOptions: [],
-      itens: [],
     };
   },
   components: {
     Icon,
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("resize", this.checkMobile);
     this.checkMobile();
+    await this.fetchItemNames(); // Adicione essa linha para buscar os nomes dos itens novamente ao montar ou atualizar o componente
   },
   async created() {
     await this.inicializarDadosTabela();
+    await this.fetchItemNames();
   },
   methods: {
     async inicializarDadosTabela() {
       try {
-        const response = await axios.get("consultor/2");
+        const response = await axios.get("formula/listarFormula");
         const dados = response.data;
         this.dadosDaTabela = dados;
         this.items = this.dadosDaTabela.map((dado) => {
           return {
-            item: dado.item,
-            statusSample: dado.statusSample,
-            chassi: dado.chassi,
+            formula: dado.formula,
+            itemNome: dado.itemNome,
+            idItem: dado.idItem,
+            dtCadastro: dado.dtCadastro,
+            idFormula: dado.idFormula,
           };
         });
-        this.obterOpcoesUnicas();
       } catch (error) {
         console.log(error);
       }
     },
-    async filtrarTabela() {
-      const { chassi, item, statusSample } = this.filtros;
+    async fetchItemNames() {
       try {
-        const response = await axios.get("consultor/2", {
-          params: { chassi, item, statusSample },
-        });
-        const dadosFiltrados = response.data;
-        this.items = dadosFiltrados.map((dado) => {
+        const response = await axios.get("formula/listarItem");
+        this.itemOptions = response.data.map((item) => {
           return {
-            item: dado.item,
-            statusSample: dado.statusSample,
-            chassi: dado.chassi,
+            id: item.id,
+            itemNome: item.itemNome,
           };
         });
       } catch (error) {
-        console.log(error);
-        this.items = [];
+        console.error(error);
+        // Handle errors
       }
-      this.page = 1;
+    },
+    async enviarFormulario() {
+      try {
+        if (!this.selectedItemId || this.selectedItemId === "") {
+          alert("Please select an item.");
+          return;
+        }
+
+        const selectedItem = this.itemOptions.find(
+          (item) => item.itemNome === this.selectedItemId
+        );
+        console.log(this.selectedItemId);
+
+        if (this.formula === "") {
+          alert("Please add a rule.");
+          return;
+        }
+
+        // Verificar se a fórmula já existe
+        const existingFormula = this.items.find(
+          (item) => item.formula === this.formula
+        );
+        if (existingFormula) {
+          alert("Rule already exists. Please enter a different rule.");
+          return;
+        }
+
+        const response = await axios.post("formula/save", {
+          formula: this.formula,
+          item: selectedItem.id,
+        });
+        console.log(response.data);
+        await this.inicializarDadosTabela();
+        await this.fetchItemNames();
+        this.formula = "";
+        this.selectedItemId = null;
+      } catch (error) {
+        console.error(error);
+        // Lidar com erros
+      }
+    },
+
+    editarItem(idFormula) {
+      this.usuarioEditado = this.paginatedItems.find(
+        (u) => u.idFormula === idFormula
+      );
+      this.editModalOpen = true;
+    },
+    async salvarEdicao() {
+      try {
+        const response = await axios.put(
+          "/formula/update/" + this.usuarioEditado.idFormula,
+          {
+            idFormula: this.usuarioEditado.idFormula,
+            formula: this.usuarioEditado.formula,
+            dtCadastro: this.usuarioEditado.dtCadastro,
+            item: this.usuarioEditado.idItem,
+          }
+        );
+
+        // Atualizar o objeto usuarioEditado nos dados locais
+        const updatedItemIndex = this.items.findIndex(
+          (item) => item.idFormula === this.usuarioEditado.idFormula
+        );
+        // if (updatedItemIndex !== -1) {
+        //   this.items.splice(updatedItemIndex, 1, { ...this.usuarioEditado });
+        // }
+
+        alert("Updated successfully.");
+        await this.inicializarDadosTabela();
+        await this.fetchItemNames();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.editModalOpen = false;
+      }
+    },
+
+    async deleteItem(item) {
+      try {
+        const confirmed = confirm("Are you sure you want to delete this item?");
+        if (!confirmed) {
+          return;
+        }
+
+        const response = await axios.delete(`formula/delete/${item.idFormula}`);
+        console.log(response.data);
+        await this.inicializarDadosTabela();
+        await this.fetchItemNames();
+      } catch (error) {
+        console.error(error);
+        // Handle errors
+      }
     },
     checkMobile() {
       this.isMobile = window.innerWidth < 768;
     },
     limparFiltro() {
-      this.filtros.statusSample = "";
-      this.filtrarTabela();
-    },
-    // TRAZENDO EM ARRAY LISTA DE ITENS/STATUS/CHASSIS
-    obterOpcoesUnicas() {
-      const { dadosDaTabela } = this;
-      const chassiOptions = new Set(dadosDaTabela.map((dado) => dado.chassi));
-      // const itemOptions = new Set(dadosDaTabela.map(dado => dado.item));
-      const statusSampleOptions = new Set(
-        dadosDaTabela.map((dado) => dado.statusSample)
-      );
-      this.chassiOptions = Array.from(chassiOptions).sort();
-      // this.itemOptions = Array.from(itemOptions).sort();
-      this.statusSampleOptions = Array.from(statusSampleOptions).sort();
-    },
-    // SETANDO CORES DOS STATUS DA TABELA
-    getStatusColor(status) {
-      switch (status) {
-        case "INCORPORATED":
-          return "success";
-        case "NOT INCORPORATED":
-          return "error";
-        // case "Em Análise":
-        //   return "warning";
-        // default:
-        //   return "";
-      }
-    },
-    onClick() {
-      const selecao = this.filtros.chassi; // obter a seleção
-      console.log(selecao); // exibir a seleção no console
-      if (selecao == "") {
-        alert("Please select a chassi");
-        return;
-      }
-      axios({
-        url: "pdf/2/" + selecao,
-        method: "GET",
-        responseType: "blob",
-      }).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        var fileLink = document.createElement("a");
-        fileLink.href = fileURL;
-        fileLink.setAttribute("download", "relatório.pdf");
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      });
+      this.formula = "";
+      this.selectedItemId = null;
     },
   },
-  // filtrar os itens de uma tabela com base nos valores dos filtros de pesquisa aplicados pelo usuário.
   computed: {
     filteredItems() {
-      const { chassi, statusSample } = this.filtros;
-      const filterByChassi = chassi !== "";
-      // const filterByItem = item !== "";
-      const filterByStatusSample = statusSample !== "";
-      return this.items.filter((item) => {
-        let matches = true;
-        if (filterByChassi) {
-          matches = matches && item.chassi === chassi;
-        }
-        // if (filterByItem) {
-        //   matches = matches && item.item === this.filtros.item;
-        // }
-        if (filterByStatusSample) {
-          matches = matches && item.statusSample === statusSample;
-        }
-        return matches;
-      });
+      let filteredItems = this.items;
+      if (this.formula) {
+        filteredItems = filteredItems.filter((item) =>
+          item.formula.toLowerCase().includes(this.formula.toLowerCase())
+        );
+      }
+      return filteredItems;
     },
-    // PAGINACAO
     paginatedItems() {
-      const startIndex = (this.page - 1) * this.perPage;
-      const endIndex = startIndex + this.perPage;
-      return this.filteredItems.slice(startIndex, endIndex);
+      const start = (this.page - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.filteredItems.slice(start, end);
     },
   },
 };
 </script>
-    
+
     <style scoped>
 .card-select {
   margin-top: 0px;
   max-width: 100%;
   padding: 20px;
 }
-.filtro1 {
-  width: 280px;
+.campo1 {
+  width: 250px;
   display: flex;
   margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 60px;
+  margin-right: 5px;
+  margin-left: 150px;
 }
-
-.filtro2 {
-  width: 280px;
+.campo2 {
+  width: 250px;
   display: flex;
   margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
+.v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 thead {
   text-align: center;
 }
-.filtro3 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro4 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.filtro5 {
-  width: 280px;
-  display: flex;
-  margin-top: 15px;
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
 .pdf {
   margin-right: 500px;
 }
-
 .editar {
   background-color: transparent;
   border: none;
 }
-
-.deletar {
+.limpar {
+  margin-top: 0.1%;
+  margin-left: 0.1%;
+}
+.enviar {
+  margin-top: 0.1%;
+  margin-left: 0.1%;
 }
 
 @media only screen and (max-width: 600px) {
   .table {
-    font-size: 14px; /* diminui o tamanho da fonte para melhor legibilidade em telas pequenas */
+    font-size: 14px;
   }
-  .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
-    width: 200px;
-    margin-right: 10px;
-    margin-top: 20px;
-  }
-  /* .limpar {
-        margin-left: auto;
-        margin-right: 0;
-        margin-top: 20px;
-        } */
-  .filtro1,
-  .filtro2,
-  .filtro3,
-  .filtro4,
-  .filtro5 {
-    margin-top: 20px;
-  }
+ .equals{
+  width: 20px;
+ }
   .v-card {
     width: 90%;
+  }
+  .campo1 {
+    margin-left: auto;
+
+    padding-left: 15%;
+  }
+  .campo2 {
+    margin-left: auto;
+    margin-right: auto;
   }
   .container {
     font-size: 14px;
   }
-  .v-table td,
-  .v-table th {
-    padding: 5px;
+
+  .v-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+  
 }
 </style>
