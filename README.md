@@ -157,7 +157,7 @@ The Octopus team will develop a web software for Embraer that will enable users 
 ## Burndown
  
 <p align="center">
-      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-3/Imagens%20documentacao/doc/burndown-sprint3.jpg" width="100%" height="100%">
+      <img src="https://raw.githubusercontent.com/octopusBD/apiEmbraer4-sem/Sprint-4/Imagens%20documentacao/doc/burndownSprint4.jpg" width="100%" height="100%">
 <p align="center">
 
 <p align="right">(<a href="#top">scroll to top</a>)</p>
